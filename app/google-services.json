@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "382696412422",
+    "project_id": "beclever-60197",
+    "storage_bucket": "beclever-60197.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382696412422:android:e4fe71391abefd4bd1ba87",
+        "android_client_info": {
+          "package_name": "com.example.beclever"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382696412422-8ku5og47fdsv9cdjk9s7iaj3atvb2iet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNjIBwmOFIhnZjvm1yDORN5kBpUyaNaA8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382696412422-8ku5og47fdsv9cdjk9s7iaj3atvb2iet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
