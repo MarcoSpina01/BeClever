@@ -1,6 +1,7 @@
 package com.example.beclever.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,6 +16,7 @@ import android.widget.Toast
 import com.example.beclever.databinding.ActivityLoginBinding
 
 import com.example.beclever.R
+import com.example.beclever.activity_register
 
 class LoginActivity : AppCompatActivity() {
 
@@ -95,6 +97,11 @@ class LoginActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
+        }
+
+        binding.registrati?.setOnClickListener {
+            val intent = Intent(this, activity_register::class.java)
+            startActivity(intent)
         }
     }
 
