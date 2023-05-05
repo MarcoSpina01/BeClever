@@ -18,8 +18,6 @@ class activity_register : AppCompatActivity() {
 
     fun backToLogin(view: TextView) {
         view.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }
