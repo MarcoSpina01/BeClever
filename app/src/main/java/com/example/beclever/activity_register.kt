@@ -11,23 +11,17 @@ class activity_register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-
         val back = findViewById<TextView>(R.id.BackToLogin)
-        back.setOnClickListener {
+        backToLogin(back)
+
+    }
+
+    fun backToLogin(view: TextView) {
+        view.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
     }
-
-    /*fun backToLogin(view: TextView) {
-        val back = findViewById<TextView>(R.id.BackToLogin)
-        back.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }*/
-
 
 }
