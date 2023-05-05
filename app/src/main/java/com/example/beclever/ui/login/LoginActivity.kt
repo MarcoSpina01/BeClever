@@ -14,13 +14,13 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         binding.registrati?.setOnClickListener {
             val intent = Intent(this, activity_register::class.java)
@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun setCredential(view: View) {
+    fun verifyCredential(view: View) {
         val database = Firebase.database
         val myRef = database.getReference("message")
         myRef.setValue("Hello, World!")
