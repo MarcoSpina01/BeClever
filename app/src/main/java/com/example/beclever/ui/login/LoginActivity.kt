@@ -2,9 +2,12 @@ package com.example.beclever.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.beclever.databinding.ActivityLoginBinding
 import com.example.beclever.activity_register
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
@@ -25,5 +28,12 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    fun setCredential(view: View) {
+        val database = Firebase.database
+        val myRef = database.getReference("message")
+        myRef.setValue("Hello, World!")
+    }
+
 
 }
