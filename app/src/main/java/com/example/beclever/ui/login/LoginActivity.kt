@@ -33,8 +33,8 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, activity_register::class.java)
             startActivity(intent)
 
-
-
+            binding.login.setOnClickListener {
+            }
 
 
         }
@@ -42,11 +42,9 @@ class LoginActivity : AppCompatActivity() {
 
     fun loginUser(view: View) {
         auth = FirebaseAuth.getInstance()
-        binding.login.setOnClickListener {
-            val database = Firebase.database
-            val email = binding.email?.text.toString()
-            val password = binding.password?.text.toString()
-
+        val database = Firebase.database
+        val email = binding.email?.text.toString()
+        val password = binding.password?.text.toString()
             if (email.isEmpty() || password.isEmpty()) {
                 // Mostra un messaggio all'utente per informarlo di inserire l'email e la password.
                 Toast.makeText(
@@ -66,11 +64,9 @@ class LoginActivity : AppCompatActivity() {
                                 "Autenticazione riuscita.",
                                 Toast.LENGTH_SHORT,
                             ).show()
-                            binding.login?.setOnClickListener {
                                 val intent = Intent(this, HomeActivity::class.java)
                                 startActivity(intent)
                                 finish()
-                            }
                             val user = auth.currentUser
                             //updateUI(user)
                         } else {
@@ -85,6 +81,5 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
             }
-        }
     }
 }
