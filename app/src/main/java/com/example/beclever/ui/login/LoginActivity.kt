@@ -63,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
                                 "Autenticazione riuscita.",
                                 Toast.LENGTH_SHORT,
                             ).show()
+
                             val user = auth.currentUser
                             //updateUI(user)
                         } else {
