@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.beclever.ui.profile.ProfileFragment"
+        android:name="com.example.beclever.ui.plus.PlusFragment"
         android:label="@string/plus"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_plus" />
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.example.beclever.ui.settings.SettingsFragment"
+        android:name="com.example.beclever.ui.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>
