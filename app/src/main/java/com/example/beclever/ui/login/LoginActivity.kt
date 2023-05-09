@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.beclever.HomeActivity
 import com.example.beclever.databinding.ActivityLoginBinding
 import com.example.beclever.activity_register
 import com.google.firebase.auth.FirebaseAuth
@@ -31,6 +32,8 @@ class LoginActivity : AppCompatActivity() {
         binding.registrati?.setOnClickListener {
             val intent = Intent(this, activity_register::class.java)
             startActivity(intent)
+
+
 
 
 
@@ -63,7 +66,11 @@ class LoginActivity : AppCompatActivity() {
                                 "Autenticazione riuscita.",
                                 Toast.LENGTH_SHORT,
                             ).show()
-
+                            binding.login?.setOnClickListener {
+                                val intent = Intent(this, HomeActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
                             val user = auth.currentUser
                             //updateUI(user)
                         } else {
