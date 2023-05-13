@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
-        app:srcCompat="@drawable/BeClever_Logo1_HR_blue" />
+        app:srcCompat="@drawable/beclever_primologo_hr_blue" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.5"
-        app:srcCompat="@drawable/BeClever_Logo2_HR_blue" />
+        app:srcCompat="@drawable/beclever_secondologo_hr_blue" />
 
     <EditText
         android:id="@+id/email"
