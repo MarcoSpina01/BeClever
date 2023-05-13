@@ -3,6 +3,7 @@ package com.example.beclever.ui.home
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
@@ -84,18 +86,21 @@ class HomeFragment : Fragment() {
         }
 
         root.setOnClickListener {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view?.windowToken, 0)
+            root.clearFocus()
             subjectInput.clearFocus()
             targetInput.clearFocus()
             dateInput.clearFocus()
             locationInput.clearFocus()
         }
 
-        subjectInput.setOnEditorActionListener { textView, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                textView.clearFocus()
+        targetInput.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                targetInput.clearFocus()
             }
-            false
         }
+
 
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
