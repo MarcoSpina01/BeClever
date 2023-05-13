@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="province">
+        <item>Agrigento (AG)</item>
+        <item>Alessandria (AL)</item>
+        <item>Ancona (AN)</item>
+        <item>Aosta (AO)</item>
+        <item>Arezzo (AR)</item>
+        <item>Ascoli Piceno (AP)</item>
+        <item>Asti (AT)</item>
+        <item>Avellino (AV)</item>
+        <item>Bari (BA)</item>
+        <item>Barletta-Andria-Trani (BT)</item>
+        <item>Belluno (BL)</item>
+        <item>Benevento (BN)</item>
+        <item>Bergamo (BG)</item>
+        <item>Biella (BI)</item>
+        <item>Bologna (BO)</item>
+        <item>Bolzano (BZ)</item>
+        <item>Brescia (BS)</item>
+        <item>Brindisi (BR)</item>
+        <item>Cagliari (CA)</item>
+        <item>Caltanissetta (CL)</item>
+        <item>Campobasso (CB)</item>
+        <item>Carbonia-Iglesias (CI)</item>
+        <item>Carpi (CR)</item>
+        <item>Caserta (CE)</item>
+        <item>Catania (CT)</item>
+        <item>Catanzaro (CZ)</item>
+        <item>Chieti (CH)</item>
+        <item>Como (CO)</item>
+        <item>Cosenza (CS)</item>
+        <item>Cremona (CR)</item>
+        <item>Crotone (KR)</item>
+        <item>Cuneo (CN)</item>
+        <item>Enna (EN)</item>
+        <item>Fermo (FM)</item>
+        <item>Ferrara (FE)</item>
+        <item>Firenze (FI)</item>
+        <item>Foggia (FG)</item>
+        <item>Forlì-Cesena (FC)</item>
+        <item>Frosinone (FR)</item>
+        <item>Genova (GE)</item>
+        <item>Gorizia (GO)</item>
+        <item>Grosseto (GR)</item>
+        <item>Imperia (IM)</item>
+        <item>Isernia (IS)</item>
+        <item>La Spezia (SP)</item>
+        <item>Aquila (AQ)</item>
+        <item>Latina (LT)</item>
+        <item>Lecce (LE)</item>
+        <item>Lecco (LC)</item>
+        <item>Livorno (LI)</item>
+        <item>Lodi (LO)</item>
+        <item>Lucca (LU)</item>
+        <item>Macerata (MC)</item>
+        <item>Mantova (MN)</item>
+        <item>Massa-Carrara (MS)</item>
+        <item>Matera (MT)</item>
+        <item>Messina (ME)</item>
+        <item>Milano (MI)</item>
+        <item>Modena (MO)</item>
+        <item>Monza e della Brianza (MB)</item>
+        <item>Napoli (NA)</item>
+        <item>Novara (NO)</item>
+        <item>Nuoro (NU)</item>
+        <item>Oristano (OR)</item>
+        <item>Padova (PD)</item>
+        <item>Palermo (PA)</item>
+        <item>Parma (PR)</item>
+        <item>Pavia (PV)</item>
+        <item>Perugia (PG)</item>
+        <item>Pesaro e Urbino (PU)</item>
+        <item>Pescara (PE)</item>
+        <item>Piacenza (PC)</item>
+        <item>Pisa (PI)</item>
+        <item>Pistoia (PT)</item>
+        <item>Pordenone (PN)</item>
+        <item>Potenza (PZ)</item>
+        <item>Prato (PO)</item>
+        <item>Ragusa (RG)</item>
+        <item>Ravenna (RA)</item>
+        <item>Reggio Calabria (RC)</item>
+        <item>Reggio Emilia (RE)</item>
+        <item>Rieti (RI)</item>
+        <item>Rimini (RN)</item>
+        <item>Roma (RM)</item>
+        <item>Rovigo (RO)</item>
+        <item>Salerno (SA)</item>
+        <item>Sassari (SS)</item>
+        <item>Savona (SV)</item>
+        <item>Siena (SI)</item>
+        <item>Siracusa (SR)</item>
+        <item>Sondrio (SO)</item>
+        <item>Taranto (TA)</item>
+        <item>Teramo (TE)</item>
+        <item>Terni (TR)</item>
+        <item>Torino (TO)</item>
+        <item>Trapani (TP)</item>
+        <item>Trento (TN)</item>
+        <item>Treviso (TV)</item>
+        <item>Trieste (TS)</item>
+        <item>Udine (UD)</item>
+        <item>Varese (VA)</item>
+        <item>Venezia (VE)</item>
+        <item>Verbano-Cusio-Ossola (VB)</item>
+        <item>Vercelli (VC)</item>
+        <item>Verona (VR)</item>
+        <item>Vibo Valentia (VV)</item>
+        <item>Vicenza (VI)</item>
+        <item>Viterbo (VT)</item>
+    </string-array>
+</resources>
