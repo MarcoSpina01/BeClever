@@ -34,8 +34,7 @@ class ProfileFragment : Fragment() {
 //                textView.text = it
 //        }
 
-        val ModifyButton = view?.findViewById<Button>(R.id.ModifyButton)
-        ModifyButton?.setOnClickListener {
+        binding.ModifyButton.setOnClickListener {
             val intent = Intent(requireContext(), ModifyProfileActivity::class.java)
             startActivity(intent)
         }
