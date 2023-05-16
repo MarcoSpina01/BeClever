@@ -22,6 +22,7 @@ class ProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
@@ -34,8 +35,7 @@ class ProfileFragment : Fragment() {
 //                textView.text = it
 //        }
 
-        val ModifyButton = view?.findViewById<Button>(R.id.ModifyButton)
-        ModifyButton?.setOnClickListener {
+        binding.ModifyButton.setOnClickListener {
             val intent = Intent(requireContext(), ModifyProfileActivity::class.java)
             startActivity(intent)
         }
@@ -58,6 +58,17 @@ class ProfileFragment : Fragment() {
         val intent = Intent(activityContext, LoginActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
+    }
+
+    private fun setData(profileViewModel : ProfileViewModel) {
+        profileViewModel.getData { data ->
+            if (data != null) {
+                binding.textView4.text = data["first"].toString() + " " + data["last"].toString()
+                // Fai qualcosa con i dati
+            } else {
+                // Gestisci il caso in cui non viene trovato un documento corrispondente o si verifica un errore
+            }
+        }
     }
 
 }
