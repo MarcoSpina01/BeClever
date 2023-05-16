@@ -78,7 +78,6 @@
         android:layout_gravity="start"
         android:backgroundTint="#269943"
         android:enabled="true"
-        android:onClick="loginUser"
         android:text="Login"
         android:textColor="#FFFFFF"
         app:cornerRadius="17dp"

@@ -39,9 +39,6 @@ class LoginController {
                             "Autenticazione riuscita.",
                             Toast.LENGTH_SHORT,
                         ).show()
-                        val user = auth.currentUser
-                        val intent = Intent(context, HomeActivity::class.java)
-                        startActivity(context, intent, null)
 
 
                     } else {
@@ -59,7 +56,6 @@ class LoginController {
 
         // Gestione della logica di business per il login...
     fun isLoggedIn(): Boolean {
-            auth = FirebaseAuth.getInstance()
             return auth.currentUser != null
     }
 }

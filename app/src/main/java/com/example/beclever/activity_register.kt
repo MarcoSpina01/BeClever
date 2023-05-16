@@ -1,10 +1,8 @@
 package com.example.beclever
 
-import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.example.beclever.databinding.ActivityRegisterBinding
@@ -23,6 +21,12 @@ class activity_register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.iscriviti.setOnClickListener {
+        createUser()
+        }
 
         //database = FirebaseDatabase.getInstance()
 
@@ -31,6 +35,8 @@ class activity_register : AppCompatActivity() {
 
         val back = findViewById<TextView>(R.id.BackToLogin)
         backToLogin(back)
+
+
 
         //val newUser = database.reference
 
@@ -46,25 +52,27 @@ class activity_register : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(baseContext, "registrazione avvenuta: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                    val user = auth.currentUser
+                    Toast.makeText(baseContext, "registrazione avvenuta", Toast.LENGTH_SHORT).show()
                     val db = Firebase.firestore
-                    val user2 = hashMapOf(
+                    val user = hashMapOf(
                         "first" to nome,
                         "last" to cognome,
                         "email" to email
                     )
-                    if (user2 != null) {
+                    var utente = auth.currentUser
+                    if (utente != null) {
                         db.collection("users")
-                            .add(user2)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                            }
+                            .document(utente.uid)
+                            .set(user)
+                            .addOnSuccessListener {
+                            Log.d("TAG", "Documento creato con ID: $utente.uid")
+                        }
                             .addOnFailureListener { e ->
-                                Log.w(TAG, "Error adding document", e)
+                                Log.w("TAG", "Errore durante la creazione del documento", e)
                             }
                         finish()
                     }
+                    FirebaseAuth.getInstance().signOut()
                     // Eseguire qui l'accesso all'account
                 } else {
                     // Si è verificato un errore durante la registrazione
@@ -73,18 +81,14 @@ class activity_register : AppCompatActivity() {
             }
     }
 
-    fun createUser(view: View) {
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private fun createUser() {
 
-
-        binding.iscriviti.setOnClickListener{
             val email = binding.editTextTextEmailAddress.text.toString()
             val password = binding.editTextTextPassword.text.toString()
             val nome = binding.editTextTextPersonName.text.toString()
             val cognome = binding.editTextTextPersonName2.text.toString()
             registerUser(email, password, nome, cognome)
-        }
+
     }
 
 }
