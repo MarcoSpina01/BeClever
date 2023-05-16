@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.beclever.HomeActivity
 import com.example.beclever.databinding.ActivityLoginBinding
 import com.example.beclever.activity_register
-import com.google.firebase.auth.FirebaseAuth
+
 
 class LoginActivity : AppCompatActivity() {
 
