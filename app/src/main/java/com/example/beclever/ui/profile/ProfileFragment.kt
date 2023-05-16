@@ -34,7 +34,7 @@ class ProfileFragment : Fragment() {
 //            profileViewModel.text.observe(viewLifecycleOwner) {
 //                textView.text = it
 //        }
-
+        setData(profileViewModel)
         binding.ModifyButton.setOnClickListener {
             val intent = Intent(requireContext(), ModifyProfileActivity::class.java)
             startActivity(intent)
