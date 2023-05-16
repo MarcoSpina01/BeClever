@@ -60,19 +60,21 @@ class activity_register : AppCompatActivity() {
                         "email" to email
                     )
                     var utente = auth.currentUser
-                    if (utente != null) {
+                    var id = utente?.uid
+                    if (id != null) {
                         db.collection("users")
-                            .document(utente.uid)
+                            .document(id)
                             .set(user)
                             .addOnSuccessListener {
-                            Log.d("TAG", "Documento creato con ID: $utente.uid")
-                        }
+                                // Il documento è stato creato con successo
+                                println("Documento creato con successo")
+                            }
                             .addOnFailureListener { e ->
-                                Log.w("TAG", "Errore durante la creazione del documento", e)
+                                // Si è verificato un errore durante la creazione del documento
+                                println("Errore durante la creazione del documento: $e")
                             }
                         finish()
                     }
-                    FirebaseAuth.getInstance().signOut()
                     // Eseguire qui l'accesso all'account
                 } else {
                     // Si è verificato un errore durante la registrazione
