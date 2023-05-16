@@ -1,7 +1,9 @@
 package com.example.beclever.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -34,6 +36,15 @@ class LoginActivity : AppCompatActivity() {
         binding.login.setOnClickListener {
             loginUser()
         }
+        binding.root.setOnTouchListener { _, _ ->
+            // Pulisci il focus dai campi di input
+            binding.email.clearFocus()
+            binding.password.clearFocus()
+            // Nascondi la tastiera
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
+            false
+        }
     }
 
     private fun loginUser() {
@@ -48,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Autenticazione fallita.", Toast.LENGTH_SHORT).show()
             }
         }
-
         loginController.login(username, password, this, callback)
     }
 
