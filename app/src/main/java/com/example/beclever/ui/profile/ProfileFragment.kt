@@ -54,6 +54,13 @@ class ProfileFragment : Fragment() {
         val activityContext = requireContext()
         val intent = Intent(activityContext, LoginActivity::class.java)
         startActivity(intent)
-         requireActivity().finish()
-            }
+        requireActivity().finish()
+    }
+
+    private fun modifyprofile() {
+        val activityContext = requireContext()
+        val intent = Intent(activityContext, LoginActivity::class.java)
+        startActivity(intent)
+    }
 }
+
