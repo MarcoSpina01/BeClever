@@ -13,44 +13,27 @@ class LoginController {
     private val userModel = UserModel()
     private lateinit var auth: FirebaseAuth
 
-    fun login(username: String, password: String, context : Context) {
-
+    fun login(username: String, password: String, context: Context, callback: (Boolean) -> Unit) {
         userModel.username = username
         userModel.password = password
         auth = FirebaseAuth.getInstance()
 
-        if (userModel.username.toString().isEmpty() || userModel.password.toString().isEmpty())
-            Toast.makeText(
-                context,
-                "Inserisci l'email e la password.",
-                Toast.LENGTH_SHORT
-            ).show()
-        else {
-            // L'utente ha inserito l'email e la password, quindi procedi con il login.
+        if (userModel.username.toString().isEmpty() || userModel.password.toString().isEmpty()) {
+            Toast.makeText(context, "Inserisci l'email e la password.", Toast.LENGTH_SHORT).show()
+            callback(false)
+        } else {
             auth.signInWithEmailAndPassword(
                 userModel.username.toString(),
                 userModel.password.toString()
-            )
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Toast.makeText(
-                            context,
-                            "Autenticazione riuscita.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-
-
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(
-                            context,
-                            "Authentication failed.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                        //updateUI(null)
-                    }
+            ).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(context, "Autenticazione riuscita.", Toast.LENGTH_SHORT).show()
+                    callback(true)
+                } else {
+                    Toast.makeText(context, "Autenticazione fallita.", Toast.LENGTH_SHORT).show()
+                    callback(false)
                 }
+            }
         }
     }
 

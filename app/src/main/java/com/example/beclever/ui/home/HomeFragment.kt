@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,18 +38,13 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var subjectInput: TextInputEditText
-
-    private lateinit var targetInputLayout: TextInputLayout
     private lateinit var targetInput: TextInputEditText
-
-    private lateinit var dateInputLayout: TextInputLayout
-    private lateinit var dateInput: EditText
-
-    private lateinit var locationInputLayout : TextInputLayout
+    private lateinit var dateInput: TextInputEditText
     private lateinit var locationInput : TextInputEditText
     private lateinit var provinceList: Array<String>
     private lateinit var filteredProvinceList: ArrayList<String>
 
+    private lateinit var  moneyInput : TextInputEditText
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,30 +56,44 @@ class HomeFragment : Fragment() {
 
 
         subjectInput = _binding!!.textInputEditText1
+        subjectInput.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                subjectInput.clearFocus()
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(subjectInput.windowToken, 0)
+                return@setOnKeyListener true
+            }
+            return@setOnKeyListener false
+        }
 
-        targetInputLayout = _binding!!.textInputLayout3
         targetInput = _binding!!.textInputEditText3
-
         targetInput.isFocusable = false
         targetInput.setOnClickListener {
+            subjectInput.clearFocus()
             showTargetOptions()
         }
 
-        dateInputLayout = _binding!!.textInputLayout2
         dateInput = _binding!!.textInputEditText2
-
         dateInput.isFocusable = false
         dateInput.setOnClickListener {
+            subjectInput.clearFocus()
             showDatePicker()
         }
 
-        locationInputLayout = _binding!!.textInputLayout4
         locationInput = _binding!!.textInputEditText4
-
         locationInput.isFocusable = false
         locationInput.setOnClickListener {
+            subjectInput.clearFocus()
             showProvinceDialog()
         }
+
+        moneyInput = _binding!!.textInputEditText5
+        moneyInput.isFocusable = false
+        moneyInput.setOnClickListener {
+            subjectInput.clearFocus()
+            showMoneyOptions()
+        }
+
 
         root.setOnClickListener {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -93,12 +103,7 @@ class HomeFragment : Fragment() {
             targetInput.clearFocus()
             dateInput.clearFocus()
             locationInput.clearFocus()
-        }
-
-        targetInput.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                targetInput.clearFocus()
-            }
+            moneyInput.clearFocus()
         }
 
 
@@ -179,6 +184,18 @@ class HomeFragment : Fragment() {
 
         dialog.show()
     }
+
+    private fun showMoneyOptions() {
+        val targetOptions = arrayOf("0 - 10  €", "10 - 20  €", "20 +  €")
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Seleziona la fascia di prezzo")
+        builder.setItems(targetOptions) { _, which ->
+            moneyInput.setText(targetOptions[which])
+        }
+        builder.show()
+    }
+
 
 
     override fun onDestroyView() {
