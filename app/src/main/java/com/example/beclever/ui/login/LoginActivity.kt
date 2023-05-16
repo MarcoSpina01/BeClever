@@ -22,8 +22,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        FirebaseAuth.getInstance().signOut()
-//        autoLogin()
+        autoLogin()
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -39,6 +39,7 @@ class LoginController {
 
         // Gestione della logica di business per il login...
     fun isLoggedIn(): Boolean {
+            auth = FirebaseAuth.getInstance()
             return auth.currentUser != null
     }
 }
