@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.beclever.databinding.FragmentProfileBinding
 import com.example.beclever.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
-import android.widget.Button
-import com.example.beclever.R
 
 
 class ProfileFragment : Fragment() {
@@ -21,18 +19,27 @@ class ProfileFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var userProfileViewModel: UserProfileViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        userProfileViewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
+
+        // Richiedi il recupero dei dati dell'utente
+        userProfileViewModel.fetchUserData()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        val userProfileViewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.textNotifications
-//            profileViewModel.text.observe(viewLifecycleOwner) {
-//                textView.text = it
-//        }
+        userProfileViewModel.userName.observe(viewLifecycleOwner) { userName ->
+            binding.textView4.text = userName
+        }
 
         binding.ModifyButton.setOnClickListener {
             val intent = Intent(requireContext(), ModifyProfileActivity::class.java)
