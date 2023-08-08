@@ -6,12 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" /> <!-- Imposta la visibilità iniziale a "visible" -->
+
         <LinearLayout
+            android:id="@+id/contentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="7"

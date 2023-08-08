@@ -15,30 +15,33 @@ import com.google.firebase.auth.FirebaseAuth
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
     private lateinit var userProfileViewModel: UserProfileViewModel
+    private var isDataLoaded = false
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         userProfileViewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
 
-        // Richiedi il recupero dei dati dell'utente
-        userProfileViewModel.fetchUserData()
+        // Richiedi il recupero dei dati dell'utente solo se non è già stato caricato
+        if (!isDataLoaded) {
+            userProfileViewModel.fetchUserData()
+            isDataLoaded = true
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val userProfileViewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
-
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Osserva i dati dell'utente nel ViewModel e aggiorna l'interfaccia utente
         userProfileViewModel.userName.observe(viewLifecycleOwner) { userName ->
             binding.textView4.text = userName
+            binding.progressBar.visibility = View.GONE
         }
 
         binding.ModifyButton.setOnClickListener {
@@ -49,8 +52,8 @@ class ProfileFragment : Fragment() {
         binding.button6.setOnClickListener {
             logout()
         }
-        return root
 
+        return root
     }
 
     override fun onDestroyView() {
@@ -65,6 +68,5 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
         requireActivity().finish()
     }
-
 }
 

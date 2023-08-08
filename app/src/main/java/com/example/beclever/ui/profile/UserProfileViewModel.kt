@@ -27,9 +27,8 @@ class UserProfileViewModel : ViewModel() {
                 val nome = data["first"] as String
                 setUserName(nome)
             } else {
-                // Nessun dato corrispondente trovato
+            // Nessun dato corrispondente trovato
             } }
-
     }
 
 
