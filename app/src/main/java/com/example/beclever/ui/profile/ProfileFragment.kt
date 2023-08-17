@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.beclever.databinding.FragmentProfileBinding
 import com.example.beclever.databinding.FragmentProfilenewBinding
 import com.example.beclever.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -41,16 +40,19 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
 
         // Osserva i dati dell'utente nel ViewModel e aggiorna l'interfaccia utente
-        /*
+
         userProfileViewModel.userName.observe(viewLifecycleOwner) { userName ->
-            binding.textView4.text = userName
-            binding.progressBar.visibility = View.GONE
+            binding.textView.text = userName
         }
 
-        binding.ModifyButton.setOnClickListener {
+        userProfileViewModel.eMail.observe(viewLifecycleOwner) { eMail ->
+            binding.textView2.text = eMail
+        }
+
+        binding.ModifyProfileButton.setOnClickListener {
             val intent = Intent(requireContext(), ModifyProfileActivity::class.java)
             startActivity(intent)
-        }*/
+        }
 
         binding.button5.setOnClickListener {
             logout()
@@ -71,5 +73,8 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
         requireActivity().finish()
     }
+
+
+
 }
 

@@ -34,5 +34,5 @@
         android:id="@+id/navigation_settings"
         android:name="com.example.beclever.ui.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profilenew" />
 </navigation>

@@ -42,7 +42,6 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Marco Marchetti"
                     android:layout_marginTop="16dp"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -55,7 +54,6 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="merchettino@gmail.com"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="@+id/textView"
                     app:layout_constraintStart_toStartOf="@+id/textView"
@@ -89,7 +87,7 @@
                         android:paddingStart="20dp"-->
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button2"
+                        android:id="@+id/ModifyProfileButton"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
