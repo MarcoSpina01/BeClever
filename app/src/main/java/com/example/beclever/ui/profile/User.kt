@@ -5,14 +5,17 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 
 data class User(
-    private var nome: String,
-    private var email: String
+     var nome: String,
+     var email: String
 ) {
-    fun getNome(): String {
+     // Costruttore senza argomenti richiesto da Firebase Firestore
+     constructor() : this("", "") // Aggiungi altri campi se necessario
+}
+    /*fun getNome(): String {
         return nome
     }
 
     fun getEmail(): String {
         return email
-    }
-}
+    }*/
+
