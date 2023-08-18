@@ -60,7 +60,7 @@
                         android:layout_marginTop="16dp"
                         android:textSize="25sp"
                         android:textStyle="bold"
-                        app:text="@{viewModel.userName.toString()}"
+                        app:text="@{viewModel.user.nome.toString()}"
                         app:layout_constraintEnd_toEndOf="@+id/imageView2"
                         app:layout_constraintStart_toStartOf="@+id/imageView2"
                         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        app:text="@{viewModel.eMail.toString()}"
+                        app:text="@{viewModel.user.email.toString()}"
                         app:layout_constraintEnd_toEndOf="@+id/textView"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
