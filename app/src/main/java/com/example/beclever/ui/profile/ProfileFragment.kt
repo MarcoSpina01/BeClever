@@ -17,17 +17,17 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfilenewBinding? = null
     private val bindingView get() = _binding!!
 
-    private lateinit var viewModel: UserProfileViewModel
+    private lateinit var userProfileViewModel: UserProfileViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfilenewBinding.inflate(inflater, container, false)
         val root: View = bindingView.root
 
-        viewModel = ViewModelProvider(requireActivity()).get(UserProfileViewModel::class.java)
-        bindingView.viewModel = viewModel // Collega il ViewModel al binding
+        userProfileViewModel = ViewModelProvider(requireActivity())[UserProfileViewModel::class.java]
+        bindingView.viewModel = userProfileViewModel // Collega il ViewModel al binding
         bindingView.lifecycleOwner = viewLifecycleOwner // Importante per osservare i LiveData
 
-        viewModel.fetchUserData()
+//        userProfileViewModel.fetchUserData()
 
         bindingView.ModifyProfileButton.setOnClickListener {
             val intent = Intent(requireContext(), ModifyProfileActivity::class.java)
