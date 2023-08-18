@@ -115,7 +115,7 @@ class PlusFragment : Fragment() {
             val location = binding.textInputEditText4.text.toString()
             val cost = binding.textInputEditText5.text.toString()
 
-            plusViewModel.createLesson(subject, date, target, location, cost)
+            plusViewModel.createLesson(subject, date, target, location, cost, requireContext())
         }
 
         return root
