@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-class UserProfileViewModel : ViewModel() {
+class UserViewModel : ViewModel() {
 
     private val userModel = UserModel()
 

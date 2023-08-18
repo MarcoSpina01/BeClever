@@ -13,12 +13,12 @@ import com.example.beclever.ui.home.HomeFragment
 import com.example.beclever.ui.notifications.NotificationsFragment
 import com.example.beclever.ui.plus.PlusFragment
 import com.example.beclever.ui.profile.ProfileFragment
-import com.example.beclever.ui.profile.UserProfileViewModel
+import com.example.beclever.ui.profile.UserViewModel
 
 class HomeActivity : AppCompatActivity() {
 
     private val fragmentManager = supportFragmentManager
-    private lateinit var userProfileViewModel: UserProfileViewModel
+    private lateinit var userViewModel: UserViewModel
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -60,8 +60,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
 
-        userProfileViewModel = ViewModelProvider(this)[UserProfileViewModel::class.java]
-        userProfileViewModel.fetchUserData()
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        userViewModel.fetchUserData()
         return super.onCreateView(name, context, attrs)
 
     }
