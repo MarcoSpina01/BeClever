@@ -4,9 +4,24 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ProfileRepository {
+class UserModel {
 
     private lateinit var auth: FirebaseAuth
+
+    fun fetchUserData(onDataFetched: (User?) -> Unit) {
+        getData { data ->
+            if (data != null) {
+                val nome = data["first"] as String
+                val email = data["email"] as String
+                val user = User(nome, email)
+                onDataFetched(user)
+            } else {
+                // fai qualcosa in caso contrario
+            }
+        }
+
+    }
+
 
     fun getData(callback: (Map<String, Any>?) -> Unit) {
         auth = FirebaseAuth.getInstance()
@@ -30,4 +45,7 @@ class ProfileRepository {
                 callback(null) // Pass null to the callback in case of failure
             }
     }
+
+
+
 }

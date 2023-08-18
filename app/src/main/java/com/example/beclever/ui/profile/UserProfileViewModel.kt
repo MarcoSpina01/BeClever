@@ -7,45 +7,20 @@ import androidx.lifecycle.ViewModel
 
 class UserProfileViewModel : ViewModel() {
 
-    private val profileRepository = ProfileRepository()
+    private val userModel = UserModel()
 
-    private val _userName = MutableLiveData<String>()
-    private val _eMail = MutableLiveData<String>()
+    private val _user = MutableLiveData<User>()
 
-    val userName: LiveData<String>
-        get() = _userName
+    val user: LiveData<User>
+        get() = _user
 
-    val eMail: LiveData<String>
-        get() = _eMail
-
-
-    // Metodo per impostare il nome dell'utente
-    fun setUserName(name: String) {
-        _userName.value = name
-    }
-
-    fun setEmail(mail: String) {
-        _eMail.value = mail
-    }
-
-
-    // Metodo per ottenere i dati dell'utente da una sorgente (ad es. Firebase, API, ecc.)
     fun fetchUserData() {
-        // Effettua il recupero dei dati dell'utente e imposta i valori nel ViewModel
-        profileRepository.getData { data ->
-            if (data != null) {
-                // Fai qualcosa con i dati ricevuti
-                val nome = data["first"] as String
-                val email = data["email"] as String
-                setUserName(nome)
-                setEmail(email)
+        userModel.fetchUserData { user ->
+            if (user != null) {
+                _user.value = user
             } else {
-            // Nessun dato corrispondente trovato
-            } }
+                // Nessun dato corrispondente trovato
+            }
+        }
     }
-
-
-
-
-
 }
