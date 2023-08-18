@@ -14,47 +14,27 @@ import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
 
-    //private var _binding: FragmentProfileBinding? = null
     private var _binding: FragmentProfilenewBinding? = null
-    private val binding get() = _binding!!
+    private val bindingView get() = _binding!!
 
-    private lateinit var userProfileViewModel: UserProfileViewModel
-    private var isDataLoaded = false
+    private lateinit var viewModel: UserProfileViewModel
 
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        userProfileViewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
-
-        // Richiedi il recupero dei dati dell'utente solo se non è già stato caricato
-        if (!isDataLoaded) {
-            userProfileViewModel.fetchUserData()
-            isDataLoaded = true
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfilenewBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val root: View = bindingView.root
 
-        // Osserva i dati dell'utente nel ViewModel e aggiorna l'interfaccia utente
+        viewModel = ViewModelProvider(requireActivity()).get(UserProfileViewModel::class.java)
+        bindingView.viewModel = viewModel // Collega il ViewModel al binding
+        bindingView.lifecycleOwner = viewLifecycleOwner // Importante per osservare i LiveData
 
-        userProfileViewModel.userName.observe(viewLifecycleOwner) { userName ->
-            binding.textView.text = userName
-        }
+        viewModel.fetchUserData()
 
-        userProfileViewModel.eMail.observe(viewLifecycleOwner) { eMail ->
-            binding.textView2.text = eMail
-        }
-
-        binding.ModifyProfileButton.setOnClickListener {
+        bindingView.ModifyProfileButton.setOnClickListener {
             val intent = Intent(requireContext(), ModifyProfileActivity::class.java)
             startActivity(intent)
         }
 
-        binding.button5.setOnClickListener {
+        bindingView.button5.setOnClickListener {
             logout()
         }
 
@@ -73,8 +53,6 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
         requireActivity().finish()
     }
-
-
-
 }
+
 
