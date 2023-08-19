@@ -14,7 +14,10 @@ class UserModel {
             if (data != null) {
                 val nome = data["first"] as String
                 val email = data["email"] as String
-                val user = User(nome, email)
+                val cognome = data["last"] as String
+                val bio = data["bio"] as String
+                val qualifica = data["qualification"] as String
+                val user = User(nome, email, cognome, bio, qualifica)
                 onDataFetched(user)
             } else {
                 // fai qualcosa in caso contrario
