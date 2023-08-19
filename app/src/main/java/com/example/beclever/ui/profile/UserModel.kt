@@ -49,13 +49,37 @@ class UserModel {
 
     fun updateUserProfile(userId: String, newName: String, newSurname: String, newEmail: String, newBio: String, newQualification: String): Task<Void> {
 
-        val db = FirebaseFirestore.getInstance() // Inizializza db qui o altrove se preferisci
+        /*val db = FirebaseFirestore.getInstance() // Inizializza db qui o altrove se preferisci
 
         val userRef = db.collection("users").document(userId)
-        return userRef.update("first", newName, "last", newSurname, "email", newEmail, "bio", newBio, "qualification", newQualification )
+        return userRef.update("first", newName, "last", newSurname, "email", newEmail, "bio", newBio, "qualification", newQualification )*/
 
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(userId)
+        val user = FirebaseAuth.getInstance().currentUser
+
+        if (user != null) {
+            val updateEmailTask = user.updateEmail(newEmail)
+            return updateEmailTask.continueWithTask { task ->
+                if (task.isSuccessful) {
+                    // L'aggiornamento dell'email nell'autenticazione Firebase è riuscito
+                    // Ora puoi aggiornare l'email nell'archivio dati Firestore
+                    userRef.update(
+                        "first", newName,
+                        "last", newSurname,
+                        "email", newEmail,
+                        "bio", newBio,
+                        "qualification", newQualification
+                    )
+                } else {
+                    // L'aggiornamento dell'email nell'autenticazione Firebase è fallito
+                    // Puoi gestire l'errore qui se necessario
+                    throw task.exception ?: Exception("Update email failed")
+                }
+            }
+        } else {
+            throw Exception("User not authenticated")
+        }
     }
-
-
 
 }
