@@ -6,6 +6,7 @@ data class User(
     private var email: String
 
 ) {
+
     fun getNome(): String {
         return nome
     }
