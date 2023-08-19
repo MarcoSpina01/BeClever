@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.beclever.ui.login.LoginViewModel" />
+            type="com.example.beclever.ui.home.HomeViewModel" />
     </data>
 
 
@@ -80,7 +80,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewSearch">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText1"
+                    android:id="@+id/textInputEditTextMateria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Materia"
@@ -112,7 +112,7 @@
                 app:layout_constraintVertical_bias="0.5">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText2"
+                    android:id="@+id/textInputEditTextData"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Inserisci la data"
@@ -146,7 +146,7 @@
                 app:layout_constraintVertical_bias="0.5">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText3"
+                    android:id="@+id/textInputEditTextTarget"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Target"
@@ -177,7 +177,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText4"
+                    android:id="@+id/textInputEditTextLocalita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Località"
@@ -206,7 +206,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText5"
+                    android:id="@+id/textInputEditTextPrezzo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Fascia di prezzo"

@@ -25,6 +25,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.beclever.R
 import android.widget.AutoCompleteTextView
 import com.example.beclever.databinding.FragmentHomeBinding
+import com.example.beclever.databinding.FragmentProfilenewBinding
+import com.example.beclever.ui.profile.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
@@ -32,18 +34,12 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private val bindingView get() = _binding!!
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    private lateinit var subjectInput: TextInputEditText
-    private lateinit var targetInput: TextInputEditText
-    private lateinit var dateInput: TextInputEditText
-    private lateinit var locationInput : TextInputEditText
     private lateinit var provinceList: Array<String>
     private lateinit var filteredProvinceList: ArrayList<String>
-    private lateinit var  moneyInput : TextInputEditText
+
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,46 +47,46 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val root: View = bindingView.root
+
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+        bindingView.viewModel = homeViewModel // Collega il ViewModel al binding
+        bindingView.lifecycleOwner = viewLifecycleOwner // Importante per osservare i LiveData
 
 
-        subjectInput = _binding!!.textInputEditText1
-        subjectInput.setOnKeyListener { _, keyCode, event ->
+
+        bindingView.textInputEditTextMateria.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                subjectInput.clearFocus()
+                bindingView.textInputEditTextMateria.clearFocus()
                 val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(subjectInput.windowToken, 0)
+                imm.hideSoftInputFromWindow(bindingView.textInputEditTextMateria.windowToken, 0)
                 return@setOnKeyListener true
             }
             return@setOnKeyListener false
         }
 
-        targetInput = _binding!!.textInputEditText3
-        targetInput.isFocusable = false
-        targetInput.setOnClickListener {
-            subjectInput.clearFocus()
+        bindingView.textInputEditTextTarget.isFocusable = false
+        bindingView.textInputEditTextTarget.setOnClickListener(){
             showTargetOptions()
+            bindingView.textInputEditTextTarget.clearFocus()
         }
 
-        dateInput = _binding!!.textInputEditText2
-        dateInput.isFocusable = false
-        dateInput.setOnClickListener {
-            subjectInput.clearFocus()
+        bindingView.textInputEditTextData.isFocusable = false
+        bindingView.textInputEditTextData.setOnClickListener {
             showDatePicker()
+            bindingView.textInputEditTextData.clearFocus()
         }
 
-        locationInput = _binding!!.textInputEditText4
-        locationInput.isFocusable = false
-        locationInput.setOnClickListener {
-            subjectInput.clearFocus()
+        bindingView.textInputEditTextLocalita.isFocusable = false
+        bindingView.textInputEditTextLocalita.setOnClickListener(){
             showProvinceDialog()
+            bindingView.textInputEditTextLocalita.clearFocus()
         }
 
-        moneyInput = _binding!!.textInputEditText5
-        moneyInput.isFocusable = false
-        moneyInput.setOnClickListener {
-            subjectInput.clearFocus()
+        bindingView.textInputEditTextPrezzo.isFocusable = false
+        bindingView.textInputEditTextPrezzo.setOnClickListener(){
             showMoneyOptions()
+            bindingView.textInputEditTextPrezzo.clearFocus()
         }
 
 
@@ -98,21 +94,12 @@ class HomeFragment : Fragment() {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view?.windowToken, 0)
             root.clearFocus()
-            subjectInput.clearFocus()
-            targetInput.clearFocus()
-            dateInput.clearFocus()
-            locationInput.clearFocus()
-            moneyInput.clearFocus()
+            bindingView.textInputEditTextMateria.clearFocus()
+            bindingView.textInputEditTextData.clearFocus()
+            bindingView.textInputEditTextTarget.clearFocus()
+            bindingView.textInputEditTextLocalita.clearFocus()
+            bindingView.textInputEditTextPrezzo.clearFocus()
         }
-
-
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
-//        val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return root
     }
 
@@ -122,7 +109,7 @@ class HomeFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Seleziona il Target")
         builder.setItems(targetOptions) { _, which ->
-            targetInput.setText(targetOptions[which])
+            bindingView.textInputEditTextTarget.setText(targetOptions[which])
         }
         builder.show()
     }
@@ -134,8 +121,8 @@ class HomeFragment : Fragment() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(requireContext(), { _, year, monthOfYear, dayOfMonth ->
-            // Set the selected date in the input text field
-            dateInput.setText(String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year))
+            // Set the selected date i<n the input text field>
+            bindingView.textInputEditTextData.setText(String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year))
         }, year, month, day)
 
         datePickerDialog.show()
@@ -154,12 +141,12 @@ class HomeFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, filteredProvinceList)
         listView.adapter = adapter
 
-        locationInput.isFocusable = true
-        locationInput.requestFocus()
+        bindingView.textInputEditTextLocalita.isFocusable = true
+        bindingView.textInputEditTextLocalita.requestFocus()
 
         listView.setOnItemClickListener { _, _, position, _ ->
             val province = filteredProvinceList[position]
-            locationInput.setText(province)
+            bindingView.textInputEditTextLocalita.setText(province)
             dialog.dismiss()
         }
 
@@ -190,7 +177,7 @@ class HomeFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Seleziona la fascia di prezzo")
         builder.setItems(targetOptions) { _, which ->
-            moneyInput.setText(targetOptions[which])
+            bindingView.textInputEditTextPrezzo.setText(targetOptions[which])
         }
         builder.show()
     }
