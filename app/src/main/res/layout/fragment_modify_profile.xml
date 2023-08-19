@@ -118,7 +118,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="25dp"
                             app:boxCornerRadiusBottomEnd="20dp"
                             app:boxCornerRadiusBottomStart="20dp"
                             app:boxCornerRadiusTopEnd="20dp"
@@ -149,7 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="25dp"
                             app:boxCornerRadiusBottomEnd="20dp"
                             app:boxCornerRadiusBottomStart="20dp"
                             app:boxCornerRadiusTopEnd="20dp"
@@ -175,36 +175,7 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textInputLayout4"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="20dp"
-                            app:boxCornerRadiusBottomEnd="20dp"
-                            app:boxCornerRadiusBottomStart="20dp"
-                            app:boxCornerRadiusTopEnd="20dp"
-                            app:boxCornerRadiusTopStart="20dp"
-                            app:hintAnimationEnabled="true"
-                            app:hintTextColor="@color/black"
-                            app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.5">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/textInputEditText4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Password"
-                                android:inputType="text"
-                                android:lines="1"
-                                android:textColorHint="@android:color/black" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputLayout5"
@@ -212,7 +183,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="25dp"
                             app:boxCornerRadiusBottomEnd="20dp"
                             app:boxCornerRadiusBottomStart="20dp"
                             app:boxCornerRadiusTopEnd="20dp"
@@ -243,7 +214,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="25dp"
                             app:boxCornerRadiusBottomEnd="20dp"
                             app:boxCornerRadiusBottomStart="20dp"
                             app:boxCornerRadiusTopEnd="20dp"
@@ -272,7 +243,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
-                            android:layout_marginVertical="40dp"
+                            android:layout_marginVertical="50dp"
                             android:gravity="center"
                             android:orientation="horizontal">
 
