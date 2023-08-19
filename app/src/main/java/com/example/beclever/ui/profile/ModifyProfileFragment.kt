@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.beclever.R
 import com.example.beclever.databinding.FragmentModifyProfileBinding
 
 class ModifyProfileFragment : Fragment() {

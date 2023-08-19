@@ -5,12 +5,10 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class UserViewModel : ViewModel() {
 
-    private val db = FirebaseFirestore.getInstance()
 
     private val userModel = UserModel()
 
@@ -29,7 +27,7 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun updateUserProfile(userId: String, newName: String, newEmail: String, context: Context?) {userModel.updateUserProfile(userId, newName, newEmail)
+    fun updateUserProfile(userId: String, newName: String, newSurname: String, newEmail: String, newBio: String, newQualification: String, context: Context?) {userModel.updateUserProfile(userId, newName, newSurname, newEmail, newBio, newQualification)
         .addOnSuccessListener {
             Toast.makeText(context, "Profilo aggiornato con successo!", Toast.LENGTH_SHORT).show()
         }

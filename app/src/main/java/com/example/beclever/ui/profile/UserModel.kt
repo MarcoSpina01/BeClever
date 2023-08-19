@@ -24,7 +24,7 @@ class UserModel {
     }
 
 
-    fun getData(callback: (Map<String, Any>?) -> Unit) {
+    private fun getData(callback: (Map<String, Any>?) -> Unit) {
         auth = FirebaseAuth.getInstance()
         val id = auth.currentUser?.uid
         val collectionRef = FirebaseFirestore.getInstance().collection("users")
@@ -41,18 +41,19 @@ class UserModel {
                 }
                 callback(null) // If no matching document is found, pass null to the callback
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
                 // Gestisci eventuali errori qui
                 callback(null) // Pass null to the callback in case of failure
             }
     }
 
-    fun updateUserProfile(userId: String, newName: String, newEmail: String): Task<Void> {
+    fun updateUserProfile(userId: String, newName: String, newSurname: String, newEmail: String, newBio: String, newQualification: String): Task<Void> {
 
         val db = FirebaseFirestore.getInstance() // Inizializza db qui o altrove se preferisci
 
         val userRef = db.collection("users").document(userId)
-        return userRef.update("first", newName, "email", newEmail)
+        return userRef.update("first", newName, "last", newSurname, "email", newEmail, "bio", newBio, "qualification", newQualification )
+
     }
 
 
