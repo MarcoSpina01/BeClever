@@ -30,6 +30,7 @@ class UserViewModel : ViewModel() {
     fun updateUserProfile(userId: String, newName: String, newSurname: String, newEmail: String, newBio: String, newQualification: String, context: Context?) {userModel.updateUserProfile(userId, newName, newSurname, newEmail, newBio, newQualification)
         .addOnSuccessListener {
             Toast.makeText(context, "Profilo aggiornato con successo!", Toast.LENGTH_SHORT).show()
+            fetchUserData()
         }
         .addOnFailureListener {
             Toast.makeText(context, "Errore durante la modifica", Toast.LENGTH_SHORT).show()

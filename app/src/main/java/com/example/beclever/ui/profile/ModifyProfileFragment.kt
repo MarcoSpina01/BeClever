@@ -34,6 +34,8 @@ class ModifyProfileFragment : Fragment() {
         bindingView.viewModel = userViewModel // Collega il ViewModel al binding
         bindingView.lifecycleOwner = viewLifecycleOwner // Importante per osservare i LiveData
 
+
+
         bindingView.button7.setOnClickListener {
 
             val newName = bindingView.textInputEditText1.text.toString()
@@ -44,7 +46,6 @@ class ModifyProfileFragment : Fragment() {
 
             // Effettua la modifica del profilo tramite il ViewModel
             userViewModel.updateUserProfile(userId, newName, newSurname, newEmail, newBio, newQualification, requireContext())
-
             parentFragmentManager.popBackStack()
         }
 

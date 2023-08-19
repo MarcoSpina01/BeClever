@@ -22,18 +22,15 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfilenewBinding.inflate(inflater, container, false)
-        val root: View = bindingView.root
+        return bindingView.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
-        bindingView.viewModel = userViewModel // Collega il ViewModel al binding
-        bindingView.lifecycleOwner = viewLifecycleOwner // Importante per osservare i LiveData
-
-//        userProfileViewModel.fetchUserData()
-
-       /* bindingView.ModifyProfileButton.setOnClickListener {
-            val intent = Intent(requireContext(), ModifyProfileFragment::class.java)
-            startActivity(intent)
-        }*/
+        bindingView.viewModel = userViewModel
+        bindingView.lifecycleOwner = viewLifecycleOwner
 
         bindingView.ModifyProfileButton.setOnClickListener {
             val currentUser = FirebaseAuth.getInstance().currentUser
@@ -49,16 +46,20 @@ class ProfileFragment : Fragment() {
                     .replace(R.id.fragment_container, fragment)
                     .addToBackStack(null)
                     .commit()
+
             }
         }
 
+        bindingView.button3.setOnClickListener {
+        }
 
         bindingView.button5.setOnClickListener {
             logout()
         }
 
-        return root
+        // Aggiungi qui le osservazioni dei LiveData nel ViewModel, se necessario
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -73,5 +74,6 @@ class ProfileFragment : Fragment() {
         requireActivity().finish()
     }
 }
+
 
 
