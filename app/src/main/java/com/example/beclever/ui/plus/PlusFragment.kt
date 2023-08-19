@@ -17,8 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
-import android.widget.TextView
-import androidx.core.content.ContentProviderCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beclever.R
@@ -46,8 +45,8 @@ class PlusFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val plusViewModel =
-            ViewModelProvider(this).get(PlusViewModel::class.java)
+        val lessonViewModel =
+            ViewModelProvider(this).get(LessonViewModel::class.java)
 
         _binding = FragmentPlusBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -115,7 +114,15 @@ class PlusFragment : Fragment() {
             val location = binding.textInputEditText4.text.toString()
             val cost = binding.textInputEditText5.text.toString()
 
-            plusViewModel.createLesson(subject, date, target, location, cost, requireContext())
+            lessonViewModel.createLesson(subject, date, target, location, cost) { success ->
+                if (success) {
+                    Toast.makeText(requireContext(), "Lezione creata", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Errore durante la creazione", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
         }
 
         return root
