@@ -29,9 +29,9 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun updateUserProfile(userId: String, newName: String, newEmail: String, context: Context?) {
+    fun updateUserProfile(userId: String, newName: String, newSurname: String, newEmail: String, newBio: String, newQualification:String, context: Context?) {
         val userRef = db.collection("users").document(userId)
-        userRef.update("first", newName, "email", newEmail)
+        userRef.update("first", newName, "last", newSurname, "email", newEmail, "bio", newBio, "qualification", newQualification )
             .addOnSuccessListener {
                 Toast.makeText(context, "Profilo aggiornato con successo!", Toast.LENGTH_SHORT).show()
             }

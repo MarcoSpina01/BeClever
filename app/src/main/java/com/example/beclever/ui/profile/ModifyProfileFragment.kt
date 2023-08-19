@@ -39,10 +39,13 @@ class ModifyProfileFragment : Fragment() {
         bindingView.button7.setOnClickListener {
 
             val newName = bindingView.textInputEditText1.text.toString()
+            val newSurname = bindingView.textInputEditText2.text.toString()
             val newEmail = bindingView.textInputEditText3.text.toString()
+            val newBio = bindingView.textInputEditText5.text.toString()
+            val newQualification = bindingView.textInputEditText6.text.toString()
 
             // Effettua la modifica del profilo tramite il ViewModel
-            userViewModel.updateUserProfile(userId, newName, newEmail, requireContext())
+            userViewModel.updateUserProfile(userId, newName, newSurname, newEmail, newBio, newQualification, requireContext())
 
             parentFragmentManager.popBackStack()
         }
