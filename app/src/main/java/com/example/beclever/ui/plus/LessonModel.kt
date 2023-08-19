@@ -5,5 +5,6 @@ data class Lesson(
     val date: String,
     val target: String,
     val location: String,
-    val cost: String
+    val cost: String,
+    val userId: String?
 )

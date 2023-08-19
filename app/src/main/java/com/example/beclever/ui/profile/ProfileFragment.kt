@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.beclever.R
 import com.example.beclever.databinding.FragmentProfilenewBinding
 import com.example.beclever.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +20,9 @@ class ProfileFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
 
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    val userId = currentUser?.uid
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfilenewBinding.inflate(inflater, container, false)
         val root: View = bindingView.root
@@ -29,10 +33,28 @@ class ProfileFragment : Fragment() {
 
 //        userProfileViewModel.fetchUserData()
 
-        bindingView.ModifyProfileButton.setOnClickListener {
-            val intent = Intent(requireContext(), ModifyProfileActivity::class.java)
+       /* bindingView.ModifyProfileButton.setOnClickListener {
+            val intent = Intent(requireContext(), ModifyProfileFragment::class.java)
             startActivity(intent)
+        }*/
+
+        bindingView.ModifyProfileButton.setOnClickListener {
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userId = currentUser?.uid
+
+            if (userId != null) {
+                val fragment = ModifyProfileFragment()
+                val bundle = Bundle()
+                bundle.putString("userId", userId)
+                fragment.arguments = bundle
+
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
+
 
         bindingView.button5.setOnClickListener {
             logout()

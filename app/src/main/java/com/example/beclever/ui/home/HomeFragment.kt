@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
     private lateinit var locationInput : TextInputEditText
     private lateinit var provinceList: Array<String>
     private lateinit var filteredProvinceList: ArrayList<String>
-
     private lateinit var  moneyInput : TextInputEditText
 
     override fun onCreateView(
