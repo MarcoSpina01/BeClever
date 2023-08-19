@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.beclever.R
 import com.example.beclever.databinding.FragmentModifyProfileBinding
 
 class ModifyProfileFragment : Fragment() {
@@ -36,16 +38,23 @@ class ModifyProfileFragment : Fragment() {
 
         bindingView.button7.setOnClickListener {
 
-
             val newName = bindingView.textInputEditText1.text.toString()
             val newEmail = bindingView.textInputEditText3.text.toString()
 
             // Effettua la modifica del profilo tramite il ViewModel
             userViewModel.updateUserProfile(userId, newName, newEmail, requireContext())
+
+            parentFragmentManager.popBackStack()
+        }
+
+        bindingView.button8.setOnClickListener{
+            // Torna indietro al Fragment precedente (ProfileFragment)
+            parentFragmentManager.popBackStack()
         }
 
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
