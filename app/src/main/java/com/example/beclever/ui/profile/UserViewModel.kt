@@ -29,14 +29,12 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun updateUserProfile(userId: String, newName: String, newEmail: String, context: Context?) {
-        val userRef = db.collection("users").document(userId)
-        userRef.update("first", newName, "email", newEmail)
-            .addOnSuccessListener {
-                Toast.makeText(context, "Profilo aggiornato con successo!", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(context, "Errore durante la modifica", Toast.LENGTH_SHORT).show()
-            }
+    fun updateUserProfile(userId: String, newName: String, newEmail: String, context: Context?) {userModel.updateUserProfile(userId, newName, newEmail)
+        .addOnSuccessListener {
+            Toast.makeText(context, "Profilo aggiornato con successo!", Toast.LENGTH_SHORT).show()
+        }
+        .addOnFailureListener {
+            Toast.makeText(context, "Errore durante la modifica", Toast.LENGTH_SHORT).show()
+        }
     }
 }

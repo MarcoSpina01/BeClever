@@ -20,9 +20,6 @@ class ProfileFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
 
-    val currentUser = FirebaseAuth.getInstance().currentUser
-    val userId = currentUser?.uid
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfilenewBinding.inflate(inflater, container, false)
         val root: View = bindingView.root

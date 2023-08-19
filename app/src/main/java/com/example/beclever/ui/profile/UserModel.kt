@@ -1,5 +1,6 @@
 package com.example.beclever.ui.profile
 
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
@@ -44,6 +45,14 @@ class UserModel {
                 // Gestisci eventuali errori qui
                 callback(null) // Pass null to the callback in case of failure
             }
+    }
+
+    fun updateUserProfile(userId: String, newName: String, newEmail: String): Task<Void> {
+
+        val db = FirebaseFirestore.getInstance() // Inizializza db qui o altrove se preferisci
+
+        val userRef = db.collection("users").document(userId)
+        return userRef.update("first", newName, "email", newEmail)
     }
 
 
