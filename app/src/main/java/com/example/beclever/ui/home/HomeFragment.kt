@@ -89,6 +89,23 @@ class HomeFragment : Fragment() {
             bindingView.textInputEditTextPrezzo.clearFocus()
         }
 
+        bindingView.buttonCerca.setOnClickListener {
+            val subject = bindingView.textInputEditTextMateria.text.toString().trim()
+            val date = bindingView.textInputEditTextData.text.toString()
+            val target = bindingView.textInputEditTextTarget.text.toString()
+            val location = bindingView.textInputEditTextLocalita.text.toString()
+            val cost = bindingView.textInputEditTextPrezzo.text.toString()
+
+            // Chiamata al metodo checkIfLessonExists del ViewModel
+            if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty() && cost.isNotEmpty()) {
+            homeViewModel.checkIfLessonExists(requireContext().applicationContext, subject, date, target, location, cost)
+                }
+            else {
+                // Show an error message or handle the case when not all fields are filled
+            }
+        }
+
+
 
         root.setOnClickListener {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -172,7 +189,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showMoneyOptions() {
-        val targetOptions = arrayOf("0 - 10  €", "10 - 20  €", "20 +  €")
+        val targetOptions = arrayOf("0 - 10 €", "10 - 20 €", "20 + €", "Qualsiasi")
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Seleziona la fascia di prezzo")
