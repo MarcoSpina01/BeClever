@@ -4,31 +4,23 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
-import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputType
 import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beclever.R
-import android.widget.AutoCompleteTextView
 import com.example.beclever.databinding.FragmentHomeBinding
-import com.example.beclever.databinding.FragmentProfilenewBinding
-import com.example.beclever.ui.profile.UserViewModel
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -57,9 +49,9 @@ class HomeFragment : Fragment() {
 
         bindingView.textInputEditTextMateria.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                bindingView.textInputEditTextMateria.clearFocus()
                 val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(bindingView.textInputEditTextMateria.windowToken, 0)
+                bindingView.textInputEditTextMateria.clearFocus()
                 return@setOnKeyListener true
             }
             return@setOnKeyListener false
@@ -67,41 +59,38 @@ class HomeFragment : Fragment() {
 
         bindingView.textInputEditTextTarget.isFocusable = false
         bindingView.textInputEditTextTarget.setOnClickListener(){
+            bindingView.textInputEditTextMateria.clearFocus()
             showTargetOptions()
             bindingView.textInputEditTextTarget.clearFocus()
         }
 
         bindingView.textInputEditTextData.isFocusable = false
         bindingView.textInputEditTextData.setOnClickListener {
+            bindingView.textInputEditTextMateria.clearFocus()
             showDatePicker()
             bindingView.textInputEditTextData.clearFocus()
         }
 
         bindingView.textInputEditTextLocalita.isFocusable = false
         bindingView.textInputEditTextLocalita.setOnClickListener(){
+            bindingView.textInputEditTextMateria.clearFocus()
             showProvinceDialog()
             bindingView.textInputEditTextLocalita.clearFocus()
         }
 
-        bindingView.textInputEditTextPrezzo.isFocusable = false
-        bindingView.textInputEditTextPrezzo.setOnClickListener(){
-            showMoneyOptions()
-            bindingView.textInputEditTextPrezzo.clearFocus()
-        }
 
         bindingView.buttonCerca.setOnClickListener {
             val subject = bindingView.textInputEditTextMateria.text.toString().trim()
             val date = bindingView.textInputEditTextData.text.toString()
             val target = bindingView.textInputEditTextTarget.text.toString()
             val location = bindingView.textInputEditTextLocalita.text.toString()
-            val cost = bindingView.textInputEditTextPrezzo.text.toString()
 
             // Chiamata al metodo checkIfLessonExists del ViewModel
-            if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty() && cost.isNotEmpty()) {
-            homeViewModel.checkIfLessonExists(requireContext().applicationContext, subject, date, target, location, cost)
+            if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty()) {
+            homeViewModel.checkIfLessonExists(requireContext().applicationContext, subject, date, target, location)
                 }
             else {
-                // Show an error message or handle the case when not all fields are filled
+                Toast.makeText(context, "Compila tutti i campi", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -115,7 +104,6 @@ class HomeFragment : Fragment() {
             bindingView.textInputEditTextData.clearFocus()
             bindingView.textInputEditTextTarget.clearFocus()
             bindingView.textInputEditTextLocalita.clearFocus()
-            bindingView.textInputEditTextPrezzo.clearFocus()
         }
         return root
     }
@@ -187,18 +175,6 @@ class HomeFragment : Fragment() {
 
         dialog.show()
     }
-
-    private fun showMoneyOptions() {
-        val targetOptions = arrayOf("0 - 10 €", "10 - 20 €", "20 + €", "Qualsiasi")
-
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Seleziona la fascia di prezzo")
-        builder.setItems(targetOptions) { _, which ->
-            bindingView.textInputEditTextPrezzo.setText(targetOptions[which])
-        }
-        builder.show()
-    }
-
 
 
     override fun onDestroyView() {

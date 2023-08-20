@@ -10,3 +10,6 @@ data class Lesson(
     val userId: String?
 
 )
+{
+    constructor() : this("", "", "", "", "", null)
+}
