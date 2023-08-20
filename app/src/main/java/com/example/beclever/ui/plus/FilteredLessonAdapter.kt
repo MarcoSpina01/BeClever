@@ -27,11 +27,11 @@ class FilteredLessonsAdapter(private val lessons: List<Lesson>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val lesson = lessons[position]
-        holder.subjectTextView.text = "Materia : ${lesson.subject}"
-        holder.dateTextView.text = "Data : ${lesson.date}"
-        holder.targetTextView.text = "Target : ${lesson.target}" // Aggiungi questa linea
-        holder.locationTextView.text = "Provincia : ${lesson.location}"
-        holder.costTextView.text = "Prezzo : ${lesson.cost}" // Aggiungi questa linea
+        holder.subjectTextView.text = " ${lesson.subject}"
+        holder.dateTextView.text = " ${lesson.date}"
+        holder.targetTextView.text = " ${lesson.target}" // Aggiungi questa linea
+        holder.locationTextView.text = " ${lesson.location}"
+        holder.costTextView.text = " ${lesson.cost}" // Aggiungi questa linea
     }
 
     override fun getItemCount(): Int = lessons.size
