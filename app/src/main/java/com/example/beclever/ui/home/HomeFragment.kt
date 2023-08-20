@@ -22,6 +22,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.beclever.R
 import com.example.beclever.databinding.FragmentHomeBinding
 import java.util.*
+import com.example.beclever.ui.plus.FilteredLessonFragment
+import com.example.beclever.ui.plus.Lesson
 
 class HomeFragment : Fragment() {
 
@@ -30,6 +32,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var provinceList: Array<String>
     private lateinit var filteredProvinceList: ArrayList<String>
+    private lateinit var filteredLessonsList: List<Lesson>
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -87,10 +90,30 @@ class HomeFragment : Fragment() {
 
             // Chiamata al metodo checkIfLessonExists del ViewModel
             if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty()) {
-            homeViewModel.checkIfLessonExists(requireContext().applicationContext, subject, date, target, location)
-                }
-            else {
+                homeViewModel.checkIfLessonExists(
+                    requireContext().applicationContext, subject, date, target, location)
+            } else {
                 Toast.makeText(context, "Compila tutti i campi", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        homeViewModel.filteredLessonsList.observe(viewLifecycleOwner) { filteredLessonsList ->
+            if (filteredLessonsList.isNotEmpty()) {
+                val filteredLessonsFragment = FilteredLessonFragment()
+
+                val bundle = Bundle()
+                bundle.putSerializable("filteredLessonsList", ArrayList(filteredLessonsList))
+                filteredLessonsFragment.arguments = bundle
+
+                val fragmentManager = requireActivity().supportFragmentManager
+                val transaction = fragmentManager.beginTransaction()
+
+                transaction.replace(R.id.fragment_container, filteredLessonsFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            } else {
+                // Mostra un messaggio che indica che non ci sono lezioni corrispondenti
+                Toast.makeText(context, "Non ci sono lezioni corrispondenti", Toast.LENGTH_SHORT).show()
             }
         }
 

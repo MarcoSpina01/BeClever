@@ -1,5 +1,7 @@
 package com.example.beclever.ui.plus
 
+import java.io.Serializable
+
 data class Lesson(
 
     val subject: String,
@@ -10,6 +12,7 @@ data class Lesson(
     val userId: String?
 
 )
+    : Serializable
 {
     constructor() : this("", "", "", "", "", null)
 }

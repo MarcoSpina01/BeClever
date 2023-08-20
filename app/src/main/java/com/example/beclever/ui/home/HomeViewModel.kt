@@ -16,6 +16,10 @@ class HomeViewModel : ViewModel() {
 
     val db = FirebaseFirestore.getInstance()
 
+    private val _filteredLessonsList = MutableLiveData<List<Lesson>>()
+    val filteredLessonsList: LiveData<List<Lesson>>
+        get() = _filteredLessonsList
+
     fun checkIfLessonExists(context: Context, subject: String, date: String, target: String, location: String) {
 
 
@@ -35,9 +39,11 @@ class HomeViewModel : ViewModel() {
                     if (querySnapshot.isEmpty) {
                         // Nessuna lezione corrisponde ai criteri di ricerca
                         Toast.makeText(context, "Lezione non trovata", Toast.LENGTH_SHORT).show()
+                        _filteredLessonsList.postValue(emptyList())
+
                     } else {
                         // Almeno una lezione corrisponde ai criteri di ricerca
-                        Toast.makeText(context, "Lezione trovata", Toast.LENGTH_SHORT).show()
+                        _filteredLessonsList.postValue(matchingLessons)
                     }
                 }
             .addOnFailureListener {
