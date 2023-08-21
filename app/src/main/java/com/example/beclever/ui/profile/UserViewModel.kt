@@ -13,9 +13,9 @@ class UserViewModel : ViewModel() {
     private val userModel = UserModel()
 
     private val _user = MutableLiveData<User>()
-
     val user: LiveData<User>
         get() = _user
+
 
     fun fetchUserData() {
         userModel.fetchUserData { user ->
@@ -36,4 +36,21 @@ class UserViewModel : ViewModel() {
             Toast.makeText(context, "Errore durante la modifica", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun updatePassword(
+        oldPassword: String,
+        newPassword: String,
+        onComplete: (ChangePasswordResult) -> Unit
+    ) {
+        when {
+            newPassword == oldPassword -> onComplete(ChangePasswordResult.NEW_PASSWORD_DIFFERENT)
+            newPassword.length < 8 -> onComplete(ChangePasswordResult.NEW_PASSWORD_TOO_SHORT)
+            userModel.updatePassword(oldPassword, newPassword) -> onComplete(ChangePasswordResult.SUCCESS)
+            !userModel.updatePassword(oldPassword, newPassword) -> onComplete(ChangePasswordResult.CURRENT_PASSWORD_INCORRECT)
+            else -> onComplete(ChangePasswordResult.ERRORE)
+        }
+    }
+
+
+
 }

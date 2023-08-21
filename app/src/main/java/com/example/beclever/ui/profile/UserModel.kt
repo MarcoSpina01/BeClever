@@ -1,9 +1,14 @@
 package com.example.beclever.ui.profile
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 class UserModel {
 
@@ -85,4 +90,46 @@ class UserModel {
         }
     }
 
+    private fun reAuthenticateUser(oldPassword: String, onComplete: (Boolean) -> Unit) {
+        val user = Firebase.auth.currentUser
+        val email = user?.email
+        val credential = email?.let { EmailAuthProvider.getCredential(it, oldPassword) }
+
+        if (credential != null) {
+            user.reauthenticate(credential)
+                .addOnCompleteListener { task ->
+                    val success = task.isSuccessful
+                    onComplete(success) // Chiamato con true se l'operazione è riuscita, altrimenti false
+                }
+        } else {
+            onComplete(false) // Se non è stato possibile ottenere le credenziali o l'utente
+        }
+    }
+
+    fun updatePassword(
+        oldPassword: String,
+        newPassword: String,
+    ): Boolean {
+        var result = true
+        reAuthenticateUser(oldPassword) { success ->
+            if (!success) {
+                // Reautenticazione fallita
+                Log.d(TAG, "User re-authentication failed.")
+                result = false
+            }
+        }
+
+        if(result) {
+            val user = Firebase.auth.currentUser
+            user!!.updatePassword(newPassword)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+
+                    }
+                }
+        }
+
+        return result
+    }
 }
+

@@ -51,6 +51,12 @@ class ProfileFragment : Fragment() {
         }
 
         bindingView.button3.setOnClickListener {
+
+            val fragment = ModifyPasswordFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         bindingView.button5.setOnClickListener {

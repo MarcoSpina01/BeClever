@@ -57,7 +57,10 @@ class activity_register : AppCompatActivity() {
                     val user = hashMapOf(
                         "first" to nome,
                         "last" to cognome,
-                        "email" to email
+                        "email" to email,
+                        "bio" to "",
+                        "qualification" to "",
+
                     )
                     var utente = auth.currentUser
                     var id = utente?.uid

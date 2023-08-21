@@ -132,7 +132,7 @@
                             android:layout_marginEnd="32dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/btn_background_1"
-                            android:text="FAQs"
+                            android:text="Modifica password"
                             android:textAlignment="center"
                             android:textSize="18sp"
                             android:textStyle="bold" />
