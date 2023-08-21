@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,15 +19,16 @@
             android:id="@+id/textViewLessonUsernameTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text= "Utente:"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:text="Utente:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryblue"/>
 
         <TextView
             android:id="@+id/textViewLessonUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text= ""
+            android:text=""
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -143,4 +146,5 @@
         android:layout_marginTop="10dp"
         android:background="#DCDCDC" />
 
-    </LinearLayout>
+ </LinearLayout>
+</layout>
