@@ -129,7 +129,7 @@ class PlusFragment : Fragment() {
     }
 
     private fun showTargetOptions() {
-        val targetOptions = arrayOf("Università", "Scuola Superiore", "Scuola Media")
+        val targetOptions = arrayOf("Universita", "Scuola Superiore", "Scuola Media")
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Seleziona il Target")

@@ -94,7 +94,7 @@ class HomeFragment : Fragment() {
             val location = bindingView.textInputEditTextLocalita.text.toString()
 
             // Chiamata al metodo checkIfLessonExists del ViewModel
-            if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty()) {
+            if (subject.isNotEmpty() || date.isNotEmpty() || target.isNotEmpty() || location.isNotEmpty()) {
                 homeViewModel.checkIfLessonExists(
                     requireContext().applicationContext, subject, date, target, location)
             } else {
@@ -131,7 +131,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showTargetOptions() {
-        val targetOptions = arrayOf("Università", "Scuola Superiore", "Scuola Media")
+        val targetOptions = arrayOf( "Scuola Superiore", "Scuola Media", "Universita")
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Seleziona il Target")
