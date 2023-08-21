@@ -113,7 +113,6 @@ class HomeFragment : Fragment() {
                         .commit()
                 } else {
                     // Mostra un messaggio che indica che non ci sono lezioni corrispondenti
-                    Toast.makeText(context, "Non ci sono lezioni corrispondenti", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -196,6 +195,17 @@ class HomeFragment : Fragment() {
         })
 
         dialog.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // Pulisci i campi di input e i dati filtrati
+        bindingView.textInputEditTextMateria.text?.clear()
+        bindingView.textInputEditTextData.text?.clear()
+        bindingView.textInputEditTextTarget.text?.clear()
+        bindingView.textInputEditTextLocalita.text?.clear()
+        homeViewModel.clearFilteredLessonsList()
     }
 
 
