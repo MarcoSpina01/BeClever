@@ -9,7 +9,7 @@ data class User(
     private var qualifica: String,
 
 
-) {
+    ) {
 
     fun getNome(): String {
         return nome

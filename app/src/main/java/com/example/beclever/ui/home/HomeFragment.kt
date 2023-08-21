@@ -24,7 +24,6 @@ import com.example.beclever.databinding.FragmentHomeBinding
 import java.util.*
 import com.example.beclever.ui.plus.FilteredLessonFragment
 import com.example.beclever.ui.plus.Lesson
-import com.example.beclever.ui.profile.ModifyProfileFragment
 
 class HomeFragment : Fragment() {
 
