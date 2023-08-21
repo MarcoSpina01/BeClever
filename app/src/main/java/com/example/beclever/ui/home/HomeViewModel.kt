@@ -38,7 +38,7 @@ class HomeViewModel : ViewModel() {
 
                     if (querySnapshot.isEmpty) {
                         // Nessuna lezione corrisponde ai criteri di ricerca
-                        Toast.makeText(context, "Lezione non trovata", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "Lezione non trovata", Toast.LENGTH_SHORT).show()
                         _filteredLessonsList.postValue(emptyList())
 
                     } else {

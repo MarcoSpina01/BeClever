@@ -24,6 +24,7 @@ import com.example.beclever.databinding.FragmentHomeBinding
 import java.util.*
 import com.example.beclever.ui.plus.FilteredLessonFragment
 import com.example.beclever.ui.plus.Lesson
+import com.example.beclever.ui.profile.ModifyProfileFragment
 
 class HomeFragment : Fragment() {
 
@@ -42,7 +43,11 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = bindingView.root
+        return bindingView.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
         bindingView.viewModel = homeViewModel // Collega il ViewModel al binding
@@ -95,40 +100,34 @@ class HomeFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Compila tutti i campi", Toast.LENGTH_SHORT).show()
             }
-        }
+            homeViewModel.filteredLessonsList.observe(viewLifecycleOwner) { filteredLessonsList ->
+                if (filteredLessonsList.isNotEmpty()) {
+                    val filteredLessonsFragment = FilteredLessonFragment()
+                    val bundle = Bundle()
+                    bundle.putSerializable("filteredLessonsList", ArrayList(filteredLessonsList))
+                    filteredLessonsFragment.arguments = bundle
 
-        homeViewModel.filteredLessonsList.observe(viewLifecycleOwner) { filteredLessonsList ->
-            if (filteredLessonsList.isNotEmpty()) {
-                val filteredLessonsFragment = FilteredLessonFragment()
-
-                val bundle = Bundle()
-                bundle.putSerializable("filteredLessonsList", ArrayList(filteredLessonsList))
-                filteredLessonsFragment.arguments = bundle
-
-                val fragmentManager = requireActivity().supportFragmentManager
-                val transaction = fragmentManager.beginTransaction()
-
-                transaction.replace(R.id.fragment_container, filteredLessonsFragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
-            } else {
-                // Mostra un messaggio che indica che non ci sono lezioni corrispondenti
-                Toast.makeText(context, "Non ci sono lezioni corrispondenti", Toast.LENGTH_SHORT).show()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, filteredLessonsFragment)
+                        .addToBackStack(null)
+                        .commit()
+                } else {
+                    // Mostra un messaggio che indica che non ci sono lezioni corrispondenti
+                    Toast.makeText(context, "Non ci sono lezioni corrispondenti", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
 
-
-        root.setOnClickListener {
+        view.setOnClickListener {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view?.windowToken, 0)
-            root.clearFocus()
+            view.clearFocus()
             bindingView.textInputEditTextMateria.clearFocus()
             bindingView.textInputEditTextData.clearFocus()
             bindingView.textInputEditTextTarget.clearFocus()
             bindingView.textInputEditTextLocalita.clearFocus()
         }
-        return root
     }
 
     private fun showTargetOptions() {
