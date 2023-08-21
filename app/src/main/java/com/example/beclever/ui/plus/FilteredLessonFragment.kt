@@ -37,7 +37,6 @@ class FilteredLessonFragment : Fragment() {
         bindingView.viewModel = lessonViewModel
         bindingView.lifecycleOwner = viewLifecycleOwner
 
-
         val recyclerView: RecyclerView = bindingView.recyclerViewFilteredLessons
 
         val lessons: List<Lesson> = arguments?.getSerializable("filteredLessonsList") as List<Lesson>
