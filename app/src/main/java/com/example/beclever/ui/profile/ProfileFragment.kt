@@ -59,6 +59,15 @@ class ProfileFragment : Fragment() {
                 .commit()
         }
 
+        bindingView.button.setOnClickListener {
+
+            val fragment = SettingsFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
         bindingView.button5.setOnClickListener {
             logout()
         }
