@@ -43,16 +43,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+        bindingView.viewModel = homeViewModel // Collega il ViewModel al binding
+        bindingView.lifecycleOwner = viewLifecycleOwner
         return bindingView.root
+
+       // Importante per osservare i LiveData
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
-        bindingView.viewModel = homeViewModel // Collega il ViewModel al binding
-        bindingView.lifecycleOwner = viewLifecycleOwner // Importante per osservare i LiveData
-
 
 
         bindingView.textInputEditTextMateria.setOnKeyListener { _, keyCode, event ->
@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
                 homeViewModel.checkIfLessonExists(
                     requireContext().applicationContext, subject, date, target, location)
             } else {
-                Toast.makeText(context, "Compila tutti i campi", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Inserisci un campo per la ricerca!", Toast.LENGTH_SHORT).show()
             }
             homeViewModel.filteredLessonsList.observe(viewLifecycleOwner) { filteredLessonsList ->
                 if (filteredLessonsList.isNotEmpty()) {
@@ -115,6 +115,13 @@ class HomeFragment : Fragment() {
                     // Mostra un messaggio che indica che non ci sono lezioni corrispondenti
                 }
             }
+        }
+
+        bindingView.Clean.setOnClickListener {
+            bindingView.textInputEditTextMateria.text?.clear()
+            bindingView.textInputEditTextData.text?.clear()
+            bindingView.textInputEditTextTarget.text?.clear()
+            bindingView.textInputEditTextLocalita.text?.clear()
         }
 
 
