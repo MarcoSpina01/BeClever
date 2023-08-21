@@ -196,6 +196,7 @@
                   android:layout_width="150dp"
                   android:layout_height="50dp"
                   android:backgroundTint="@color/primaryblue"
+                  android:textColor="#FFFFFF"
                   android:text="Registrati"
                   android:textAlignment="center"
                   app:cornerRadius="17dp"
