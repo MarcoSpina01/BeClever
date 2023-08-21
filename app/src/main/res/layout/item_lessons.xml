@@ -2,10 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingTop="16dp"
     android:paddingStart="16dp"
     android:paddingEnd="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/textViewLessonUsernameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text= "Professore:"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewLessonUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text= ""
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text= "Materia :"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <TextView
@@ -23,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text= ""
-        android:textSize="18sp" />
+        android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,14 +55,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Data :"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/textViewLessonDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="18sp" />
+        android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,14 +73,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Provincia :"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/textViewLessonLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="18sp" />
+        android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -70,14 +91,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Target :"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/textViewLessonTarget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="18sp" />
+        android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,15 +109,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Costo :"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/textViewLessonCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="18sp" />
+        android:textSize="14sp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/prenota"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/primaryblue"
+        android:text="prenota"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
