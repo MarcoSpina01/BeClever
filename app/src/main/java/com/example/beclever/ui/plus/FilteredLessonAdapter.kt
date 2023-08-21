@@ -49,7 +49,7 @@ class FilteredLessonsAdapter(private val lessons: List<Lesson>) :
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
                     val userName = documentSnapshot.getString("first") ?: ""
-                    usernameTextView.text = " ${userName}"
+                    usernameTextView.text = "  ${userName}"
                 }
             }
             .addOnFailureListener { e ->
