@@ -85,7 +85,7 @@ class HomeViewModel : ViewModel() {
 
                 if (matchingLessons.isEmpty()) {
                     // Nessuna lezione corrisponde ai criteri di ricerca
-                    Toast.makeText(context, "Lezione non trovata", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Non ci sono lezioni corrispondenti", Toast.LENGTH_SHORT).show()
                     _filteredLessonsList.postValue(emptyList())
                 } else {
                     // Almeno una lezione corrisponde ai criteri di ricerca
@@ -97,4 +97,9 @@ class HomeViewModel : ViewModel() {
                 Toast.makeText(context, "Errore durante la ricerca della lezione", Toast.LENGTH_SHORT).show()
             }
     }
+
+    fun clearFilteredLessonsList() {
+        _filteredLessonsList.value = emptyList() // Dove _filteredLessonsList è il MutableLiveData per i dati filtrati
+    }
+
 }
