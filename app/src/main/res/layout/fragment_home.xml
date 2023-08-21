@@ -188,6 +188,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+
             <Button
                 android:id="@+id/buttonCerca"
                 android:layout_width="125dp"
@@ -201,7 +202,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+                android:layout_marginBottom="30dp"/>
+
+            <Button
+                android:id="@+id/Clean"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="Clean"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/red"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
