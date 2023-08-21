@@ -94,7 +94,8 @@
             android:inputType="textEmailAddress"
             android:lines="1"
             android:textColorHint="@color/primaryblue"
-            android:textColor="#404040"/>
+            android:textColor="#404040"
+            android:textCursorDrawable="@drawable/custom_blue_cursor"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,7 +132,8 @@
             android:selectAllOnFocus="true"
             android:lines="1"
             android:textColorHint="@color/primaryblue"
-            android:textColor="#404040" />
+            android:textColor="#404040"
+            android:textCursorDrawable="@drawable/custom_blue_cursor"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
