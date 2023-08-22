@@ -27,33 +27,33 @@ class HomeViewModel : ViewModel() {
     fun checkIfLessonExists(context: Context, subject: String, date: String, target: String, location: String) {
 
 
-     /*   db.collection("lessons")
-            .whereEqualTo("subject", subject)
-            .whereEqualTo("date", date)
-            .whereEqualTo("target", target)
-            .whereEqualTo("location", location)
-            .get()
-                .addOnSuccessListener { querySnapshot ->
-                    val matchingLessons = mutableListOf<Lesson>()
-                    for (lessonDocument in querySnapshot) {
-                        val lesson = lessonDocument.toObject(Lesson::class.java)
-                        matchingLessons.add(lesson)
-                    }
+        /*   db.collection("lessons")
+               .whereEqualTo("subject", subject)
+               .whereEqualTo("date", date)
+               .whereEqualTo("target", target)
+               .whereEqualTo("location", location)
+               .get()
+                   .addOnSuccessListener { querySnapshot ->
+                       val matchingLessons = mutableListOf<Lesson>()
+                       for (lessonDocument in querySnapshot) {
+                           val lesson = lessonDocument.toObject(Lesson::class.java)
+                           matchingLessons.add(lesson)
+                       }
 
-                    if (querySnapshot.isEmpty) {
-                        // Nessuna lezione corrisponde ai criteri di ricerca
-                        //Toast.makeText(context, "Lezione non trovata", Toast.LENGTH_SHORT).show()
-                        _filteredLessonsList.postValue(emptyList())
+                       if (querySnapshot.isEmpty) {
+                           // Nessuna lezione corrisponde ai criteri di ricerca
+                           //Toast.makeText(context, "Lezione non trovata", Toast.LENGTH_SHORT).show()
+                           _filteredLessonsList.postValue(emptyList())
 
-                    } else {
-                        // Almeno una lezione corrisponde ai criteri di ricerca
-                        _filteredLessonsList.postValue(matchingLessons)
-                    }
-                }
-            .addOnFailureListener {
-                // Gestione dell'errore nel caso la query fallisca
-                Toast.makeText(context, "Errore durante la ricerca della lezione", Toast.LENGTH_SHORT).show()
-            }*/
+                       } else {
+                           // Almeno una lezione corrisponde ai criteri di ricerca
+                           _filteredLessonsList.postValue(matchingLessons)
+                       }
+                   }
+               .addOnFailureListener {
+                   // Gestione dell'errore nel caso la query fallisca
+                   Toast.makeText(context, "Errore durante la ricerca della lezione", Toast.LENGTH_SHORT).show()
+               }*/
 
 
         var query: Query = db.collection("lessons")
