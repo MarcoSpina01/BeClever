@@ -21,46 +21,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     private lateinit var indicatorBar: View
 
-
-    @SuppressLint("MissingInflatedId")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
-
-        indicatorBar = view.findViewById(R.id.lineView)
-
-        val bookedLessonsTextView: TextView = view.findViewById(R.id.BookedLessons)
-        val publishedLessonsTextView: TextView = view.findViewById(R.id.PublishedLessons)
-        val layoutBooked: LinearLayout = view.findViewById(R.id.layoutBookedLessons)
-        val layoutPublished: LinearLayout = view.findViewById(R.id.layoutPublishedLessons)
-
-        // Aggiungi un listener al pulsante "Lezioni prenotate"
-        bookedLessonsTextView.setOnClickListener {
-            layoutBooked.visibility = View.VISIBLE
-            layoutPublished.visibility = View.GONE
-            moveIndicatorBarToView(bookedLessonsTextView)
-        }
-
-        // Aggiungi un listener al pulsante "Lezioni pubblicate"
-        publishedLessonsTextView.setOnClickListener {
-            layoutBooked.visibility = View.GONE
-            layoutPublished.visibility = View.VISIBLE
-            moveIndicatorBarToView(publishedLessonsTextView)
-        }
-
-        return view
-    }
-
-    private fun moveIndicatorBarToView(targetView: View) {
-        val targetX = targetView.x
-        indicatorBar.animate()
-            .x(targetX)
-            .setDuration(300)
-            .start()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDashboardBinding.bind(view)
@@ -89,8 +49,36 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             publishedLessonsAdapter.submitList(lessons)
             binding.PublishedLessons.text = "Lezioni pubblicate (${lessons.size})"
         }
+
+        indicatorBar = view.findViewById(R.id.lineView)
+
+        val bookedLessonsTextView: TextView = view.findViewById(R.id.BookedLessons)
+        val publishedLessonsTextView: TextView = view.findViewById(R.id.PublishedLessons)
+        val layoutBooked: LinearLayout = view.findViewById(R.id.layoutBookedLessons)
+        val layoutPublished: LinearLayout = view.findViewById(R.id.layoutPublishedLessons)
+
+        bookedLessonsTextView.setOnClickListener {
+            layoutBooked.visibility = View.VISIBLE
+            layoutPublished.visibility = View.GONE
+            moveIndicatorBarToView(bookedLessonsTextView)
+        }
+
+        publishedLessonsTextView.setOnClickListener {
+            layoutBooked.visibility = View.GONE
+            layoutPublished.visibility = View.VISIBLE
+            moveIndicatorBarToView(publishedLessonsTextView)
+        }
+    }
+
+    private fun moveIndicatorBarToView(targetView: View) {
+        val targetX = targetView.x
+        indicatorBar.animate()
+            .x(targetX)
+            .setDuration(300)
+            .start()
     }
 }
+
 
 
 
