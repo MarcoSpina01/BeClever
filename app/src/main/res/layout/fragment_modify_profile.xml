@@ -105,7 +105,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Nome"
-                                android:text="@{viewModel.user.nome.toString()}"
+                                android:text="@{viewModel.userModel.nome.toString()}"
                                 android:inputType="text"
                                 android:lines="1"
                                 android:textColorHint="@android:color/black" />
@@ -137,7 +137,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Cognome"
-                                android:text="@{viewModel.user.cognome.toString()}"
+                                android:text="@{viewModel.userModel.cognome.toString()}"
                                 android:inputType="text"
                                 android:lines="1"
                                 android:textColorHint="@android:color/black" />
@@ -169,7 +169,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Email"
-                                android:text="@{viewModel.user.email.toString()}"
+                                android:text="@{viewModel.userModel.email.toString()}"
                                 android:inputType="text"
                                 android:lines="1"
                                 android:textColorHint="@android:color/black" />
@@ -203,7 +203,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="ParcoBio"
-                                android:text="@{viewModel.user.bio.toString()}"
+                                android:text="@{viewModel.userModel.bio.toString()}"
                                 android:inputType="text"
                                 android:lines="4"
                                 android:textColorHint="@android:color/black" />
@@ -235,7 +235,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Qualifica"
-                                android:text="@{viewModel.user.qualifica.toString()}"
+                                android:text="@{viewModel.userModel.qualifica.toString()}"
                                 android:inputType="text"
                                 android:lines="1"
                                 android:textColorHint="@android:color/black" />
