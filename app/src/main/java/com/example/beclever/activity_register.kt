@@ -2,19 +2,21 @@ package com.example.beclever
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import com.example.beclever.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 class activity_register : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
-    //private lateinit var database: FirebaseDatabase
+    private var token = ""
+
+
 
 // Nella funzione onCreate() dell'attività
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +50,17 @@ class activity_register : AppCompatActivity() {
         }
     }
 
+    private fun setNotificationToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                token = task.result
+                println(token)
+            }
+        }
+    }
+
     private fun registerUser(email: String, password: String, nome : String, cognome : String) {
+        setNotificationToken()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -60,7 +72,8 @@ class activity_register : AppCompatActivity() {
                         "email" to email,
                         "bio" to "",
                         "qualification" to "",
-
+                        "uid" to auth.currentUser?.uid,
+                        "notificationId" to token
                     )
                     var utente = auth.currentUser
                     var id = utente?.uid

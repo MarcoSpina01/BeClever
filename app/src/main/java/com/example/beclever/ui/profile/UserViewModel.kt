@@ -10,24 +10,24 @@ import androidx.lifecycle.ViewModel
 class UserViewModel : ViewModel() {
 
 
-    private val userModel = UserModel()
+    private val userRepository = UserRepository()
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
+    private val _userModel = MutableLiveData<UserModel>()
+    val userModel: LiveData<UserModel>
+        get() = _userModel
 
 
     fun fetchUserData() {
-        userModel.fetchUserData { user ->
+        userRepository.fetchUserData { user ->
             if (user != null) {
-                _user.value = user
+                _userModel.value = user
             } else {
                 // Nessun dato corrispondente trovato
             }
         }
     }
 
-    fun updateUserProfile(userId: String, newName: String, newSurname: String, newEmail: String, newBio: String, newQualification: String, context: Context?) {userModel.updateUserProfile(userId, newName, newSurname, newEmail, newBio, newQualification)
+    fun updateUserProfile(userId: String, newName: String, newSurname: String, newEmail: String, newBio: String, newQualification: String, context: Context?) {userRepository.updateUserProfile(userId, newName, newSurname, newEmail, newBio, newQualification)
         .addOnSuccessListener {
             Toast.makeText(context, "Profilo aggiornato con successo!", Toast.LENGTH_SHORT).show()
             fetchUserData()
@@ -45,8 +45,8 @@ class UserViewModel : ViewModel() {
         when {
             newPassword == oldPassword -> onComplete(ChangePasswordResult.NEW_PASSWORD_DIFFERENT)
             newPassword.length < 8 -> onComplete(ChangePasswordResult.NEW_PASSWORD_TOO_SHORT)
-            userModel.updatePassword(oldPassword, newPassword) -> onComplete(ChangePasswordResult.SUCCESS)
-            !userModel.updatePassword(oldPassword, newPassword) -> onComplete(ChangePasswordResult.CURRENT_PASSWORD_INCORRECT)
+            userRepository.updatePassword(oldPassword, newPassword) -> onComplete(ChangePasswordResult.SUCCESS)
+            !userRepository.updatePassword(oldPassword, newPassword) -> onComplete(ChangePasswordResult.CURRENT_PASSWORD_INCORRECT)
             else -> onComplete(ChangePasswordResult.ERRORE)
         }
     }
