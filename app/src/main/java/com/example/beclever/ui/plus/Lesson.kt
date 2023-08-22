@@ -10,10 +10,11 @@ data class Lesson(
     val location: String,
     val cost: String,
     val userId: String?,
+    val clientId: String?,
     var isBooked: Boolean
 
 )
     : Serializable
 {
-    constructor() : this("", "", "", "", "", "",false)
+    constructor() : this("", "", "", "", "", "","", false)
 }
