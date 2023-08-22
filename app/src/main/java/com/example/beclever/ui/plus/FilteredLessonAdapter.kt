@@ -10,10 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.R
-import com.example.beclever.ui.plus.Lesson
+import com.example.beclever.ui.plus.LessonModel
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FilteredLessonsAdapter(private val lessons: List<Lesson>) :
+class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
     RecyclerView.Adapter<FilteredLessonsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -121,8 +121,6 @@ class PlusFragment : Fragment() {
                     Toast.makeText(requireContext(), "Errore durante la creazione", Toast.LENGTH_SHORT).show()
                 }
             }
-
-
         }
 
         return root

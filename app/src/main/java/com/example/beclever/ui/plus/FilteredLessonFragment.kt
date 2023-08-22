@@ -39,7 +39,7 @@ class FilteredLessonFragment : Fragment() {
 
         val recyclerView: RecyclerView = bindingView.recyclerViewFilteredLessons
 
-        val lessons: List<Lesson> = arguments?.getSerializable("filteredLessonsList") as List<Lesson>
+        val lessons: List<LessonModel> = arguments?.getSerializable("filteredLessonsList") as List<LessonModel>
         val adapter = FilteredLessonsAdapter(lessons)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

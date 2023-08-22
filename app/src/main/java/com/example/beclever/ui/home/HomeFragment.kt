@@ -23,7 +23,7 @@ import com.example.beclever.R
 import com.example.beclever.databinding.FragmentHomeBinding
 import java.util.*
 import com.example.beclever.ui.plus.FilteredLessonFragment
-import com.example.beclever.ui.plus.Lesson
+import com.example.beclever.ui.plus.LessonModel
 
 class HomeFragment : Fragment() {
 
@@ -31,8 +31,6 @@ class HomeFragment : Fragment() {
     private val bindingView get() = _binding!!
 
     private lateinit var provinceList: Array<String>
-    private lateinit var filteredProvinceList: ArrayList<String>
-    private lateinit var filteredLessonsList: List<Lesson>
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -99,11 +97,11 @@ class HomeFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Inserisci un campo per la ricerca!", Toast.LENGTH_SHORT).show()
             }
-            homeViewModel.filteredLessonsList.observe(viewLifecycleOwner) { filteredLessonsList ->
-                if (filteredLessonsList.isNotEmpty()) {
+            homeViewModel.filteredLessonsList.observe(viewLifecycleOwner) { observedFilteredLessonsList ->
+                if (observedFilteredLessonsList.isNotEmpty()) {
                     val filteredLessonsFragment = FilteredLessonFragment()
                     val bundle = Bundle()
-                    bundle.putSerializable("filteredLessonsList", ArrayList(filteredLessonsList))
+                    bundle.putSerializable("filteredLessonsList", ArrayList(observedFilteredLessonsList))
                     filteredLessonsFragment.arguments = bundle
 
                     parentFragmentManager.beginTransaction()
@@ -169,7 +167,7 @@ class HomeFragment : Fragment() {
         val inputSearch = dialog.findViewById<EditText>(R.id.edit_search)
 
         provinceList = resources.getStringArray(R.array.province)
-        filteredProvinceList = ArrayList(provinceList.toList())
+        val filteredProvinceList = ArrayList<String>(provinceList.toList()) // Muovi questa riga qui
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, filteredProvinceList)
         listView.adapter = adapter
 

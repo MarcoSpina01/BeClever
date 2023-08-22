@@ -122,6 +122,23 @@
                 android:text=""
                 android:textSize="14sp" />
         </LinearLayout>
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2"
+            android:backgroundTint="@color/primaryblue"
+            android:text="Elimina lezione"
+            android:textAllCaps="false"
+            android:textColorHint="@color/primaryblue"
+            app:cornerRadius="10dp"
+            app:iconTint="@color/primaryblue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:layout_width="match_parent"

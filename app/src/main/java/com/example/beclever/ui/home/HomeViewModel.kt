@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.beclever.ui.plus.Lesson
+import com.example.beclever.ui.plus.LessonModel
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,14 +14,14 @@ import com.google.firebase.firestore.QuerySnapshot
 
 class HomeViewModel : ViewModel() {
 
-    val _lessonLiveData: MutableLiveData<Lesson?> = MutableLiveData()
-    val lesson: LiveData<Lesson?>
+    val _lessonLiveData: MutableLiveData<LessonModel?> = MutableLiveData()
+    val lesson: LiveData<LessonModel?>
         get() = _lessonLiveData
 
     val db = FirebaseFirestore.getInstance()
 
-    private val _filteredLessonsList = MutableLiveData<List<Lesson>>()
-    val filteredLessonsList: LiveData<List<Lesson>>
+    private val _filteredLessonsList = MutableLiveData<List<LessonModel>>()
+    val filteredLessonsList: LiveData<List<LessonModel>>
         get() = _filteredLessonsList
 
     fun checkIfLessonExists(context: Context, subject: String, date: String, target: String, location: String) {
@@ -76,10 +76,10 @@ class HomeViewModel : ViewModel() {
 
         query.get()
             .addOnSuccessListener { querySnapshot ->
-                val matchingLessons = mutableListOf<Lesson>()
+                val matchingLessons = mutableListOf<LessonModel>()
 
                 for (lessonDocument in querySnapshot.documents) {
-                    val lesson = lessonDocument.toObject(Lesson::class.java)
+                    val lesson = lessonDocument.toObject(LessonModel::class.java)
                     lesson?.let { if (!it.isBooked) {
                         matchingLessons.add(it) // Aggiungi la lezione solo se non è prenotata
                     } }
