@@ -1,76 +1,52 @@
 package com.example.beclever.ui.dashboard
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.R
 import com.example.beclever.databinding.FragmentDashboardBinding
-import com.example.beclever.ui.plus.Lesson
 
-class DashboardFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var viewModel: DashboardViewModel
+    private lateinit var binding: FragmentDashboardBinding
 
     private lateinit var indicatorBar: View
 
-    private lateinit var layoutBookedLessons: LinearLayout
-    private lateinit var layoutPublishedLessons: LinearLayout
-    private lateinit var recyclerViewBookedLessons: RecyclerView
-    private lateinit var recyclerViewPublishedLessons: RecyclerView
-    private lateinit var bookedLessonsData: List<Lesson> // I tuoi dati delle lezioni prenotate
-    private lateinit var publishedLessonsData: List<Lesson> // I tuoi dati delle lezioni pubblicate
 
-    val publishedLessons = mutableListOf<Lesson>()
-    val bookedLessons = mutableListOf<Lesson>()
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
-        recyclerViewBookedLessons = view.findViewById(R.id.recyclerViewBookedLessons)
-        recyclerViewPublishedLessons = view.findViewById(R.id.recyclerViewPublishedLessons)
-
-        // Configura le RecyclerView come desiderato
-        setupRecyclerView(recyclerViewBookedLessons, /* passi i dati delle lezioni prenotate */)
-        setupRecyclerView(recyclerViewPublishedLessons, /* passi i dati delle lezioni pubblicate */)
-
-        layoutBookedLessons = view.findViewById(R.id.layoutMessages)
-        layoutPublishedLessons = view.findViewById(R.id.layoutNotifications)
-
-        // Imposta il layout delle lezioni prenotate come visibile all'inizio
-        layoutBookedLessons.visibility = View.VISIBLE
-        layoutPublishedLessons.visibility = View.GONE
+        indicatorBar = view.findViewById(R.id.lineView)
 
         val bookedLessonsTextView: TextView = view.findViewById(R.id.BookedLessons)
         val publishedLessonsTextView: TextView = view.findViewById(R.id.PublishedLessons)
-
-        indicatorBar = view.findViewById(R.id.lineView)
+        val layoutBooked: LinearLayout = view.findViewById(R.id.layoutBookedLessons)
+        val layoutPublished: LinearLayout = view.findViewById(R.id.layoutPublishedLessons)
 
         // Aggiungi un listener al pulsante "Lezioni prenotate"
         bookedLessonsTextView.setOnClickListener {
-            layoutBookedLessons.visibility = View.VISIBLE
-            layoutPublishedLessons.visibility = View.GONE
+            layoutBooked.visibility = View.VISIBLE
+            layoutPublished.visibility = View.GONE
             moveIndicatorBarToView(bookedLessonsTextView)
         }
 
         // Aggiungi un listener al pulsante "Lezioni pubblicate"
         publishedLessonsTextView.setOnClickListener {
-            layoutBookedLessons.visibility = View.GONE
-            layoutPublishedLessons.visibility = View.VISIBLE
+            layoutBooked.visibility = View.GONE
+            layoutPublished.visibility = View.VISIBLE
             moveIndicatorBarToView(publishedLessonsTextView)
         }
 
@@ -85,15 +61,36 @@ class DashboardFragment : Fragment() {
             .start()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentDashboardBinding.bind(view)
 
-    private fun setupRecyclerView(recyclerView: RecyclerView, lessonData: List<Lesson>) {
-        val layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.layoutManager = layoutManager
-        val adapter = DashboardAdapter(lessonData) // Crea l'adapter e passa i dati delle lezioni
-        recyclerView.adapter = adapter
-    }
-    override fun onDestroyView() {
-            super.onDestroyView()
-            _binding = null
+        viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
+
+        val bookedLessonsAdapter = BookedLessonsAdapter(emptyList())
+        val publishedLessonsAdapter = PublishedLessonsAdapter(emptyList())
+
+        binding.recyclerViewBookedLessons.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = bookedLessonsAdapter
         }
+
+        binding.recyclerViewPublishedLessons.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = publishedLessonsAdapter
+        }
+
+        viewModel.bookedLessonsLiveData.observe(viewLifecycleOwner) { lessons ->
+            bookedLessonsAdapter.submitList(lessons)
+            binding.BookedLessons.text = "Lezioni prenotate (${lessons.size})"
+        }
+
+        viewModel.publishedLessonsLiveData.observe(viewLifecycleOwner) { lessons ->
+            publishedLessonsAdapter.submitList(lessons)
+            binding.PublishedLessons.text = "Lezioni pubblicate (${lessons.size})"
+        }
+    }
 }
+
+
+
