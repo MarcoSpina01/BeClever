@@ -90,7 +90,7 @@
 
         <!-- Sezione Messaggi -->
         <LinearLayout
-            android:id="@+id/layoutMessages"
+            android:id="@+id/layoutBookedLessons"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -105,7 +105,7 @@
 
         <!-- Sezione Notifiche -->
         <LinearLayout
-            android:id="@+id/layoutNotifications"
+            android:id="@+id/layoutPublishedLessons"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
