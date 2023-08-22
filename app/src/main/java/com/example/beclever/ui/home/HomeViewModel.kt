@@ -80,7 +80,9 @@ class HomeViewModel : ViewModel() {
 
                 for (lessonDocument in querySnapshot.documents) {
                     val lesson = lessonDocument.toObject(Lesson::class.java)
-                    lesson?.let { matchingLessons.add(it) }
+                    lesson?.let { if (!it.isBooked) {
+                        matchingLessons.add(it) // Aggiungi la lezione solo se non è prenotata
+                    } }
                 }
 
                 if (matchingLessons.isEmpty()) {
