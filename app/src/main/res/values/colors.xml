@@ -10,4 +10,13 @@
     <color name="darkgray">#454545</color>
     <color name="primaryblue">#00a8f3</color>
     <color name="red">#B71C1C</color>
+    <color name="lilla">#c75abe</color>
+
+    <color name="text_color_selector">
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:state_selected="true" android:color="@color/lilla" /> <!-- Colore del testo rosso quando il pulsante è selezionato -->
+            <item android:color="@color/white" /> <!-- Colore del testo nero per tutti gli altri casi -->
+        </selector>
+    </color>
+
 </resources>

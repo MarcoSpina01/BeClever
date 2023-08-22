@@ -10,7 +10,7 @@ data class Lesson(
     val location: String,
     val cost: String,
     val userId: String?,
-    val isBooked: Boolean
+    var isBooked: Boolean
 
 )
     : Serializable
