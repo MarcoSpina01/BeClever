@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.beclever.HomeActivity
 import com.example.beclever.R
 import com.example.beclever.databinding.ActivityLoginBinding
-import com.example.beclever.activity_register
 
 class LoginActivity : AppCompatActivity() {
 
@@ -30,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = loginViewModel
 
         binding.registrati.setOnClickListener { // Imposto un listener per il pulsante "Registrati"
-            val intent = Intent(this, activity_register::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
