@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
@@ -26,81 +24,70 @@ private lateinit var bookedLessonsAdapter: BookedLessonsAdapter
 private lateinit var publishedLessonsAdapter: PublishedLessonsAdapter
 
 class DashboardFragment : Fragment() {
-    private lateinit var viewModel: DashboardViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = bindingView.root
-        // Inizializza la ViewModel
         dashboardViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         bindingView.viewModel = dashboardViewModel
         bindingView.lifecycleOwner = viewLifecycleOwner
 
-        bookedLessonsAdapter = BookedLessonsAdapter(emptyList()) // Passa la lista di lezioni prenotate
-        publishedLessonsAdapter = PublishedLessonsAdapter(emptyList()) // Passa la lista di lezioni pubblicate
-
-
-        // Collega gli adapter alle RecyclerView corrispondenti
-        bindingView.recyclerViewBookedLessons.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = bookedLessonsAdapter
-        }
-
-        bindingView.recyclerViewPublishedLessons.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = publishedLessonsAdapter
-        }
-
-        dashboardViewModel.bookedLessonsList.observe(viewLifecycleOwner) { bookedLessons ->
-            // Aggiorna l'adapter per lezioni prenotate
-            bookedLessonsAdapter.updateData(bookedLessons)
-        }
-
-        dashboardViewModel.publishedLessonsList.observe(viewLifecycleOwner) { publishedLessons ->
-            // Aggiorna l'adapter per lezioni pubblicate
-            publishedLessonsAdapter.updateData(publishedLessons)
-        }
-
-        // Carica le lezioni prenotate e pubblicate per l'utente corrente
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val userId = currentUser?.uid
-
-        if (userId != null) {
-            // Ora hai l'ID dell'utente corrente, puoi usarlo nelle tue operazioni
-            dashboardViewModel.loadBookedLessons(userId)
-            dashboardViewModel.loadPublishedLessons(userId)
-        } else {
-            // L'utente non è autenticato, fai qualcosa di conseguenza
-        }
-
-        // ... Altri codici
-
-        return root
+        return bindingView.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val bookedLessonsTextView = bindingView.BookedLessons
-        val publishedLessonsTextView = bindingView.PublishedLessons
 
-        // Imposta il click listener per il pulsante delle lezioni prenotate
+        // Inizializza gli adapter per le lezioni prenotate e pubblicate
+        bookedLessonsAdapter = BookedLessonsAdapter(emptyList(), dashboardViewModel)
+        publishedLessonsAdapter = PublishedLessonsAdapter(emptyList(), dashboardViewModel)
+
+        // Imposta gli adapter iniziali per le RecyclerView
+        bindingView.recyclerViewBookedLessons.adapter = bookedLessonsAdapter
+        bindingView.recyclerViewPublishedLessons.adapter = publishedLessonsAdapter
+
+        // Imposta il layout manager per le RecyclerView
+        bindingView.recyclerViewBookedLessons.layoutManager = LinearLayoutManager(requireContext())
+        bindingView.recyclerViewPublishedLessons.layoutManager = LinearLayoutManager(requireContext())
+
+        // Imposta i click listener per i pulsanti di filtro
         bindingView.BookedLessons.setOnClickListener {
             bindingView.recyclerViewBookedLessons.visibility = View.VISIBLE
             bindingView.recyclerViewPublishedLessons.visibility = View.GONE
-            moveIndicatorBarToView(bookedLessonsTextView)
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userId = currentUser?.uid
+            userId?.let {
+                dashboardViewModel.loadBookedLessons(it)
+            }
+            moveIndicatorBarToView(bindingView.BookedLessons)
         }
 
-        // Imposta il click listener per il pulsante delle lezioni pubblicate
         bindingView.PublishedLessons.setOnClickListener {
             bindingView.recyclerViewBookedLessons.visibility = View.GONE
             bindingView.recyclerViewPublishedLessons.visibility = View.VISIBLE
-            moveIndicatorBarToView(publishedLessonsTextView)
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userId = currentUser?.uid
+            userId?.let {
+                dashboardViewModel.loadPublishedLessons(it)
+            }
+            moveIndicatorBarToView(bindingView.PublishedLessons)
+        }
+
+        dashboardViewModel.bookedLessonsList.observe(viewLifecycleOwner) { lessons ->
+            bookedLessonsAdapter.updateData(lessons)
+        }
+
+        dashboardViewModel.publishedLessonsList.observe(viewLifecycleOwner) { lessons ->
+            publishedLessonsAdapter.updateData(lessons)
         }
     }
+
+
+
 
     private fun moveIndicatorBarToView(targetView: View) {
         var indicatorBar = bindingView.lineView

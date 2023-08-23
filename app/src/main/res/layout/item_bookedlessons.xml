@@ -2,36 +2,32 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<data>
-    <variable
-        name="bookedlesson"
-        type="com.example.beclever.ui.plus.Lesson" />
-</data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="16dp"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:gravity="center">
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center">
+
             <TextView
                 android:id="@+id/textViewLessonUsernameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Utente:"
+                android:textColor="@color/primaryblue"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/primaryblue"/>
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewLessonUsername"
+                android:id="@+id/textViewLessonUsernameBooked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -41,25 +37,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/textViewLessonSubjectTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text= "Materia :"
+                android:text="Materia :"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewLessonSubject"
+                android:id="@+id/textViewLessonSubjectBooked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text= ""
+                android:text=""
                 android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/textViewLessonDateTitle"
                 android:layout_width="wrap_content"
@@ -67,8 +65,9 @@
                 android:text="Data :"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/textViewLessonDate"
+                android:id="@+id/textViewLessonDateBooked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -78,6 +77,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/textViewLessonLocationTitle"
                 android:layout_width="wrap_content"
@@ -85,8 +85,9 @@
                 android:text="Provincia :"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/textViewLessonLocation"
+                android:id="@+id/textViewLessonLocationBooked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -96,6 +97,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/textViewLessonTargetTitle"
                 android:layout_width="wrap_content"
@@ -103,8 +105,9 @@
                 android:text="Target :"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/textViewLessonTarget"
+                android:id="@+id/textViewLessonTargetBooked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -114,6 +117,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/textViewLessonCostTitle"
                 android:layout_width="wrap_content"
@@ -121,13 +125,32 @@
                 android:text="Costo :"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/textViewLessonCost"
+                android:id="@+id/textViewLessonCostBooked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="14sp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2"
+            android:backgroundTint="@color/primaryblue"
+            android:text="Cancella prenotazione"
+            android:textAllCaps="false"
+            android:textColorHint="@color/primaryblue"
+            app:cornerRadius="10dp"
+            app:iconTint="@color/primaryblue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:layout_width="match_parent"

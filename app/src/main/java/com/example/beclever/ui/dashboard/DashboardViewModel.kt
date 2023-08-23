@@ -1,10 +1,12 @@
 package com.example.beclever.ui.dashboard
 
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.beclever.ui.plus.LessonModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -20,14 +22,13 @@ class DashboardViewModel : ViewModel() {
         // Carica le lezioni prenotate dall'utente da Firebase e aggiorna _bookedLessonsList
         // Esempio:
         Firebase.firestore.collection("lessons")
-            .whereEqualTo("userId", userId)
+            .whereEqualTo("clientId", userId)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 val lessons = querySnapshot.toObjects(LessonModel::class.java)
                 _bookedLessonsList.postValue(lessons)
             }
-            .addOnFailureListener { exception ->
-                // Gestione dell'errore
+            .addOnFailureListener {
             }
     }
 
@@ -41,8 +42,7 @@ class DashboardViewModel : ViewModel() {
                 val lessons = querySnapshot.toObjects(LessonModel::class.java)
                 _publishedLessonsList.postValue(lessons)
             }
-            .addOnFailureListener { exception ->
-                // Gestione dell'errore
+            .addOnFailureListener {
             }
     }
 
@@ -68,6 +68,21 @@ class DashboardViewModel : ViewModel() {
             }
             .addOnFailureListener { exception ->
                 // Gestione dell'errore
+            }
+    }
+
+     fun fetchUserInfoAndSetUsername(userId: String, usernameTextView: TextView) {
+        val db = FirebaseFirestore.getInstance()
+        val usersCollection = db.collection("users")
+
+        usersCollection.document(userId).get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val userName = documentSnapshot.getString("first") ?: ""
+                    usernameTextView.text = " ${userName}"
+                }
+            }
+            .addOnFailureListener {
             }
     }
 

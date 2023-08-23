@@ -11,19 +11,20 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.R
 import com.example.beclever.ui.plus.LessonModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
     RecyclerView.Adapter<FilteredLessonsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val usernameTextView: TextView = itemView.findViewById(R.id.textViewLessonUsername)
-        val subjectTextView: TextView = itemView.findViewById(R.id.textViewLessonSubject)
-        val dateTextView: TextView = itemView.findViewById(R.id.textViewLessonDate)
-        val targetTextView: TextView = itemView.findViewById(R.id.textViewLessonTarget) // Aggiungi questa linea
-        val locationTextView: TextView = itemView.findViewById(R.id.textViewLessonLocation)
-        val costTextView: TextView = itemView.findViewById(R.id.textViewLessonCost) // Aggiungi questa linea
-        val bookButton: Button = itemView.findViewById(R.id.prenota)
+        val usernameTextView: TextView = itemView.findViewById(R.id.textViewLessonUsernameSimple)
+        val subjectTextView: TextView = itemView.findViewById(R.id.textViewLessonSubjectSimple)
+        val dateTextView: TextView = itemView.findViewById(R.id.textViewLessonDateSimple)
+        val targetTextView: TextView = itemView.findViewById(R.id.textViewLessonTargetSimple) // Aggiungi questa linea
+        val locationTextView: TextView = itemView.findViewById(R.id.textViewLessonLocationSimple)
+        val costTextView: TextView = itemView.findViewById(R.id.textViewLessonCostSimple) // Aggiungi questa linea
+        val bookButton: Button = itemView.findViewById(R.id.prenotaButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +36,9 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val lesson = lessons[position]
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val clientId = currentUser?.uid
 
         if (!lesson.userId.isNullOrEmpty()) {
             fetchUserInfoAndSetUsername(lesson.userId, holder.usernameTextView)
@@ -51,7 +55,9 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
                 holder.bookButton.isEnabled = true // Abilita il pulsante
                 holder.bookButton.setOnClickListener {
                     lesson.isBooked = true
-                    updateFirestoreBookingStatus(lesson.userId, lesson.subject, lesson.target, lesson.location, lesson.date, lesson.cost, holder.itemView.context)
+                    if (clientId != null) {
+                        updateFirestoreLesson(lesson.userId, lesson.subject, lesson.target, lesson.location, lesson.date, lesson.cost, clientId, holder.itemView.context)
+                    }
                     notifyDataSetChanged()
                 }
             }
@@ -69,18 +75,17 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
                     usernameTextView.text = " ${userName}"
                 }
             }
-            .addOnFailureListener { e ->
-                //val errorMessage = "Errore durante il recupero delle informazioni dell'utente: ${e.message}"
-                //Toast.makeText(usernameTextView.context, errorMessage, Toast.LENGTH_SHORT).show()
+            .addOnFailureListener {
             }
     }
 
-    private fun updateFirestoreBookingStatus(lessonId: String,subject: String, target: String, location: String, date: String, cost: String, context: Context) {
+    private fun updateFirestoreLesson(userId: String,subject: String, target: String, location: String, date: String, cost: String, clientId: String, context: Context) {
         val db = FirebaseFirestore.getInstance()
         val lessonsCollection = db.collection("lessons")
 
         // Crea una query complessa che corrisponde a tutti i campi specificati
         val query = lessonsCollection
+            .whereEqualTo("userId", userId)
             .whereEqualTo("subject", subject)
             .whereEqualTo("target", target)
             .whereEqualTo("location", location)
@@ -91,7 +96,7 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
                     val lessonDocumentRef = lessonsCollection.document(document.id)
-                    lessonDocumentRef.update("booked", true)
+                    lessonDocumentRef.update("booked", true, "clientId", clientId)
                         .addOnSuccessListener {
                             Toast.makeText(context, "Prenotazione effettuata con successo!", Toast.LENGTH_SHORT).show()
                         }
