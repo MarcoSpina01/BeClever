@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.beclever.ui.login.RegistrationCallback
 
 
 class UserViewModel : ViewModel() {
@@ -51,6 +52,14 @@ class UserViewModel : ViewModel() {
         }
     }
 
+    fun registerUser(email: String, password: String, nome: String, cognome: String, callback: RegistrationCallback) {
+        val user = UserModel(nome, email, cognome, "", "", "", password)
+        userRepository.storeUser(user, callback)
+    }
+
+    fun isRegistrationDataValid(user: UserModel): Boolean {
+        return user.isNomeValid && user.isCognomeValid && user.isEmailValid && user.isPasswordValid
+    }
 
 
 }

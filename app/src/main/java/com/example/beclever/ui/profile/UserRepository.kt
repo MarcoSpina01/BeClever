@@ -2,28 +2,37 @@ package com.example.beclever.ui.profile
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.beclever.ui.login.RegistrationCallback
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
+
 
 class UserRepository {
 
     private lateinit var auth: FirebaseAuth
+    private var token = ""
 
     fun fetchUserData(onDataFetched: (UserModel?) -> Unit) {
         getData { data ->
             if (data != null) {
+
                 val nome = data["first"] as String
                 val email = data["email"] as String
                 val cognome = data["last"] as String
                 val bio = data["bio"] as String
                 val qualifica = data["qualification"] as String
                 val notificationId = data["notificationId"] as String
-                val userModel = UserModel(nome, email, cognome, bio, qualifica, notificationId)
+                val userModel = UserModel(nome, email, cognome, bio, qualifica, notificationId, "")
+
+
+
                 onDataFetched(userModel)
             } else {
                 // fai qualcosa in caso contrario
@@ -132,5 +141,53 @@ class UserRepository {
 
         return result
     }
+
+    private fun setNotificationToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                token = task.result
+            }
+        }
+    }
+
+    fun storeUser(userModel: UserModel, callback: RegistrationCallback) {
+        auth = FirebaseAuth.getInstance()
+        setNotificationToken()
+        auth.createUserWithEmailAndPassword(userModel.getEmail(), userModel.getPassword())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    val db = Firebase.firestore
+                    val userId = user?.uid
+                    if (userId != null) {
+                        val userMap = hashMapOf(
+                            "first" to userModel.getNome(),
+                            "last" to userModel.getCognome(),
+                            "email" to userModel.getEmail(),
+                            "bio" to "",
+                            "qualification" to "",
+                            "uid" to userId,
+                            "notificationId" to token
+                        )
+                        db.collection("users")
+                            .document(userId)
+                            .set(userMap)
+                            .addOnSuccessListener {
+                                // Il documento è stato creato con successo
+                                callback.onRegistrationSuccess(user)
+                            }
+                            .addOnFailureListener { e ->
+                                // Si è verificato un errore durante la creazione del documento
+                                callback.onRegistrationFailure(e)
+                            }
+                    }
+                } else {
+                    // Si è verificato un errore durante la registrazione
+                    callback.onRegistrationFailure(task.exception!!)
+                }
+            }
+    }
+
+
 }
 
