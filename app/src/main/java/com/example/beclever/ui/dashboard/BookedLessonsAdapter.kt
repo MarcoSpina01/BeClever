@@ -42,11 +42,12 @@ class BookedLessonsAdapter(
                 currentLesson.userId,
                 holder.usernameTextView
             )
-            holder.subjectTextView.text = currentLesson.subject
-            holder.dateTextView.text = currentLesson.date
-            holder.targetTextView.text = currentLesson.target
-            holder.locationTextView.text = currentLesson.location
-            holder.costTextView.text = currentLesson.cost
+            holder.subjectTextView.text = " ${currentLesson.subject}"
+            holder.dateTextView.text = " ${currentLesson.date}"
+            holder.targetTextView.text = " ${currentLesson.target}"
+            holder.locationTextView.text = " ${currentLesson.location}"
+            holder.costTextView.text = " ${currentLesson.cost}"
+
             holder.deleteBooking.setOnClickListener() {
                 val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context)
                 alertDialogBuilder.setTitle("Cancella Prenotazione")
