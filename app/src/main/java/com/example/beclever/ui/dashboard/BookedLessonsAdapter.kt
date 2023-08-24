@@ -1,12 +1,12 @@
 package com.example.beclever.ui.dashboard
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.R
-import com.example.beclever.ui.FilteredLessonsAdapter
 import com.example.beclever.ui.plus.LessonModel
 
 class BookedLessonsAdapter(
@@ -21,6 +21,7 @@ class BookedLessonsAdapter(
         val targetTextView: TextView = itemView.findViewById(R.id.textViewLessonTargetBooked) // Aggiungi questa linea
         val locationTextView: TextView = itemView.findViewById(R.id.textViewLessonLocationBooked)
         val costTextView: TextView = itemView.findViewById(R.id.textViewLessonCostBooked) // Aggiungi questa linea
+        val deleteBooking: TextView = itemView.findViewById(R.id.cancel_button)
         //val bookButton: Button = itemView.findViewById(R.id.prenota)
     }
 
@@ -44,6 +45,19 @@ class BookedLessonsAdapter(
             holder.targetTextView.text = currentLesson.target
             holder.locationTextView.text = currentLesson.location
             holder.costTextView.text = currentLesson.cost
+            holder.deleteBooking.setOnClickListener() {
+                val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context)
+                alertDialogBuilder.setTitle("Cancella Prenotazione")
+                alertDialogBuilder.setMessage("Vuoi cancellare la prenotazione?")
+                alertDialogBuilder.setPositiveButton("Si") { _, _ ->
+                    dashboardViewModel.deleteBooking(currentLesson.lessonId)
+                }
+                alertDialogBuilder.setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                val alertDialog = alertDialogBuilder.create()
+                alertDialog.show()
+            }
 
         }
     }

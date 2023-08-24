@@ -1,6 +1,8 @@
 package com.example.beclever.ui.dashboard
 
+import android.content.Context
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 class DashboardViewModel : ViewModel() {
 
@@ -71,7 +74,7 @@ class DashboardViewModel : ViewModel() {
             }
     }
 
-     fun fetchUserInfoAndSetUsername(userId: String, usernameTextView: TextView) {
+    fun fetchUserInfoAndSetUsername(userId: String, usernameTextView: TextView) {
         val db = FirebaseFirestore.getInstance()
         val usersCollection = db.collection("users")
 
@@ -83,6 +86,43 @@ class DashboardViewModel : ViewModel() {
                 }
             }
             .addOnFailureListener {
+            }
+    }
+
+    fun deleteBooking(lessonId: String) {
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser?.uid
+
+        val db = FirebaseFirestore.getInstance()
+        val lessonsCollection = db.collection("lessons")
+
+        // Crea una query complessa che corrisponde a tutti i campi specificati
+        val query = lessonsCollection
+            .whereEqualTo("lessonId", lessonId)
+
+        query.get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    val lessonDocumentRef = lessonsCollection.document(document.id)
+                    lessonDocumentRef.update("booked", false, "clientId", "")
+                        .addOnSuccessListener {
+//                            Toast.makeText(context, "Prenotazione effettuata con successo!", Toast.LENGTH_SHORT).show()
+                            if (userId != null) {
+                                loadBookedLessons(userId)
+                            }
+                        }
+//                        .addOnFailureListener { e ->
+//                            Toast.makeText(context, "Errore durante l'aggiornamento della prenotazione", Toast.LENGTH_SHORT).show()
+//                        }
+//                }
+//            }
+//            .addOnFailureListener { e ->
+//                Toast.makeText(context, "Errore durante la ricerca", Toast.LENGTH_SHORT).show()
+//            }
+
+                }
+
             }
     }
 

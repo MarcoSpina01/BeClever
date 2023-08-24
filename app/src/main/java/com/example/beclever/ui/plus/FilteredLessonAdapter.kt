@@ -51,6 +51,11 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
                 holder.bookButton.text = "Prenotazione Effettuata"
                 holder.bookButton.isEnabled = false // Disabilita il pulsante
             } else {
+                if(lesson.userId == currentUser?.uid) {
+                    holder.bookButton.text = "Prenotazione non effettuabile"
+                    holder.bookButton.isEnabled = false
+                    return
+                }
                 holder.bookButton.text = "Prenota"
                 holder.bookButton.isEnabled = true // Abilita il pulsante
                 holder.bookButton.setOnClickListener {
