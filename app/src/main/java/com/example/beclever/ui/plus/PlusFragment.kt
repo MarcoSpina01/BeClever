@@ -114,12 +114,22 @@ class PlusFragment : Fragment() {
             val location = binding.textInputEditText4.text.toString()
             val cost = binding.textInputEditText5.text.toString()
 
-            lessonViewModel.createLesson(subject, date, target, location, cost) { success ->
-                if (success) {
-                    Toast.makeText(requireContext(), "Lezione creata", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Errore durante la creazione", Toast.LENGTH_SHORT).show()
+            if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty() && cost.isNotEmpty()) {
+                lessonViewModel.createLesson(subject, date, target, location, cost) { success ->
+                    if (success) {
+                        Toast.makeText(requireContext(), "Lezione creata", Toast.LENGTH_SHORT).show()
+                        // Reset input fields
+                        subjectInput.text = null
+                        dateInput.text = null
+                        targetInput.text = null
+                        locationInput.text = null
+                        moneyInput.text = null
+                    } else {
+                        Toast.makeText(requireContext(), "Errore durante la creazione", Toast.LENGTH_SHORT).show()
+                    }
                 }
+            } else {
+                Toast.makeText(requireContext(), "Inserire tutti i campi", Toast.LENGTH_SHORT).show()
             }
         }
 
