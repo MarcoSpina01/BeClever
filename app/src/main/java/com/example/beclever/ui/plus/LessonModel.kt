@@ -16,11 +16,11 @@ data class LessonModel(
     var isBooked: Boolean,
     val lessonId: String,
     val clientId: String,
-    val dateBooking: Date?,
-    val timeBooking: Time?,
+    val dateBooking: Long?,
+    val timeBooking: Long?,
     val canceled: Boolean,
-    val dateCancel: Date?,
-    val timeCancel: Time?,
+    val dateCancel: Long?,
+    val timeCancel: Long?,
 
 
     )

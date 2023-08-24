@@ -11,6 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class DashboardViewModel : ViewModel() {
@@ -97,6 +99,13 @@ class DashboardViewModel : ViewModel() {
         val db = FirebaseFirestore.getInstance()
         val lessonsCollection = db.collection("lessons")
 
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.BASIC_ISO_DATE
+        val currentDate = current.format(formatter).toLong()
+
+        val formatter2 = DateTimeFormatter.ISO_LOCAL_TIME
+        val currentTime = current.format(formatter2).toString().replace(":", "").substringBefore(".").toLong()
+
         // Crea una query complessa che corrisponde a tutti i campi specificati
         val query = lessonsCollection
             .whereEqualTo("lessonId", lessonId)
@@ -105,7 +114,8 @@ class DashboardViewModel : ViewModel() {
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
                     val lessonDocumentRef = lessonsCollection.document(document.id)
-                    lessonDocumentRef.update("booked", false, "clientId", "")
+                    lessonDocumentRef.update("booked", false, "clientId", "", "dateBooking", null, "timeBooking", null,
+                                                    "canceled", true, "dateCancel", currentDate, "timeCancel", currentTime)
                         .addOnSuccessListener {
 //                            Toast.makeText(context, "Prenotazione effettuata con successo!", Toast.LENGTH_SHORT).show()
                             if (userId != null) {

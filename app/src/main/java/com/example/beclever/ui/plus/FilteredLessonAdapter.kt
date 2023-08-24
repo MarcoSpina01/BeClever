@@ -1,4 +1,4 @@
-package com.example.beclever.ui
+package com.example.beclever.ui.plus
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,11 +10,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.R
-import com.example.beclever.ui.plus.LessonModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
     RecyclerView.Adapter<FilteredLessonsAdapter.ViewHolder>() {
@@ -90,8 +91,12 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
         val db = FirebaseFirestore.getInstance()
         val lessonsCollection = db.collection("lessons")
 
-        val currentDate: LocalDate = LocalDate.now()
-        val currentTime: LocalTime = LocalTime.now()
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.BASIC_ISO_DATE
+        val currentDate = current.format(formatter).toLong()
+
+        val formatter2 = DateTimeFormatter.ISO_LOCAL_TIME
+        val currentTime = current.format(formatter2).toString().replace(":", "").substringBefore(".").toLong()
 
         // Crea una query complessa che corrisponde a tutti i campi specificati
         val query = lessonsCollection
@@ -106,7 +111,8 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
                     val lessonDocumentRef = lessonsCollection.document(document.id)
-                    lessonDocumentRef.update("booked", true, "clientId", clientId, "dateBooking", currentDate, "timeBooking", currentTime)
+                    lessonDocumentRef.update("booked", true, "clientId", clientId, "dateBooking", currentDate,
+                                                   "timeBooking", currentTime, "canceled", false, "timeCancel", null, "dateCancel", null)
                         .addOnSuccessListener {
                             Toast.makeText(context, "Prenotazione effettuata con successo!", Toast.LENGTH_SHORT).show()
                         }

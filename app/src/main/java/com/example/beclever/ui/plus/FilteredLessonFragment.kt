@@ -2,17 +2,13 @@ package com.example.beclever.ui.plus
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.beclever.R
 import com.example.beclever.databinding.FragmentFilteredLessonsBinding
-import com.example.beclever.ui.FilteredLessonsAdapter
 
 
 class FilteredLessonFragment : Fragment() {
