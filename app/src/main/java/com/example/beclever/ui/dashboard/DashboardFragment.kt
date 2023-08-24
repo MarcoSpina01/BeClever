@@ -54,27 +54,15 @@ class DashboardFragment : Fragment() {
         bindingView.recyclerViewBookedLessons.layoutManager = LinearLayoutManager(requireContext())
         bindingView.recyclerViewPublishedLessons.layoutManager = LinearLayoutManager(requireContext())
 
+        showBookedLesson()
+
         // Imposta i click listener per i pulsanti di filtro
         bindingView.BookedLessons.setOnClickListener {
-            bindingView.recyclerViewBookedLessons.visibility = View.VISIBLE
-            bindingView.recyclerViewPublishedLessons.visibility = View.GONE
-            val currentUser = FirebaseAuth.getInstance().currentUser
-            val userId = currentUser?.uid
-            userId?.let {
-                dashboardViewModel.loadBookedLessons(it)
-            }
-            moveIndicatorBarToView(bindingView.BookedLessons)
+            showBookedLesson()
         }
 
         bindingView.PublishedLessons.setOnClickListener {
-            bindingView.recyclerViewBookedLessons.visibility = View.GONE
-            bindingView.recyclerViewPublishedLessons.visibility = View.VISIBLE
-            val currentUser = FirebaseAuth.getInstance().currentUser
-            val userId = currentUser?.uid
-            userId?.let {
-                dashboardViewModel.loadPublishedLessons(it)
-            }
-            moveIndicatorBarToView(bindingView.PublishedLessons)
+            showPublishedLesson()
         }
 
         dashboardViewModel.bookedLessonsList.observe(viewLifecycleOwner) { lessons ->
@@ -96,5 +84,27 @@ class DashboardFragment : Fragment() {
             .x(targetX)
             .setDuration(300)
             .start()
+    }
+
+    private fun showBookedLesson() {
+        bindingView.recyclerViewBookedLessons.visibility = View.VISIBLE
+        bindingView.recyclerViewPublishedLessons.visibility = View.GONE
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser?.uid
+        userId?.let {
+            dashboardViewModel.loadBookedLessons(it)
+        }
+        moveIndicatorBarToView(bindingView.BookedLessons)
+    }
+
+    private fun showPublishedLesson() {
+        bindingView.recyclerViewBookedLessons.visibility = View.GONE
+        bindingView.recyclerViewPublishedLessons.visibility = View.VISIBLE
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser?.uid
+        userId?.let {
+            dashboardViewModel.loadPublishedLessons(it)
+        }
+        moveIndicatorBarToView(bindingView.PublishedLessons)
     }
 }

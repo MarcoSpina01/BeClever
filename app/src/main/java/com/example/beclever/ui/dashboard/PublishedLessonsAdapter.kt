@@ -11,8 +11,10 @@ import com.example.beclever.R
 import com.example.beclever.ui.plus.LessonModel
 
 class PublishedLessonsAdapter(
+
     private var publishedLessons: List<LessonModel>,
     private val dashboardViewModel: DashboardViewModel
+
 ) : RecyclerView.Adapter<PublishedLessonsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
