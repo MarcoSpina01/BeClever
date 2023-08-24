@@ -16,7 +16,7 @@ class LessonViewModel : ViewModel() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
 
-        val lessonModel = LessonModel(subject, date, target, location, cost, userId, false, "", "")
+        val lessonModel = LessonModel(subject, date, target, location, cost, userId, false, "", "", null, null, false, null, null)
 
         db.collection("lessons")
             .add(lessonModel)

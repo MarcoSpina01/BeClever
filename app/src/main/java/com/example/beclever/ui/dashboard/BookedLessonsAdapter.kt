@@ -13,6 +13,7 @@ class BookedLessonsAdapter(
 
     private var bookedLessons: List<LessonModel>,
     private val dashboardViewModel: DashboardViewModel
+
     ) : RecyclerView.Adapter<BookedLessonsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

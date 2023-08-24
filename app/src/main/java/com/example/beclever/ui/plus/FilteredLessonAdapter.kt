@@ -13,6 +13,8 @@ import com.example.beclever.R
 import com.example.beclever.ui.plus.LessonModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDate
+import java.time.LocalTime
 
 class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
     RecyclerView.Adapter<FilteredLessonsAdapter.ViewHolder>() {
@@ -88,6 +90,9 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
         val db = FirebaseFirestore.getInstance()
         val lessonsCollection = db.collection("lessons")
 
+        val currentDate: LocalDate = LocalDate.now()
+        val currentTime: LocalTime = LocalTime.now()
+
         // Crea una query complessa che corrisponde a tutti i campi specificati
         val query = lessonsCollection
             .whereEqualTo("userId", userId)
@@ -101,7 +106,7 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
                     val lessonDocumentRef = lessonsCollection.document(document.id)
-                    lessonDocumentRef.update("booked", true, "clientId", clientId)
+                    lessonDocumentRef.update("booked", true, "clientId", clientId, "dateBooking", currentDate, "timeBooking", currentTime)
                         .addOnSuccessListener {
                             Toast.makeText(context, "Prenotazione effettuata con successo!", Toast.LENGTH_SHORT).show()
                         }
