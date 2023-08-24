@@ -16,20 +16,23 @@ import com.example.beclever.databinding.FragmentFilteredLessonsBinding
 import com.example.beclever.ui.plus.LessonModel
 import com.google.firebase.auth.FirebaseAuth
 
-private var _binding: FragmentDashboardBinding? = null
-private val bindingView get() = _binding!!
 
-private lateinit var dashboardViewModel: DashboardViewModel
-private lateinit var bookedLessonsAdapter: BookedLessonsAdapter
-private lateinit var publishedLessonsAdapter: PublishedLessonsAdapter
 
 class DashboardFragment : Fragment() {
+
+    private var _binding: FragmentDashboardBinding? = null
+    private val bindingView get() = _binding!!
+
+    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var bookedLessonsAdapter: BookedLessonsAdapter
+    private lateinit var publishedLessonsAdapter: PublishedLessonsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         dashboardViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         bindingView.viewModel = dashboardViewModel

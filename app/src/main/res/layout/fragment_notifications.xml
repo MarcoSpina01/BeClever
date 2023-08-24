@@ -6,7 +6,8 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.beclever.ui.dashboard.DashboardViewModel" />
+            type="com.example.beclever.ui.notifications.NotificationsViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

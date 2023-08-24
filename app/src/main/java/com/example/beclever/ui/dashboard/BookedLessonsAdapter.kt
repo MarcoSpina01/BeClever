@@ -10,6 +10,7 @@ import com.example.beclever.R
 import com.example.beclever.ui.plus.LessonModel
 
 class BookedLessonsAdapter(
+
     private var bookedLessons: List<LessonModel>,
     private val dashboardViewModel: DashboardViewModel
     ) : RecyclerView.Adapter<BookedLessonsAdapter.ViewHolder>() {
