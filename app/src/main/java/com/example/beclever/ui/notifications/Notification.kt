@@ -1,14 +1,15 @@
 package com.example.beclever.ui.notifications
 
-import com.google.type.DateTime
+import java.io.Serializable
 
 data class Notification(
 
-    private var message: String,
-    private var date: DateTime,
-    private var userId: String,
-    private var clientId: String
+    var message: String,
+    var date: String?,
+    var userId: String?,
+    var clientId: String?
 
-) {
-
+) : Serializable
+{
+    constructor() : this("", null, "", "")
 }

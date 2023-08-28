@@ -46,10 +46,10 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
         if (!lesson.userId.isNullOrEmpty()) {
             fetchUserInfoAndSetUsername(lesson.userId, holder.usernameTextView)
             holder.subjectTextView.text = " ${lesson.subject}"
-            holder.dateTextView.text = " ${lesson.date}"
-            holder.targetTextView.text = " ${lesson.target}" // Aggiungi questa linea
-            holder.locationTextView.text = " ${lesson.location}"
-            holder.costTextView.text = " ${lesson.cost}" // Aggiungi questa linea
+            holder.dateTextView.text = "${lesson.date}"
+            holder.targetTextView.text = " - ${lesson.target}" // Aggiungi questa linea
+            holder.locationTextView.text = "${lesson.location}"
+            holder.costTextView.text = "${lesson.cost}" // Aggiungi questa linea
             if (lesson.isBooked) {
                 holder.bookButton.text = "Prenotazione Effettuata"
                 holder.bookButton.isEnabled = false // Disabilita il pulsante
