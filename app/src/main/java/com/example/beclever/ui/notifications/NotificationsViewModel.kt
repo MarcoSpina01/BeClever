@@ -4,9 +4,12 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.beclever.ui.plus.LessonModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.type.DateTime
 
 class NotificationsViewModel : ViewModel() {
@@ -15,8 +18,11 @@ class NotificationsViewModel : ViewModel() {
 
     private val _notificationsLiveData: MutableLiveData<List<Notification>> = MutableLiveData()
     val notificationsLiveData: LiveData<List<Notification>> = _notificationsLiveData
+
     val currentUser = FirebaseAuth.getInstance().currentUser
     val userId = currentUser?.uid
+
+    private val db = Firebase.firestore
 
     init {
         if (userId != null) {
@@ -24,11 +30,30 @@ class NotificationsViewModel : ViewModel() {
         }
     }
 
-    fun createNotification(message: String, date: DateTime, userId: String, clientId: String){
+    fun createNotification(message: String, date: DateTime, userId: String, clientId: String, callback: (Boolean) -> Unit){
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
 
-        val notification = Notification ("", null, userId, clientId)
+        val notificationModel = Notification()
+
+        db.collection("notifications")
+            .add(notificationModel)
+            .addOnSuccessListener { documentReference ->
+                val notificationId = documentReference.id // Ottieni il nome del documento generato da Firebase
+                // Ora aggiorna il campo lessonId nel documento con il nome del documento stesso
+                db.collection("lessons")
+                    .document(notificationId)
+                    .update("lessonId", notificationId)
+                    .addOnSuccessListener {
+                        callback(true)
+                    }
+                    .addOnFailureListener {
+                        callback(false)
+                    }
+            }
+            .addOnFailureListener {
+                callback(false)
+            }
     }
 
     private fun loadNotificationsFromFirebase(userId: String) {
