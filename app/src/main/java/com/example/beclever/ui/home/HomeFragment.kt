@@ -23,7 +23,6 @@ import com.example.beclever.R
 import com.example.beclever.databinding.FragmentHomeBinding
 import java.util.*
 import com.example.beclever.ui.plus.FilteredLessonFragment
-import com.example.beclever.ui.plus.LessonModel
 
 class HomeFragment : Fragment() {
 
@@ -125,7 +124,7 @@ class HomeFragment : Fragment() {
 
         view.setOnClickListener {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view?.windowToken, 0)
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
             view.clearFocus()
             bindingView.textInputEditTextMateria.clearFocus()
             bindingView.textInputEditTextData.clearFocus()
@@ -168,7 +167,7 @@ class HomeFragment : Fragment() {
         val inputSearch = dialog.findViewById<EditText>(R.id.edit_search)
 
         provinceList = resources.getStringArray(R.array.province)
-        val filteredProvinceList = ArrayList<String>(provinceList.toList()) // Muovi questa riga qui
+        val filteredProvinceList = ArrayList(provinceList.toList()) // Muovi questa riga qui
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, filteredProvinceList)
         listView.adapter = adapter
 

@@ -47,11 +47,11 @@ class FilteredLessonsAdapter(
 
         if (!lesson.userId.isNullOrEmpty()) {
             fetchUserInfoAndSetUsername(lesson.userId, holder.usernameTextView)
-            holder.subjectTextView.text = " ${lesson.subject}"
-            holder.dateTextView.text = "${lesson.date}"
-            holder.targetTextView.text = " - ${lesson.target}" // Aggiungi questa linea
-            holder.locationTextView.text = "${lesson.location}"
-            holder.costTextView.text = "${lesson.cost}" // Aggiungi questa linea
+            holder.subjectTextView.text = lesson.subject
+            holder.dateTextView.text = lesson.date
+            holder.targetTextView.text = lesson.target // Aggiungi questa linea
+            holder.locationTextView.text = lesson.location
+            holder.costTextView.text = lesson.cost // Aggiungi questa linea
             if (lesson.isBooked) {
                 holder.bookButton.text = "Prenotazione Effettuata"
                 holder.bookButton.isEnabled = false // Disabilita il pulsante
@@ -84,7 +84,7 @@ class FilteredLessonsAdapter(
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
                     val userName = documentSnapshot.getString("first") ?: ""
-                    usernameTextView.text = " ${userName}"
+                    usernameTextView.text = userName
                 }
             }
             .addOnFailureListener {
@@ -120,12 +120,12 @@ class FilteredLessonsAdapter(
                         .addOnSuccessListener {
                             Toast.makeText(context, "Prenotazione effettuata con successo!", Toast.LENGTH_SHORT).show()
                         }
-                        .addOnFailureListener { e ->
+                        .addOnFailureListener {
                             Toast.makeText(context, "Errore durante l'aggiornamento della prenotazione", Toast.LENGTH_SHORT).show()
                         }
                 }
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener {
                 Toast.makeText(context, "Errore durante la ricerca", Toast.LENGTH_SHORT).show()
             }
     }

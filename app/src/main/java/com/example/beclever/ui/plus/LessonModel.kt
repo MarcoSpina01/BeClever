@@ -2,8 +2,6 @@ package com.example.beclever.ui.plus
 
 
 import java.io.Serializable
-import java.sql.Time
-import java.util.*
 
 data class LessonModel(
 
