@@ -15,7 +15,7 @@ data class LessonModel(
     val userId: String?,
     var isBooked: Boolean,
     val lessonId: String,
-    val clientId: String,
+    var clientId: String,
     val dateBooking: Long?,
     val timeBooking: Long?,
     val canceled: Boolean,

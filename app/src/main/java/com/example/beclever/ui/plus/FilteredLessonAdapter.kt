@@ -66,8 +66,9 @@ class FilteredLessonsAdapter(
                 holder.bookButton.setOnClickListener {
                     lesson.isBooked = true
                     if (clientId != null) {
-                        lessonClickListener.onLessonBooked(lesson)
+                        lesson.clientId = clientId
                         updateFirestoreLesson(lesson.userId, lesson.subject, lesson.target, lesson.location, lesson.date, lesson.cost, clientId, holder.itemView.context)
+                        lessonClickListener.onLessonBooked(lesson)
                     }
                     notifyDataSetChanged()
                 }
