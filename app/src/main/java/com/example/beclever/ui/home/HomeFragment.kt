@@ -105,6 +105,7 @@ class HomeFragment : Fragment() {
                     filteredLessonsFragment.arguments = bundle
 
                     parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                         .replace(R.id.fragment_container, filteredLessonsFragment)
                         .addToBackStack(null)
                         .commit()

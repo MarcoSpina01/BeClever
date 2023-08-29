@@ -52,9 +52,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:text="Cerca una lezione"
                 android:fontFamily="@font/lexend_deca"
-                android:textAllCaps="false"
+                android:text="CERCA LEZIONE"
+                android:textColor="@color/primaryblue"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,8 @@
                 app:endIconDrawable="@drawable/book"
                 app:endIconMode="custom"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/black"
+                app:hintTextColor="@color/primaryblue"
+                app:boxStrokeColor="@color/primaryblue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSearch">
@@ -86,7 +87,7 @@
                     android:hint="Materia"
                     android:inputType="text"
                     android:lines="1"
-                    android:textColorHint="@android:color/black" />
+                    android:textColorHint="@color/primaryblue" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +105,8 @@
                 app:endIconDrawable="@drawable/calendar"
                 app:endIconMode="custom"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/black"
+                app:hintTextColor="@color/primaryblue"
+                app:boxStrokeColor="@color/primaryblue"
                 app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +120,7 @@
                     android:hint="Inserisci la data"
                     android:inputType="text"
                     android:lines="1"
-                    android:textColorHint="@android:color/black"
+                    android:textColorHint="@color/primaryblue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -137,7 +139,8 @@
                 app:endIconDrawable="@drawable/target"
                 app:endIconMode="custom"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/black"
+                app:hintTextColor="@color/primaryblue"
+                app:boxStrokeColor="@color/primaryblue"
                 app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -152,7 +155,7 @@
                     android:hint="Target"
                     android:inputType="text"
                     android:lines="1"
-                    android:textColorHint="@android:color/black"
+                    android:textColorHint="@color/primaryblue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -171,7 +174,8 @@
                 app:endIconDrawable="@drawable/location"
                 app:endIconMode="custom"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/black"
+                app:hintTextColor="@color/primaryblue"
+                app:boxStrokeColor="@color/primaryblue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -182,27 +186,27 @@
                     android:layout_height="wrap_content"
                     android:hint="Località"
                     android:inputType="text"
-                    android:textColorHint="@android:color/black"
+                    android:textColorHint="@color/primaryblue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <Button
                 android:id="@+id/buttonCerca"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
                 android:backgroundTint="#01579B"
                 android:elevation="20dp"
-                android:text="Cerca"
+                android:text="CERCA"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="normal"
                 app:cornerRadius="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="30dp"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/Clean"
