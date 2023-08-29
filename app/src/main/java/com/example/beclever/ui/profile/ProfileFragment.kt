@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.beclever.R
 import com.example.beclever.databinding.FragmentProfilenewBinding
 import com.example.beclever.ui.login.LoginActivity
@@ -42,6 +44,29 @@ class ProfileFragment : Fragment() {
         bindingView.lifecycleOwner = viewLifecycleOwner
 
         profileImageView = bindingView.imageView2
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser?.uid
+
+        if (userId != null) {
+            val userDocumentRef = FirebaseFirestore.getInstance().collection("users").document(userId)
+
+            userDocumentRef.get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        val imageUrl = documentSnapshot.getString("profileImage")
+
+                        if (!imageUrl.isNullOrEmpty()) {
+                            val profileImageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl)
+
+                            Glide.with(this)
+                                .load(imageUrl)
+                                .placeholder(R.drawable.userimage2)
+                                .into(profileImageView)
+                        }
+                    }
+                }
+        }
 
         bindingView.editimageprofile.setOnClickListener{
                 // Avvia l'Intent per selezionare un'immagine dalla galleria
@@ -158,10 +183,12 @@ class ProfileFragment : Fragment() {
         userRef.update(data as Map<String, Any>)
             .addOnSuccessListener {
                 // L'URL dell'immagine è stato aggiunto al documento utente con successo
+                Toast.makeText(context, " L'URL dell'immagine è stato aggiunto al documento utente con successo", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
                 // Si è verificato un errore durante l'aggiornamento del documento utente
                 // Gestisci l'errore di conseguenza
+                Toast.makeText(context, "Errore durante il caricamento", Toast.LENGTH_SHORT).show()
             }
     }
 
