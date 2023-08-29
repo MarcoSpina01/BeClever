@@ -4,16 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.beclever.R
 import com.example.beclever.databinding.FragmentDashboardBinding
-import com.example.beclever.databinding.FragmentFilteredLessonsBinding
-import com.example.beclever.ui.plus.LessonModel
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -81,7 +75,7 @@ class DashboardFragment : Fragment() {
 
 
     private fun moveIndicatorBarToView(targetView: View) {
-        var indicatorBar = bindingView.lineView
+        val indicatorBar = bindingView.lineView
         val targetX = targetView.x
         indicatorBar.animate()
             .x(targetX)

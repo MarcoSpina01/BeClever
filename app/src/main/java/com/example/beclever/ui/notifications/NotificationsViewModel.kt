@@ -81,7 +81,7 @@ class NotificationsViewModel : ViewModel() {
                 }
                 _notificationsLiveData.postValue(notificationsList)
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
                 // Handle failure (e.g., show an error message)
             }
     }

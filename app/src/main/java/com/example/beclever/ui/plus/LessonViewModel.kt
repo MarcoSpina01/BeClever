@@ -1,7 +1,5 @@
 package com.example.beclever.ui.plus
 
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -9,7 +7,7 @@ import com.google.firebase.ktx.Firebase
 
 class LessonViewModel : ViewModel() {
 
-    private lateinit var auth: FirebaseAuth
+    //private lateinit var auth: FirebaseAuth
 
     private val db = Firebase.firestore
 

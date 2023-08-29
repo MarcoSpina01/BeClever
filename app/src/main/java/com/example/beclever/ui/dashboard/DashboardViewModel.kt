@@ -1,8 +1,6 @@
 package com.example.beclever.ui.dashboard
 
-import android.content.Context
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -71,7 +69,7 @@ class DashboardViewModel : ViewModel() {
                     loadPublishedLessons(userId)
                 }
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
                 // Gestione dell'errore
             }
     }
@@ -84,7 +82,7 @@ class DashboardViewModel : ViewModel() {
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
                     val userName = documentSnapshot.getString("first") ?: ""
-                    usernameTextView.text = " ${userName}"
+                    usernameTextView.text = userName
                 }
             }
             .addOnFailureListener {

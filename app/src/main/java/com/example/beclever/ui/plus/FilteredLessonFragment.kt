@@ -64,5 +64,4 @@ class FilteredLessonFragment : Fragment(), FilteredLessonsAdapter.LessonClickLis
             }
         }
     }
-
 }
