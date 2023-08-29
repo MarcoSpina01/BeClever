@@ -88,7 +88,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LinearLayoutNotification">
 
-            <!-- Sezione Messaggi -->
+            <!-- Sezione Lezioni Prenotate -->
             <LinearLayout
                 android:id="@+id/layoutMessages"
                 android:layout_width="match_parent"
@@ -99,12 +99,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewBookedLessons"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
-            <!-- Sezione Notifiche -->
+            <!-- Sezione Lezioni Pubblicate -->
             <LinearLayout
                 android:id="@+id/layoutNotifications"
                 android:layout_width="match_parent"
@@ -114,13 +113,10 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewPublishedLessons"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
-
         </FrameLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

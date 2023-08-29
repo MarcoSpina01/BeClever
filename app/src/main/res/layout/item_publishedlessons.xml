@@ -9,10 +9,12 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:paddingTop="15dp"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_box">
 
 
@@ -124,10 +126,9 @@
         <Button
             android:id="@+id/eliminaPublishedLesson"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="2"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/primaryblue"
             android:text="ELIMINA"
             android:textAllCaps="false"
@@ -138,6 +139,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </LinearLayout>
 </layout>
