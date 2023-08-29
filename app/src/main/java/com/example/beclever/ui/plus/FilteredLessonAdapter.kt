@@ -57,7 +57,7 @@ class FilteredLessonsAdapter(
                 holder.bookButton.isEnabled = false // Disabilita il pulsante
             } else {
                 if(lesson.userId == currentUser?.uid) {
-                    holder.bookButton.text = "Prenotazione non effettuabile"
+                    holder.bookButton.text = "Non prenotabile"
                     holder.bookButton.isEnabled = false
                     return
                 }

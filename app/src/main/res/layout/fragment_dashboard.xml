@@ -68,7 +68,7 @@
             android:background="@color/primaryblue"
             app:layout_constraintEnd_toEndOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/LinearLayoutNotification" />
+            app:layout_constraintBottom_toBottomOf="@+id/LinearLayoutNotification"  />
 
         <!-- Guideline al centro orizzontale -->
         <androidx.constraintlayout.widget.Guideline
@@ -93,13 +93,14 @@
                 android:id="@+id/layoutMessages"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="#ececec">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewBookedLessons"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="20dp" />
 
             </LinearLayout>
 
@@ -114,7 +115,7 @@
                     android:id="@+id/recyclerViewPublishedLessons"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="20dp" />
 
             </LinearLayout>
 
