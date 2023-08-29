@@ -9,9 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.databinding.FragmentFilteredLessonsBinding
+import com.example.beclever.ui.notifications.NotificationsViewModel
 
 
-class FilteredLessonFragment : Fragment() {
+class FilteredLessonFragment : Fragment(), FilteredLessonsAdapter.LessonClickListener {
 
     private var _binding: FragmentFilteredLessonsBinding? = null
     private val bindingView get() = _binding!!
@@ -36,7 +37,7 @@ class FilteredLessonFragment : Fragment() {
         val recyclerView: RecyclerView = bindingView.recyclerViewFilteredLessons
 
         val lessons: List<LessonModel> = arguments?.getSerializable("filteredLessonsList") as List<LessonModel>
-        val adapter = FilteredLessonsAdapter(lessons)
+        val adapter = FilteredLessonsAdapter(lessons, this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -47,6 +48,21 @@ class FilteredLessonFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onLessonBooked(lesson: LessonModel) {
+        // Qui puoi chiamare la funzione per creare la notifica nel ViewModel
+        val notificationViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        val message = "Hai prenotato la lezione: ${lesson.subject}"
+        lesson.userId?.let {
+            notificationViewModel.createNotification(message, null,lesson.userId, lesson.lessonId) { success ->
+                if (success) {
+                    // Aggiorna la UI o gestisci il successo
+                } else {
+                    // Gestisci l'errore nella creazione della notifica
+                }
+            }
+        }
     }
 
 }

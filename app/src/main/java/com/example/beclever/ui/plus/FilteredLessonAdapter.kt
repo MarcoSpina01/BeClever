@@ -17,8 +17,10 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
-    RecyclerView.Adapter<FilteredLessonsAdapter.ViewHolder>() {
+class FilteredLessonsAdapter(
+    private val lessons: List<LessonModel>,
+    private val lessonClickListener: LessonClickListener
+) : RecyclerView.Adapter<FilteredLessonsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val usernameTextView: TextView = itemView.findViewById(R.id.textViewLessonUsernameSimple)
@@ -64,6 +66,7 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
                 holder.bookButton.setOnClickListener {
                     lesson.isBooked = true
                     if (clientId != null) {
+                        lessonClickListener.onLessonBooked(lesson)
                         updateFirestoreLesson(lesson.userId, lesson.subject, lesson.target, lesson.location, lesson.date, lesson.cost, clientId, holder.itemView.context)
                     }
                     notifyDataSetChanged()
@@ -127,4 +130,8 @@ class FilteredLessonsAdapter(private val lessons: List<LessonModel>) :
     }
 
     override fun getItemCount(): Int = lessons.size
+
+    interface LessonClickListener {
+        fun onLessonBooked(lesson: LessonModel)
+    }
 }
