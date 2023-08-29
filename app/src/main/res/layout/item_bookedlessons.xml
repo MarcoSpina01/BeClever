@@ -5,12 +5,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="5dp"
+        android:elevation="12dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:paddingEnd="16dp">
+        android:paddingEnd="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/rounded_box">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,9 +26,9 @@
                 android:id="@+id/textViewLessonUsernameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Utente:"
+                android:text="UTENTE - "
                 android:textColor="@color/primaryblue"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -31,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="18sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -42,7 +47,8 @@
                 android:id="@+id/textViewLessonSubjectTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Materia :"
+                android:text="MATERIA - "
+                android:textColor="#252323"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -51,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="14sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,7 +68,8 @@
                 android:id="@+id/textViewLessonDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data :"
+                android:text="DATA - "
+                android:textColor="#252323"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -71,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="14sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,7 +89,8 @@
                 android:id="@+id/textViewLessonLocationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Provincia :"
+                android:text="PROVICIA - "
+                android:textColor="#252323"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -91,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="14sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -102,7 +110,8 @@
                 android:id="@+id/textViewLessonTargetTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Target :"
+                android:text="TARGET - "
+                android:textColor="#252323"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -111,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="14sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,7 +131,8 @@
                 android:id="@+id/textViewLessonCostTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Costo :"
+                android:text="COSTO - "
+                android:textColor="#252323"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -131,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="14sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <Button
@@ -142,7 +152,8 @@
             android:layout_marginBottom="5dp"
             android:layout_weight="2"
             android:backgroundTint="@color/primaryblue"
-            android:text="Cancella prenotazione"
+            android:text="CANCELLA PRENOTAZIONE"
+            android:textSize="14sp"
             android:textAllCaps="false"
             android:textColorHint="@color/primaryblue"
             app:cornerRadius="10dp"
@@ -151,12 +162,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#DCDCDC" />
 
     </LinearLayout>
 </layout>

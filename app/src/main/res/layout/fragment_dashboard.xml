@@ -42,7 +42,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Lezioni prenotate"
+                android:text="LEZIONI PRENOTATE"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:textColor="@color/primaryblue"/>
@@ -54,7 +54,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Lezioni pubblicate"
+                android:text="LEZIONI PUBBLICATE"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:textColor="@color/primaryblue"/>

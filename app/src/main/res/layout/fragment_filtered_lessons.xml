@@ -12,56 +12,57 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modifyprofileprincipalLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/secondaryblue">
 
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:elevation="10dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:orientation="vertical"
-                 android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageView7"
                     android:layout_width="200dp"
                     android:layout_height="35dp"
-                    android:layout_weight="0"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_weight="0"
                     app:srcCompat="@drawable/beclever_primologo_hr_blue" />
 
-                 <TextView
-                     android:id="@+id/textViewFilteredResults"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:padding="5dp"
-                     android:text="Lezioni Filtrate:"
-                     android:textAlignment="center"
-                     android:textSize="20sp"
-                     android:textColor="@color/primaryblue"
-                     android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/textViewFilteredResults"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="LEZIONI FILTRATE"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryblue"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewFilteredLessons"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="20dp" />
 
-             </LinearLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
