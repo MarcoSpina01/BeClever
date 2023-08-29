@@ -36,7 +36,7 @@ class NotificationsAdapter(
         if (!currentnotification.userId.isNullOrEmpty()) {
 
             holder.notificationText.text = "${currentnotification.message}"
-            holder.notificationTime.text = "${currentnotification.date}"
+            holder.notificationTime.text = "${currentnotification.getTempoPassato()}"
         }
     }
 
