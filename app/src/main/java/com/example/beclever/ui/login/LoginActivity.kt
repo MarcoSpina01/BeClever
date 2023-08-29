@@ -56,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Login effettuato", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 finish()
             } else {
                 Toast.makeText(this, "Login fallito", Toast.LENGTH_SHORT).show()
