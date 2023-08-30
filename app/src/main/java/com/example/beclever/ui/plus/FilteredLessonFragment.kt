@@ -53,7 +53,7 @@ class FilteredLessonFragment : Fragment(), FilteredLessonsAdapter.LessonClickLis
     override fun onLessonBooked(lesson: LessonModel) {
         // Qui puoi chiamare la funzione per creare la notifica nel ViewModel
         val notificationViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        val message = "La tua lezione di ${lesson.subject} è stata prenotata"
+        val message = "La tua lezione di ${lesson.subject} del ${lesson.date} è stata prenotata"
         lesson.userId?.let {
             notificationViewModel.createNotification(message,lesson.userId, lesson.clientId, lesson.lessonId) { success ->
                 if (success) {

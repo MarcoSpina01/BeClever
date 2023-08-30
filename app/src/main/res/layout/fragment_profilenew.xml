@@ -22,16 +22,17 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -47,74 +48,56 @@
                         android:id="@+id/imageView2"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
+                        android:src="@drawable/userimage2"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="0dp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/imageView"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView"
-                        android:src="@drawable/userimage2"
-                        app:civ_border_color="@color/white"
-                        app:civ_border_width="0dp" />
+                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                     <ImageView
                         android:id="@+id/editimageprofile"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_marginLeft="100dp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                         app:layout_constraintEnd_toEndOf="@+id/imageView2"
                         app:layout_constraintStart_toStartOf="@+id/imageView2"
-                        app:srcCompat="@drawable/imgeditimageprofile"
-                        android:layout_marginLeft="100dp"/>
+                        app:srcCompat="@drawable/imgeditimageprofile" />
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:textSize="25sp"
                         android:textStyle="bold"
-                        app:text="@{viewModel.userModel.nome.toString()}"
                         app:layout_constraintEnd_toEndOf="@+id/imageView2"
                         app:layout_constraintStart_toStartOf="@+id/imageView2"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                        app:text="@{viewModel.userModel.nome.toString()}" />
 
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        app:text="@{viewModel.userModel.email.toString()}"
                         app:layout_constraintEnd_toEndOf="@+id/textView"
                         app:layout_constraintStart_toStartOf="@+id/textView"
-                        app:layout_constraintTop_toBottomOf="@+id/textView" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView"
+                        app:text="@{viewModel.userModel.email.toString()}" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
                         android:orientation="vertical"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/button"
-                            style="@android:style/Widget.Button"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="32dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/btn_background_1"
-                            android:text="Impostazioni"
-                            android:textAlignment="center"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                        <!--android:drawableStart="@drawable/ic_1"
-                            android:drawablePadding="20dp"
-                            android:paddingStart="20dp"-->
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/ModifyProfileButton"
@@ -148,7 +131,7 @@
                             android:textAlignment="center"
                             android:textSize="18sp"
                             android:textStyle="bold" />
-                            <!--android:drawableStart="@drawable/ic_3"
+                        <!--android:drawableStart="@drawable/ic_3"
                             android:drawablePadding="20dp"
                             android:paddingStart="20dp"-->
 
@@ -166,7 +149,7 @@
                             android:textAlignment="center"
                             android:textSize="18sp"
                             android:textStyle="bold" />
-                            <!--android:drawableStart="@drawable/ic_4"
+                        <!--android:drawableStart="@drawable/ic_4"
                              android:drawablePadding="20dp"
                              android:paddingStart="20dp"-->
 

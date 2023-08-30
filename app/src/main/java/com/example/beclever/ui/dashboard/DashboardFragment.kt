@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.beclever.databinding.FragmentDashboardBinding
+import com.example.beclever.ui.notifications.NotificationsViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -20,6 +21,7 @@ class DashboardFragment : Fragment() {
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var bookedLessonsAdapter: BookedLessonsAdapter
     private lateinit var publishedLessonsAdapter: PublishedLessonsAdapter
+    private lateinit var notificationsViewModel: NotificationsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +31,7 @@ class DashboardFragment : Fragment() {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         dashboardViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+        notificationsViewModel = ViewModelProvider(this)[NotificationsViewModel::class.java]
         bindingView.viewModel = dashboardViewModel
         bindingView.lifecycleOwner = viewLifecycleOwner
 
@@ -40,7 +43,7 @@ class DashboardFragment : Fragment() {
 
 
         // Inizializza gli adapter per le lezioni prenotate e pubblicate
-        bookedLessonsAdapter = BookedLessonsAdapter(emptyList(), dashboardViewModel)
+        bookedLessonsAdapter = BookedLessonsAdapter(emptyList(), dashboardViewModel, notificationsViewModel)
         publishedLessonsAdapter = PublishedLessonsAdapter(emptyList(), dashboardViewModel)
 
         // Imposta gli adapter iniziali per le RecyclerView
