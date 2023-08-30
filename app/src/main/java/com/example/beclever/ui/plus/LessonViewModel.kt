@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class LessonViewModel : ViewModel() {
 
@@ -15,7 +17,14 @@ class LessonViewModel : ViewModel() {
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
-
+        if(!isDateAfterOrToday(date)) {
+            callback(false)
+            return
+        }
+        if(!isCostANumber(cost)) {
+            callback(false)
+            return
+        }
         val lessonModel = LessonModel(subject, date, target, location, cost, userId, false, "", "", null, null, false, null, null)
 
         db.collection("lessons")
@@ -38,5 +47,18 @@ class LessonViewModel : ViewModel() {
             }
 
 
+    }
+
+    fun isCostANumber(input: String): Boolean {
+        val regex = """^\d+(\.\d+)?\s*€$""".toRegex()
+        return regex.matches(input)
+    }
+
+    fun isDateAfterOrToday(dateString: String): Boolean {
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val inputDate = LocalDate.parse(dateString, formatter)
+
+        val today = LocalDate.now()
+        return !inputDate.isBefore(today)
     }
 }
