@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="LEZIONI FILTRATE"
+                    android:text="Lezioni filtrate"
                     android:textAlignment="center"
                     android:textColor="@color/primaryblue"
                     android:textSize="20sp"
