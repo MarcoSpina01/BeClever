@@ -58,7 +58,7 @@ class FilteredLessonsAdapter(
                 holder.bookButton.text = "Prenotazione Effettuata"
                 holder.bookButton.isEnabled = false // Disabilita il pulsante
             } else {
-                if(lesson.userId == currentUser?.uid) {
+                if(lesson.userId == currentUser?.uid || !isDateAfterOrToday(lesson.date)) {
                     holder.bookButton.text = "Non prenotabile"
                     holder.bookButton.isEnabled = false
                     return
@@ -81,5 +81,13 @@ class FilteredLessonsAdapter(
 
     interface LessonClickListener {
         fun onLessonBooked(lesson: LessonModel)
+    }
+
+    fun isDateAfterOrToday(dateString: String): Boolean {
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val inputDate = LocalDate.parse(dateString, formatter)
+
+        val today = LocalDate.now()
+        return !inputDate.isBefore(today)
     }
 }
