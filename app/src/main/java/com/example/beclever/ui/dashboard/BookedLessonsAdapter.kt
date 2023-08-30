@@ -77,7 +77,7 @@ class BookedLessonsAdapter(
     }
 
     private fun setNotification(lesson: LessonModel) {
-        val message = "La prenotazione alla tua lezione di ${lesson.subject} è stata cancellata"
+        val message = "La prenotazione alla tua lezione di ${lesson.subject} del ${lesson.date} è stata cancellata"
         lesson.userId?.let {
             notificationsViewModel.createNotification(message,lesson.userId, lesson.clientId, lesson.lessonId) { success ->
                 if (success) {
