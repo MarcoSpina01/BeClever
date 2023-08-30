@@ -41,10 +41,9 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.loginUser(username, password)
         }
 
-        binding.root.setOnTouchListener { _, _ -> // Imposto un listener per gestire il tocco del layout
-            binding.email.clearFocus() // Pulisce il focus dal campo email
-            binding.password.clearFocus() // Pulisce il focus dal campo password
-            // Nasconde la tastiera
+        binding.root.setOnClickListener() {
+            binding.email.clearFocus()
+            binding.password.clearFocus()
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
             false

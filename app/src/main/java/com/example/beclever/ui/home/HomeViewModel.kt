@@ -23,7 +23,6 @@ class HomeViewModel : ViewModel() {
 
     fun checkIfLessonExists(context: Context, subject: String, date: String, target: String, location: String) {
 
-
         var query: Query = db.collection("lessons")
 
         if (subject.isNotEmpty()) {

@@ -43,8 +43,6 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun createUser() {
 
         val email = binding.editTextTextEmailAddress.text.toString()

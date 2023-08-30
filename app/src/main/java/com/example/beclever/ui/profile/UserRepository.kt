@@ -31,8 +31,6 @@ class UserRepository {
                 val notificationId = data["notificationId"] as String
                 val userModel = UserModel(nome, email, cognome, bio, qualifica, notificationId, "")
 
-
-
                 onDataFetched(userModel)
             } else {
                 // fai qualcosa in caso contrario

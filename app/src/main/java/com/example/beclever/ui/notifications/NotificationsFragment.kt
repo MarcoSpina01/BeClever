@@ -17,8 +17,6 @@ class NotificationsFragment : Fragment() {
     private lateinit var notificationsAdapter: NotificationsAdapter
     private var _binding: FragmentNotificationsBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val bindingView get() = _binding!!
 
     override fun onCreateView(
@@ -75,12 +73,4 @@ class NotificationsFragment : Fragment() {
         _binding = null
     }
 
-//    private fun showNotifications() {
-//
-//        val currentUser = FirebaseAuth.getInstance().currentUser
-//        val userId = currentUser?.uid
-//        userId?.let {
-//            notificationViewModel.(it)
-//        }
-//    }
 }

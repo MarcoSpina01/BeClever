@@ -10,26 +10,27 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="192dp"
         android:text="Registrati"
         android:textColor="#404040"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.838"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:adjustViewBounds="false"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/beclever_blubackground" />
 
     <EditText
@@ -43,7 +44,6 @@
         android:textColor="#404040"
         android:textColorHint="#404040"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -58,7 +58,6 @@
         android:textColor="#404040"
         android:textColorHint="#404040"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
@@ -73,7 +72,6 @@
         android:textColor="#404040"
         android:textColorHint="#404040"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
@@ -81,7 +79,7 @@
         android:id="@+id/editTextTextPassword"
         android:layout_width="250dp"
         android:layout_height="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:autofillHints="@string/prompt_password"
         android:ems="10"
         android:hint="@string/prompt_password"
@@ -97,11 +95,12 @@
         android:id="@+id/iscriviti"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="52dp"
         android:backgroundTint="#01579B"
         android:text="Iscriviti"
+        android:textSize="16sp"
+        app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
@@ -109,11 +108,11 @@
         android:id="@+id/BackToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Sono già iscritto"
+        android:layout_marginTop="32dp"
         android:onClick="backToLogin"
+        android:text="Sono già iscritto"
         android:textColor="#404040"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iscriviti" />

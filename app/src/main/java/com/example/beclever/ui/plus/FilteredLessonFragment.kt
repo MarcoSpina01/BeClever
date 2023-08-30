@@ -37,7 +37,7 @@ class FilteredLessonFragment : Fragment(), FilteredLessonsAdapter.LessonClickLis
         val recyclerView: RecyclerView = bindingView.recyclerViewFilteredLessons
 
         val lessons: List<LessonModel> = arguments?.getSerializable("filteredLessonsList") as List<LessonModel>
-        val adapter = FilteredLessonsAdapter(lessons, this)
+        val adapter = FilteredLessonsAdapter(lessons, lessonViewModel, this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -52,7 +52,7 @@ class FilteredLessonFragment : Fragment(), FilteredLessonsAdapter.LessonClickLis
 
     override fun onLessonBooked(lesson: LessonModel) {
         // Qui puoi chiamare la funzione per creare la notifica nel ViewModel
-        val notificationViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        val notificationViewModel = ViewModelProvider(this)[NotificationsViewModel::class.java]
         val message = "La tua lezione di ${lesson.subject} del ${lesson.date} è stata prenotata"
         lesson.userId?.let {
             notificationViewModel.createNotification(message,lesson.userId, lesson.clientId, lesson.lessonId) { success ->

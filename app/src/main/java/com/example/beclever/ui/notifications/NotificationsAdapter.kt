@@ -26,7 +26,6 @@ class NotificationsAdapter(
         return ViewHolder(itemView)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentnotification = notifications[position]
 
@@ -35,8 +34,8 @@ class NotificationsAdapter(
 
         if (!currentnotification.userId.isNullOrEmpty()) {
 
-            holder.notificationText.text = "${currentnotification.message}"
-            holder.notificationTime.text = "${currentnotification.getTempoPassato()}"
+            holder.notificationText.text = currentnotification.message
+            holder.notificationTime.text = currentnotification.getTempoPassato()
         }
     }
 

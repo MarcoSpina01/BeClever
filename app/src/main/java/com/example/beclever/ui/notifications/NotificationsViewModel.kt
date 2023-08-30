@@ -18,7 +18,7 @@ class NotificationsViewModel : ViewModel() {
     private val _notificationsLiveData: MutableLiveData<List<Notification>> = MutableLiveData()
     val notificationsLiveData: LiveData<List<Notification>> = _notificationsLiveData
 
-    val currentUser = FirebaseAuth.getInstance().currentUser
+    private val currentUser = FirebaseAuth.getInstance().currentUser
     val userId = currentUser?.uid
 
     private val db = Firebase.firestore

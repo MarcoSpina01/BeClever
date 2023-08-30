@@ -26,7 +26,6 @@ class BookedLessonsAdapter(
         val locationTextView: TextView = itemView.findViewById(R.id.textViewLessonLocationBooked)
         val costTextView: TextView = itemView.findViewById(R.id.textViewLessonCostBooked) // Aggiungi questa linea
         val deleteBooking: TextView = itemView.findViewById(R.id.cancel_button)
-        //val bookButton: Button = itemView.findViewById(R.id.prenota)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

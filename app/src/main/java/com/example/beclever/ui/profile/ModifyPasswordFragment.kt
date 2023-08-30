@@ -61,13 +61,10 @@ class ModifyPasswordFragment : Fragment() {
 
     }
 
-
     private fun checkField(): Boolean {
         return (bindingView.textInputEditText1.text?.isNotEmpty() == true &&
             bindingView.textInputEditText2.text?.isNotEmpty() == true &&
             bindingView.textInputEditText3.text?.isNotEmpty() == true)
     }
-
-
 
 }
