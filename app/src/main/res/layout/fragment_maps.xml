@@ -61,21 +61,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sede legale - Manoppello (PE)"
+                    android:text="Sede legale - Ancona (AN)"
                     android:textSize="13sp"
                     android:textStyle="italic"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Numero di telefono - +393333333333"
+                    android:text="Numero di telefono - +393472362110"
                     android:textSize="13sp"
                     android:textStyle="italic"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email - beclaver@pornmail.com"
+                    android:text="Email - beclaver@gmail.com"
                     android:textSize="13sp"
                     android:textStyle="italic"/>
 

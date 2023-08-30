@@ -18,9 +18,9 @@ class MapsFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
 
-        val manoppello = LatLng(42.30635580994937, 14.060016341212288)
-        googleMap.addMarker(MarkerOptions().position(manoppello).title("Marker a Manoppello"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(manoppello, 15f))
+        val ancona = LatLng(43.5867868,13.5161161)
+        googleMap.addMarker(MarkerOptions().position(ancona).title("Marker a Ancona"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ancona, 17f))
     }
 
     override fun onCreateView(
