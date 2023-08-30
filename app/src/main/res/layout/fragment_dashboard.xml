@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             app:srcCompat="@drawable/beclever_primologo_hr_blue" />
 
         <!-- Barra superiore -->
@@ -42,9 +42,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="LEZIONI PRENOTATE"
+                android:text="Lezioni prenotate"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textColor="@color/primaryblue"/>
 
             <!-- Notifiche -->
@@ -54,9 +54,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="LEZIONI PUBBLICATE"
+                android:text="Lezioni pubblicate"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textColor="@color/primaryblue"/>
 
         </LinearLayout>
