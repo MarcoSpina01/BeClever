@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.R
+import com.example.beclever.ui.notifications.NotificationsViewModel
 import com.example.beclever.ui.plus.LessonModel
 
 class BookedLessonsAdapter(
 
     private var bookedLessons: List<LessonModel>,
-    private val dashboardViewModel: DashboardViewModel
+    private val dashboardViewModel: DashboardViewModel,
+    private val notificationsViewModel: NotificationsViewModel
 
     ) : RecyclerView.Adapter<BookedLessonsAdapter.ViewHolder>() {
 
@@ -53,7 +55,8 @@ class BookedLessonsAdapter(
                 alertDialogBuilder.setTitle("Cancella Prenotazione")
                 alertDialogBuilder.setMessage("Vuoi cancellare la prenotazione?")
                 alertDialogBuilder.setPositiveButton("Si") { _, _ ->
-                    dashboardViewModel.deleteBooking(currentLesson.lessonId)
+                    dashboardViewModel.deleteBooking(currentLesson)
+                    setNotification(currentLesson)
                 }
                 alertDialogBuilder.setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
@@ -72,6 +75,21 @@ class BookedLessonsAdapter(
         bookedLessons = newData
         notifyDataSetChanged()
     }
+
+    private fun setNotification(lesson: LessonModel) {
+        val message = "La prenotazione alla tua lezione di ${lesson.subject} è stata cancellata"
+        lesson.userId?.let {
+            notificationsViewModel.createNotification(message,lesson.userId, lesson.clientId, lesson.lessonId) { success ->
+                if (success) {
+                    // Aggiorna la UI o gestisci il successo
+                } else {
+                    // Gestisci l'errore nella creazione della notifica
+                }
+            }
+        }
+    }
+
+
 }
 
 

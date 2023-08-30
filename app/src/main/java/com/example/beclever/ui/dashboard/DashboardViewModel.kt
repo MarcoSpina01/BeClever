@@ -4,7 +4,10 @@ import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.beclever.ui.notifications.NotificationsViewModel
 import com.example.beclever.ui.plus.LessonModel
+import com.example.beclever.ui.profile.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -20,6 +23,7 @@ class DashboardViewModel : ViewModel() {
 
     private val _publishedLessonsList = MutableLiveData<List<LessonModel>>()
     val publishedLessonsList: LiveData<List<LessonModel>> get() = _publishedLessonsList
+
 
     fun loadBookedLessons(userId: String) {
         // Carica le lezioni prenotate dall'utente da Firebase e aggiorna _bookedLessonsList
@@ -89,8 +93,10 @@ class DashboardViewModel : ViewModel() {
             }
     }
 
-    fun deleteBooking(lessonId: String) {
+    fun deleteBooking(lesson: LessonModel) {
 
+
+        val lessonId = lesson.lessonId
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
 

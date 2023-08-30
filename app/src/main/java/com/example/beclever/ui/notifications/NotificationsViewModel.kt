@@ -79,7 +79,8 @@ class NotificationsViewModel : ViewModel() {
                         notificationsList.add(notification)
                     }
                 }
-                _notificationsLiveData.postValue(notificationsList)
+                notificationsList.sortWith(compareBy( {it.date}, {it.time}) )
+                _notificationsLiveData.postValue(notificationsList.reversed())
             }
             .addOnFailureListener {
                 // Handle failure (e.g., show an error message)
