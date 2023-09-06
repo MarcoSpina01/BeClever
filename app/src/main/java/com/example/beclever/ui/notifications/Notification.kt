@@ -43,18 +43,8 @@ data class Notification(
 
 
                 return ""
-//
+
             } else {
-//                if((currentDate - date!!).toInt() > 30) {
-//                    return "${(currentDate/10000 - date!!/10000)} anni fa"
-//
-//                }
-//                if((currentDate - date!!).toInt() in 30..365) {
-//                    return "${(currentDate/100 - date!!/100)} mesi fa"
-//                }
-//                if((currentDate - date!!).toInt() <= 30) {
-//                    return "${(currentDate - date!!)} giorni fa"
-//                }
                 if ((currentDate/10000 - date!!/10000).toInt() == 0) {
                     if((currentDate/100 - date!!/100).toInt() == 0) {
                         return "${(currentDate - date!!)} giorni fa"
