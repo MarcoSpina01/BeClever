@@ -86,6 +86,27 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textViewLessonHourTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ORA - "
+                android:textColor="#252323"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewLessonHourSimple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/textViewLessonLocationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

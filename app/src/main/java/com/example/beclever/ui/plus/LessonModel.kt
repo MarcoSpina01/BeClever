@@ -10,6 +10,7 @@ data class LessonModel(
     val target: String,
     val location: String,
     val cost: String,
+    val hour: String,
     val userId: String?,
     var isBooked: Boolean,
     val lessonId: String,
@@ -24,6 +25,6 @@ data class LessonModel(
     )
     : Serializable
 {
-    constructor() : this("", "", "", "", "", "",false,
+    constructor() : this("", "", "", "", "","", "",false,
                          "", "", null, null, false, null, null)
 }

@@ -22,6 +22,7 @@ class BookedLessonsAdapter(
         val usernameTextView: TextView = itemView.findViewById(R.id.textViewLessonUsernameBooked)
         val subjectTextView: TextView = itemView.findViewById(R.id.textViewLessonSubjectBooked)
         val dateTextView: TextView = itemView.findViewById(R.id.textViewLessonDateBooked)
+        val hourTextView: TextView = itemView.findViewById(R.id.textViewLessonHourBooked)
         val targetTextView: TextView = itemView.findViewById(R.id.textViewLessonTargetBooked) // Aggiungi questa linea
         val locationTextView: TextView = itemView.findViewById(R.id.textViewLessonLocationBooked)
         val costTextView: TextView = itemView.findViewById(R.id.textViewLessonCostBooked) // Aggiungi questa linea
@@ -45,6 +46,7 @@ class BookedLessonsAdapter(
             )
             holder.subjectTextView.text = currentLesson.subject
             holder.dateTextView.text = currentLesson.date
+            holder.hourTextView.text = currentLesson.hour
             holder.targetTextView.text = currentLesson.target
             holder.locationTextView.text = currentLesson.location
             holder.costTextView.text = currentLesson.cost

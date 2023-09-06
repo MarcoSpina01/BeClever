@@ -28,9 +28,10 @@ class FilteredLessonsAdapter(
         val usernameTextView: TextView = itemView.findViewById(R.id.textViewLessonUsernameSimple)
         val subjectTextView: TextView = itemView.findViewById(R.id.textViewLessonSubjectSimple)
         val dateTextView: TextView = itemView.findViewById(R.id.textViewLessonDateSimple)
-        val targetTextView: TextView = itemView.findViewById(R.id.textViewLessonTargetSimple) // Aggiungi questa linea
+        val hourTextView: TextView = itemView.findViewById(R.id.textViewLessonHourSimple)
+        val targetTextView: TextView = itemView.findViewById(R.id.textViewLessonTargetSimple)
         val locationTextView: TextView = itemView.findViewById(R.id.textViewLessonLocationSimple)
-        val costTextView: TextView = itemView.findViewById(R.id.textViewLessonCostSimple) // Aggiungi questa linea
+        val costTextView: TextView = itemView.findViewById(R.id.textViewLessonCostSimple)
         val bookButton: Button = itemView.findViewById(R.id.prenotaButton)
     }
 
@@ -51,6 +52,7 @@ class FilteredLessonsAdapter(
             lessonViewModel.fetchUserInfoAndSetUsername(lesson.userId, holder.usernameTextView)
             holder.subjectTextView.text = lesson.subject
             holder.dateTextView.text = lesson.date
+            holder.hourTextView.text = lesson.hour
             holder.targetTextView.text = lesson.target // Aggiungi questa linea
             holder.locationTextView.text = lesson.location
             holder.costTextView.text = lesson.cost // Aggiungi questa linea
