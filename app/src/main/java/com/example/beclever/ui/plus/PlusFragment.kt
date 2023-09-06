@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.app.TimePickerDialog
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -31,6 +32,7 @@ class PlusFragment : Fragment() {
     private lateinit var targetInput: TextInputEditText
     private lateinit var dateInput: TextInputEditText
     private lateinit var locationInput : TextInputEditText
+    private lateinit var hourInput : TextInputEditText
     private lateinit var provinceList: Array<String>
     private lateinit var filteredProvinceList: java.util.ArrayList<String>
 
@@ -95,6 +97,13 @@ class PlusFragment : Fragment() {
             showMoneyOptions()
         }
 
+        hourInput = _binding!!.textInputEditText6
+        hourInput.isFocusable = false
+        hourInput.setOnClickListener{
+            subjectInput.clearFocus()
+            showTimePicker()
+        }
+
 
         root.setOnClickListener {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -113,9 +122,10 @@ class PlusFragment : Fragment() {
             val target = binding.textInputEditText3.text.toString()
             val location = binding.textInputEditText4.text.toString()
             val cost = binding.textInputEditText5.text.toString()
+            val hour = binding.textInputEditText6.text.toString()
 
             if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty() && cost.isNotEmpty()) {
-                lessonViewModel.createLesson(subject, date, target, location, cost) { success ->
+                lessonViewModel.createLesson(subject, date, target, location, cost, hour) { success ->
                     if (success) {
                         Toast.makeText(requireContext(), "Lezione creata", Toast.LENGTH_SHORT).show()
                         // Reset input fields
@@ -159,6 +169,25 @@ class PlusFragment : Fragment() {
         }, year, month, day)
 
         datePickerDialog.show()
+    }
+
+    private fun showTimePicker() {
+        val calendar = Calendar.getInstance()
+        val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(
+            requireContext(),
+            { _, hourOfDay, minute ->
+                val selectedHour = String.format("%02d:%02d", hourOfDay, minute)
+                hourInput.setText(selectedHour)
+            },
+            currentHour,
+            currentMinute,
+            true
+        )
+
+        timePickerDialog.show()
     }
 
     private fun showProvinceDialog() {

@@ -18,9 +18,9 @@ class PublishedLessonsAdapter(
 ) : RecyclerView.Adapter<PublishedLessonsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //val usernameTextView: TextView = itemView.findViewById(R.id.textViewLessonUsernamePublished)
         val subjectTextView: TextView = itemView.findViewById(R.id.textViewLessonSubjectPublished)
         val dateTextView: TextView = itemView.findViewById(R.id.textViewLessonDatePublished)
+        val hourTextView: TextView = itemView.findViewById(R.id.textViewLessonHourPublished)
         val targetTextView: TextView = itemView.findViewById(R.id.textViewLessonTargetPublished) // Aggiungi questa linea
         val locationTextView: TextView = itemView.findViewById(R.id.textViewLessonLocationPublished)
         val costTextView: TextView = itemView.findViewById(R.id.textViewLessonCostPublished) // Aggiungi questa linea
@@ -38,10 +38,10 @@ class PublishedLessonsAdapter(
         val currentLesson = publishedLessons[position]
 
         if (!currentLesson.userId.isNullOrEmpty()) {
-            //dashboardViewModel.fetchUserInfoAndSetUsername(currentLesson.userId, holder.usernameTextView)
 
             holder.subjectTextView.text = currentLesson.subject
             holder.dateTextView.text = currentLesson.date
+            holder.hourTextView.text = currentLesson.hour
             holder.targetTextView.text = currentLesson.target
             holder.locationTextView.text = currentLesson.location
             holder.costTextView.text = currentLesson.cost
