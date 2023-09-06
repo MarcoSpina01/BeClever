@@ -106,7 +106,7 @@ class LessonViewModel : ViewModel() {
             }
     }
 
-    private fun isCostANumber(input: String): Boolean {
+    fun isCostANumber(input: String): Boolean {
         val regex = """^\d+(\.\d+)?\s*€$""".toRegex()
         return regex.matches(input)
     }

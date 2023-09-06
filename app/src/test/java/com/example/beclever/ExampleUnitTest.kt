@@ -1,7 +1,8 @@
 package com.example.beclever
-
+import com.example.beclever.ui.notifications.NotificationsViewModel
+import com.example.beclever.ui.profile.ChangePasswordResult
+import com.example.beclever.ui.profile.UserViewModel
 import org.junit.Test
-
 import org.junit.Assert.*
 
 /**
@@ -11,7 +12,21 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun testUpdatePassword() {
+
+        val passwordService = UserViewModel()
+
+        // Caso 1: Nuova password uguale alla vecchia password
+        passwordService.updatePassword("password123", "password123") { result ->
+            assertEquals(ChangePasswordResult.NEW_PASSWORD_DIFFERENT, result)
+        }
+
+        // Caso 2: Nuova password troppo corta
+        passwordService.updatePassword("password123", "short") { result ->
+            assertEquals(ChangePasswordResult.NEW_PASSWORD_TOO_SHORT, result)
+        }
+
     }
+
+
 }
