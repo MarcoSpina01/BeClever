@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
         bindingView.lifecycleOwner = viewLifecycleOwner
         return bindingView.root
 
-        // Importante per osservare i LiveData
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
