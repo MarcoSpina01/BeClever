@@ -14,12 +14,24 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
+/**
+ * Fragment per la visualizzazione di una mappa Google Maps.
+ *
+ * Questo fragment visualizza una mappa Google Maps centrata su Ancona e aggiunge un marker per rappresentare
+ * la posizione di Ancona sulla mappa.
+ */
 class MapsFragment : Fragment() {
 
+    // Callback per l'inizializzazione della mappa
     private val callback = OnMapReadyCallback { googleMap ->
 
-        val ancona = LatLng(43.5867868,13.5161161)
+        // Coordinate geografiche di Ancona
+        val ancona = LatLng(43.5867868, 13.5161161)
+
+        // Aggiungi un marker per Ancona con un titolo
         googleMap.addMarker(MarkerOptions().position(ancona).title("Marker a Ancona"))
+
+        // Muovi la camera della mappa per centrarla su Ancona con uno zoom specifico
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ancona, 17f))
     }
 
@@ -33,6 +45,8 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Trova il fragment della mappa nell'interfaccia utente e assegna la callback per l'inizializzazione
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }

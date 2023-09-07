@@ -13,8 +13,16 @@ import com.example.beclever.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
+/**
+ * Servizio per la gestione delle notifiche push tramite Firebase Cloud Messaging (FCM).
+ */
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
+    /**
+     * Callback chiamato quando viene ricevuta una notifica push.
+     *
+     * @param remoteMessage Oggetto che rappresenta i dati della notifica ricevuta.
+     */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val title = remoteMessage.notification?.title
         val body = remoteMessage.notification?.body
@@ -45,7 +53,4 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         notificationManager.notify(0, notification)
     }
 
-    override fun onNewToken(token: String) {
-        // Gestisci il nuovo token FCM
-    }
 }

@@ -13,12 +13,25 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 
-
+/**
+ * Repository per la gestione dei dati dell'utente, inclusa l'interazione con Firebase Authentication e Firestore.
+ *
+ * Questa classe fornisce metodi per recuperare, aggiornare e memorizzare i dati dell'utente,
+ * oltre a gestire l'autenticazione e le operazioni relative alla password.
+ *
+ * @property auth Un'istanza di FirebaseAuth per gestire l'autenticazione.
+ * @property token Il token delle notifiche dell'utente.
+ */
 class UserRepository {
 
     private lateinit var auth: FirebaseAuth
     private var token = ""
 
+    /**
+     * Recupera i dati dell'utente dal Firestore e li converte in un oggetto [UserModel].
+     *
+     * @param onDataFetched La callback chiamata quando i dati dell'utente sono stati recuperati con successo.
+     */
     fun fetchUserData(onDataFetched: (UserModel?) -> Unit) {
         getData { data ->
             if (data != null) {
@@ -33,13 +46,17 @@ class UserRepository {
 
                 onDataFetched(userModel)
             } else {
-                // fai qualcosa in caso contrario
+                onDataFetched(null)
             }
         }
 
     }
 
-
+    /**
+     * Recupera i dati dell'utente dal Firestore.
+     *
+     * @param callback La callback chiamata con i dati recuperati o null in caso di errore.
+     */
     private fun getData(callback: (Map<String, Any>?) -> Unit) {
         auth = FirebaseAuth.getInstance()
         val id = auth.currentUser?.uid
@@ -63,12 +80,18 @@ class UserRepository {
             }
     }
 
+    /**
+     * Aggiorna il profilo dell'utente nel Firestore e l'indirizzo email nell'autenticazione Firebase.
+     *
+     * @param userId L'ID dell'utente da aggiornare.
+     * @param newName Il nuovo nome dell'utente.
+     * @param newSurname Il nuovo cognome dell'utente.
+     * @param newEmail Il nuovo indirizzo email dell'utente.
+     * @param newBio La nuova biografia o descrizione dell'utente.
+     * @param newQualification La nuova qualifica o titolo dell'utente.
+     * @return Una [Task] che rappresenta lo stato dell'operazione.
+     */
     fun updateUserProfile(userId: String, newName: String, newSurname: String, newEmail: String, newBio: String, newQualification: String): Task<Void> {
-
-        /*val db = FirebaseFirestore.getInstance() // Inizializza db qui o altrove se preferisci
-
-        val userRef = db.collection("users").document(userId)
-        return userRef.update("first", newName, "last", newSurname, "email", newEmail, "bio", newBio, "qualification", newQualification )*/
 
         val db = FirebaseFirestore.getInstance()
         val userRef = db.collection("users").document(userId)
@@ -98,6 +121,12 @@ class UserRepository {
         }
     }
 
+    /**
+     * Reautentica l'utente corrente utilizzando la vecchia password.
+     *
+     * @param oldPassword La vecchia password dell'utente.
+     * @param onComplete Una callback chiamata con il risultato dell'operazione di reautenticazione (true se riuscita, altrimenti false).
+     */
     private fun reAuthenticateUser(oldPassword: String, onComplete: (Boolean) -> Unit) {
         val user = Firebase.auth.currentUser
         val email = user?.email
@@ -114,6 +143,13 @@ class UserRepository {
         }
     }
 
+    /**
+     * Aggiorna la password dell'utente corrente.
+     *
+     * @param oldPassword La vecchia password dell'utente per la reautenticazione.
+     * @param newPassword La nuova password da impostare per l'utente.
+     * @return true se l'aggiornamento della password è riuscito, altrimenti false.
+     */
     fun updatePassword(
         oldPassword: String,
         newPassword: String,
@@ -130,16 +166,16 @@ class UserRepository {
         if(result) {
             val user = Firebase.auth.currentUser
             user!!.updatePassword(newPassword)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-
-                    }
+                .addOnCompleteListener {
                 }
         }
 
         return result
     }
 
+    /**
+     * Memorizza il token delle notifiche dell'utente.
+     */
     private fun setNotificationToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -148,6 +184,12 @@ class UserRepository {
         }
     }
 
+    /**
+     * Registra un nuovo utente con Firebase Authentication e memorizza i dati correlati nel Firestore.
+     *
+     * @param userModel Il modello dati dell'utente da registrare.
+     * @param callback La callback chiamata in caso di successo o fallimento della registrazione.
+     */
     fun storeUser(userModel: UserModel, callback: RegistrationCallback) {
         auth = FirebaseAuth.getInstance()
         setNotificationToken()

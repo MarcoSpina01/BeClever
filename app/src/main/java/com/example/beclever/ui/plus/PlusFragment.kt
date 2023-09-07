@@ -25,6 +25,9 @@ import com.example.beclever.R
 import com.example.beclever.databinding.FragmentPlusBinding
 import com.google.android.material.textfield.TextInputEditText
 
+/**
+ * Fragment per la creazione di una nuova lezione.
+ */
 class PlusFragment : Fragment() {
     private var _binding: FragmentPlusBinding? = null
 
@@ -38,8 +41,6 @@ class PlusFragment : Fragment() {
 
     private lateinit var  moneyInput : TextInputEditText
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -52,11 +53,6 @@ class PlusFragment : Fragment() {
 
         _binding = FragmentPlusBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-//        val textView: TextView = binding.textNotifications
-//        plusViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
 
         subjectInput = _binding!!.textInputEditText1
         subjectInput.setOnKeyListener { _, keyCode, event ->
@@ -117,35 +113,36 @@ class PlusFragment : Fragment() {
         }
 
         binding.buttonCrea.setOnClickListener {
-            val subject = binding.textInputEditText1.text.toString()
-            val date = binding.textInputEditText2.text.toString()
-            val target = binding.textInputEditText3.text.toString()
-            val location = binding.textInputEditText4.text.toString()
-            val cost = binding.textInputEditText5.text.toString()
-            val hour = binding.textInputEditText6.text.toString()
-
-            if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty() && cost.isNotEmpty()) {
-                lessonViewModel.createLesson(subject, date, target, location, cost, hour) { success ->
-                    if (success) {
-                        Toast.makeText(requireContext(), "Lezione creata", Toast.LENGTH_SHORT).show()
-                        // Reset input fields
-                        subjectInput.text = null
-                        dateInput.text = null
-                        targetInput.text = null
-                        locationInput.text = null
-                        moneyInput.text = null
-                    } else {
-                        Toast.makeText(requireContext(), "Errore durante la creazione", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } else {
-                Toast.makeText(requireContext(), "Inserire tutti i campi", Toast.LENGTH_SHORT).show()
-            }
+            createLesson(lessonViewModel)
         }
 
         return root
     }
 
+    private fun createLesson(lessonViewModel: LessonViewModel) {
+        val subject = subjectInput.text.toString()
+        val date = dateInput.text.toString()
+        val target = targetInput.text.toString()
+        val location = locationInput.text.toString()
+        val cost = moneyInput.text.toString()
+        val hour = hourInput.text.toString()
+
+        if (subject.isNotEmpty() && date.isNotEmpty() && target.isNotEmpty() && location.isNotEmpty() && cost.isNotEmpty()) {
+            lessonViewModel.createLesson(subject, date, target, location, cost, hour) { success ->
+                if (success) {
+                    showToast("Lezione creata")
+                    // Resetta i campi di input dopo la creazione
+                    clearInputFields()
+                } else {
+                    showToast("Errore durante la creazione")
+                }
+            }
+        } else {
+            showToast("Inserire tutti i campi")
+        }
+    }
+
+    // Funzione per mostrare le opzioni del campo "Target"
     private fun showTargetOptions() {
         val targetOptions = arrayOf("Universita", "Scuola Superiore", "Scuola Media")
 
@@ -157,6 +154,7 @@ class PlusFragment : Fragment() {
         builder.show()
     }
 
+    // Funzione per mostrare il selettore della data
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -164,7 +162,7 @@ class PlusFragment : Fragment() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(requireContext(), { _, year, monthOfYear, dayOfMonth ->
-            // Set the selected date in the input text field
+            // Imposta la data selezionata nel campo di input
             dateInput.setText(String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year))
         }, year, month, day)
 
@@ -251,6 +249,20 @@ class PlusFragment : Fragment() {
         }
 
         builder.show()
+    }
+
+    // Funzione per mostrare un messaggio Toast
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    // Funzione per ripulire i campi di input
+    private fun clearInputFields() {
+        subjectInput.text = null
+        dateInput.text = null
+        targetInput.text = null
+        locationInput.text = null
+        moneyInput.text = null
     }
 
 
