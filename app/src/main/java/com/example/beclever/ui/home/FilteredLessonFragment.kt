@@ -1,4 +1,4 @@
-package com.example.beclever.ui.plus
+package com.example.beclever.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.databinding.FragmentFilteredLessonsBinding
 import com.example.beclever.ui.notifications.NotificationsViewModel
+import com.example.beclever.ui.plus.LessonModel
+import com.example.beclever.ui.plus.LessonViewModel
 
 
 class FilteredLessonFragment : Fragment(), FilteredLessonsAdapter.LessonClickListener {
