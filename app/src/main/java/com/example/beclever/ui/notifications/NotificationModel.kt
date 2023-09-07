@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-data class Notification(
+data class NotificationModel(
 
     var message: String,
     var date: Long?,

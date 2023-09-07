@@ -1,6 +1,5 @@
 package com.example.beclever.ui.notifications
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import com.example.beclever.R
 import com.google.firebase.auth.FirebaseAuth
 
 class NotificationsAdapter(
-    private var notifications: List<Notification>
+    private var notificationModels: List<NotificationModel>
 
 )  : RecyclerView.Adapter<NotificationsAdapter.ViewHolder>(){
 
@@ -27,7 +26,7 @@ class NotificationsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentnotification = notifications[position]
+        val currentnotification = notificationModels[position]
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
@@ -40,11 +39,11 @@ class NotificationsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return notifications.size
+        return notificationModels.size
     }
 
-    fun updateData(newData: List<Notification>) {
-        notifications = newData
+    fun updateData(newData: List<NotificationModel>) {
+        notificationModels = newData
         notifyDataSetChanged()
     }
 }

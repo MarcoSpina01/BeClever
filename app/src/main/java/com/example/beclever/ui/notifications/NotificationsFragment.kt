@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.databinding.FragmentNotificationsBinding
-import com.google.firebase.auth.FirebaseAuth
 
 class NotificationsFragment : Fragment() {
 
@@ -39,9 +38,9 @@ class NotificationsFragment : Fragment() {
             notificationsAdapter.updateData(notifications)
         }
 
-        val notifications = arguments?.getSerializable("NotificationsList") as? List<Notification>
+        val notificationModels = arguments?.getSerializable("NotificationsList") as? List<NotificationModel>
 
-        notificationsAdapter = NotificationsAdapter(notifications ?: emptyList())
+        notificationsAdapter = NotificationsAdapter(notificationModels ?: emptyList())
         recyclerView.adapter = notificationsAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -57,10 +56,10 @@ class NotificationsFragment : Fragment() {
 
         val recyclerView: RecyclerView = bindingView.recyclerViewNotifications
 
-        val notifications = arguments?.getSerializable("NotificationsList") as? List<Notification>
-        if (notifications != null) {
+        val notificationModels = arguments?.getSerializable("NotificationsList") as? List<NotificationModel>
+        if (notificationModels != null) {
             // Inizializza l'adapter qui
-            notificationsAdapter = NotificationsAdapter(notifications)
+            notificationsAdapter = NotificationsAdapter(notificationModels)
             recyclerView.adapter = notificationsAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
         } else {
