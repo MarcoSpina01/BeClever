@@ -22,7 +22,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.beclever.R
 import com.example.beclever.databinding.FragmentHomeBinding
 import java.util.*
-import com.example.beclever.ui.plus.FilteredLessonFragment
 
 class HomeFragment : Fragment() {
 

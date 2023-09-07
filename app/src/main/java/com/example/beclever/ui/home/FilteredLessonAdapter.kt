@@ -1,21 +1,17 @@
-package com.example.beclever.ui.plus
+package com.example.beclever.ui.home
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.R
-import com.example.beclever.ui.dashboard.DashboardViewModel
+import com.example.beclever.ui.plus.LessonModel
+import com.example.beclever.ui.plus.LessonViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class FilteredLessonsAdapter(
