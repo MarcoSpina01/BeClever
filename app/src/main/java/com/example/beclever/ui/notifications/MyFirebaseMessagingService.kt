@@ -8,7 +8,7 @@ import android.content.Intent
 import android.graphics.Color
 
 import androidx.core.app.NotificationCompat
-import com.example.beclever.HomeActivity
+import com.example.beclever.ui.home.HomeActivity
 import com.example.beclever.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

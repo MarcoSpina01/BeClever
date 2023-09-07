@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.beclever.HomeActivity
+import com.example.beclever.ui.home.HomeActivity
 import com.example.beclever.R
 import com.example.beclever.databinding.ActivityLoginBinding
 
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         bindingView.lifecycleOwner = this
 
         // Inizializza il ViewModel per l'accesso
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         bindingView.viewModel = loginViewModel
 
         // Imposta un listener per il pulsante "Registrati"

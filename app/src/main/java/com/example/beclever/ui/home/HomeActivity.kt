@@ -1,12 +1,12 @@
-package com.example.beclever
+package com.example.beclever.ui.home
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.beclever.R
 import com.example.beclever.ui.dashboard.DashboardFragment
-import com.example.beclever.ui.home.HomeFragment
 import com.example.beclever.ui.notifications.NotificationsFragment
 import com.example.beclever.ui.plus.PlusFragment
 import com.example.beclever.ui.profile.ProfileFragment
