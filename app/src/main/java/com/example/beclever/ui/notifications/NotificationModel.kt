@@ -25,27 +25,38 @@ data class NotificationModel(
         val formatter2 = DateTimeFormatter.ISO_LOCAL_TIME
         val currentTime = current.format(formatter2).toString().replace(":", "").substringBefore(".").toLong()
 
-        return when {
-            date != null -> {
-                val daysPassed = (currentDate - date!!).toInt()
-                val hoursPassed = (currentTime / 10000 - time!! / 10000).toInt()
-                val minutesPassed = (currentTime / 100 - time!! / 100).toInt()
-                val secondsPassed = (currentTime - time!!).toInt()
-
-                when {
-                    daysPassed == 0 -> when {
-                        currentTime / 10000 != time!! / 10000 && minutesPassed < 100 -> "${minutesPassed - 40} minuti fa"
-                        hoursPassed >= 1 -> "$hoursPassed ore fa"
-                        minutesPassed in 1..59 -> "$minutesPassed minuti fa"
-                        secondsPassed <= 60 -> "$secondsPassed secondi fa"
-                        else -> ""
-                    }
-                    daysPassed > 30 -> "${currentDate / 10000 - date!! / 10000} anni fa"
-                    daysPassed in 30..365 -> "${currentDate / 100 - date!! / 100} mesi fa"
-                    else -> "${currentDate - date!!} giorni fa"
+        if (date != null) {
+            if ((currentDate - date!!).toInt() == 0) {
+                if(currentTime/10000 != time!!/10000 && (currentTime/100 - time!!/100).toInt() < 100) {
+                    return "${(currentTime/100 - time!!/100) - 40} minuti fa"
                 }
+                if((currentTime/10000 - time!!/10000).toInt() >= 1) {
+                    return "${(currentTime/10000 - time!!/10000) } ore fa"
+                }
+                if((currentTime/100 - time!!/100).toInt() in 1..59 ) {
+                    return "${(currentTime/100 - time!!/100)} minuti fa"
+                }
+
+                if((currentTime - time!!).toInt() <= 60) {
+                    return "${(currentTime - time!!)} secondi fa"
+                }
+
+
+                return ""
+
+            } else {
+                if ((currentDate/10000 - date!!/10000).toInt() == 0) {
+                    if((currentDate/100 - date!!/100).toInt() == 0) {
+                        return "${(currentDate - date!!)} giorni fa"
+                    } else {
+                        return "${(currentDate/100 - date!!/100)} mesi fa"
+                    }
+                } else {
+                    return "${(currentDate/10000 - date!!/10000)} anni fa"
+                }
+
             }
-            else -> ""
         }
+        else return ""
     }
 }

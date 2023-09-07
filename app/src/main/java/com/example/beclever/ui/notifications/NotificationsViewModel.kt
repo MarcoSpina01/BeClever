@@ -61,7 +61,7 @@ class NotificationsViewModel : ViewModel() {
             }
     }
 
-    private fun loadNotificationsFromFirebase(userId: String) {
+    fun loadNotificationsFromFirebase(userId: String) {
         firestore.collection("notifications")
             .whereEqualTo("userId", userId)
             .get()
