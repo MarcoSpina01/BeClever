@@ -21,6 +21,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
     private val bindingView get() = _binding!!
 
+    // Aggiungi una variabile di stato per gestire il login
+    private var isLoggedIn = false
+
     /**
      * Funzione chiamata all'avvio dell'attività.
      */
@@ -61,15 +64,19 @@ class LoginActivity : AppCompatActivity() {
         // Osserva la variabile loginSuccess nel ViewModel
         loginViewModel.loginSuccess.observe(this) { success ->
             if (success) {
+                // Imposta la variabile di stato su "true" se il login ha successo
+                isLoggedIn = true
                 Toast.makeText(this, "Login effettuato", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                finish()
+                finish() // Chiudi l'activity dopo il login
             } else {
                 Toast.makeText(this, "Login fallito", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // Aggiungi un metodo per verificare lo stato di login nei tuoi test
+    fun isUserLoggedIn(): Boolean {
+        return isLoggedIn
     }
 }
 
