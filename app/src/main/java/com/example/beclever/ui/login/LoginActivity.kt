@@ -66,7 +66,11 @@ class LoginActivity : AppCompatActivity() {
             if (success) {
                 // Imposta la variabile di stato su "true" se il login ha successo
                 isLoggedIn = true
+
                 Toast.makeText(this, "Login effettuato", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 finish() // Chiudi l'activity dopo il login
             } else {
                 Toast.makeText(this, "Login fallito", Toast.LENGTH_SHORT).show()
