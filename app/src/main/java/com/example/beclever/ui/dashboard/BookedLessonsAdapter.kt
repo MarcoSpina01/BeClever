@@ -10,14 +10,22 @@ import com.example.beclever.R
 import com.example.beclever.ui.notifications.NotificationsViewModel
 import com.example.beclever.ui.plus.LessonModel
 
+/**
+ * Adapter per la RecyclerView delle lezioni prenotate.
+ *
+ * @param bookedLessons Lista delle lezioni prenotate.
+ * @param dashboardViewModel ViewModel della dashboard.
+ * @param notificationsViewModel ViewModel delle notifiche.
+ */
 class BookedLessonsAdapter(
-
     private var bookedLessons: List<LessonModel>,
     private val dashboardViewModel: DashboardViewModel,
     private val notificationsViewModel: NotificationsViewModel
+) : RecyclerView.Adapter<BookedLessonsAdapter.ViewHolder>() {
 
-    ) : RecyclerView.Adapter<BookedLessonsAdapter.ViewHolder>() {
-
+    /**
+     * ViewHolder per gli elementi della RecyclerView.
+     */
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val usernameTextView: TextView = itemView.findViewById(R.id.textViewLessonUsernameBooked)
         val subjectTextView: TextView = itemView.findViewById(R.id.textViewLessonSubjectBooked)
@@ -34,7 +42,6 @@ class BookedLessonsAdapter(
             .inflate(R.layout.item_bookedlessons, parent, false)
         return ViewHolder(itemView)
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentLesson = bookedLessons[position]
@@ -65,22 +72,38 @@ class BookedLessonsAdapter(
                 val alertDialog = alertDialogBuilder.create()
                 alertDialog.show()
             }
-
         }
     }
+
     override fun getItemCount(): Int {
         return bookedLessons.size
     }
 
+    /**
+     * Aggiorna i dati dell'adapter con una nuova lista di lezioni prenotate.
+     *
+     * @param newData Nuova lista di lezioni prenotate.
+     */
     fun updateData(newData: List<LessonModel>) {
         bookedLessons = newData
         notifyDataSetChanged()
     }
 
+    /**
+     * Crea una notifica quando una prenotazione viene cancellata.
+     *
+     * @param lesson Lezione cancellata.
+     */
     private fun setNotification(lesson: LessonModel) {
-        val message = "La prenotazione alla tua lezione di ${lesson.subject} del ${lesson.date} è stata cancellata"
+        val message =
+            "La prenotazione alla tua lezione di ${lesson.subject} del ${lesson.date} è stata cancellata"
         lesson.userId?.let {
-            notificationsViewModel.createNotification(message,lesson.userId, lesson.clientId, lesson.lessonId) { success ->
+            notificationsViewModel.createNotification(
+                message,
+                lesson.userId,
+                lesson.clientId,
+                lesson.lessonId
+            ) { success ->
                 if (success) {
                     // Aggiorna la UI o gestisci il successo
                 } else {
@@ -89,8 +112,6 @@ class BookedLessonsAdapter(
             }
         }
     }
-
-
 }
 
 

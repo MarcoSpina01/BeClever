@@ -14,13 +14,15 @@ import com.example.beclever.ui.plus.LessonModel
 import com.example.beclever.ui.plus.LessonViewModel
 
 
+/**
+ * Fragment per visualizzare le lezioni filtrate.
+ */
 class FilteredLessonFragment : Fragment(), FilteredLessonsAdapter.LessonClickListener {
 
     private var _binding: FragmentFilteredLessonsBinding? = null
     private val bindingView get() = _binding!!
 
     private lateinit var lessonViewModel: LessonViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,18 +48,20 @@ class FilteredLessonFragment : Fragment(), FilteredLessonsAdapter.LessonClickLis
         return root
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    /**
+     * Funzione chiamata quando una lezione viene prenotata.
+     */
     override fun onLessonBooked(lesson: LessonModel) {
         // Qui puoi chiamare la funzione per creare la notifica nel ViewModel
         val notificationViewModel = ViewModelProvider(this)[NotificationsViewModel::class.java]
         val message = "La tua lezione di ${lesson.subject} del ${lesson.date} è stata prenotata"
         lesson.userId?.let {
-            notificationViewModel.createNotification(message,lesson.userId, lesson.clientId, lesson.lessonId) { success ->
+            notificationViewModel.createNotification(message, lesson.userId, lesson.clientId, lesson.lessonId) { success ->
                 if (success) {
                     // Aggiorna la UI o gestisci il successo
                 } else {

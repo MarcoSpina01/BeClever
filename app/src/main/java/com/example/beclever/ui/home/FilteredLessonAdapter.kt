@@ -14,12 +14,18 @@ import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+/**
+ * Adapter per la visualizzazione delle lezioni filtrate.
+ */
 class FilteredLessonsAdapter(
     private val lessons: List<LessonModel>,
     private val lessonViewModel: LessonViewModel,
     private val lessonClickListener: LessonClickListener
 ) : RecyclerView.Adapter<FilteredLessonsAdapter.ViewHolder>() {
 
+    /**
+     * ViewHolder per ogni elemento della lista delle lezioni.
+     */
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val usernameTextView: TextView = itemView.findViewById(R.id.textViewLessonUsernameSimple)
         val subjectTextView: TextView = itemView.findViewById(R.id.textViewLessonSubjectSimple)
@@ -31,12 +37,18 @@ class FilteredLessonsAdapter(
         val bookButton: Button = itemView.findViewById(R.id.prenotaButton)
     }
 
+    /**
+     * Funzione chiamata per creare un nuovo ViewHolder.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_lessons, parent, false)
         return ViewHolder(itemView)
     }
 
+    /**
+     * Funzione chiamata per collegare i dati a un ViewHolder specifico.
+     */
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val lesson = lessons[position]
@@ -49,9 +61,10 @@ class FilteredLessonsAdapter(
             holder.subjectTextView.text = lesson.subject
             holder.dateTextView.text = lesson.date
             holder.hourTextView.text = lesson.hour
-            holder.targetTextView.text = lesson.target // Aggiungi questa linea
+            holder.targetTextView.text = lesson.target
             holder.locationTextView.text = lesson.location
-            holder.costTextView.text = lesson.cost // Aggiungi questa linea
+            holder.costTextView.text = lesson.cost
+
             if (lesson.isBooked) {
                 holder.bookButton.text = "Prenotazione Effettuata"
                 holder.bookButton.isEnabled = false // Disabilita il pulsante
@@ -75,12 +88,22 @@ class FilteredLessonsAdapter(
             }
         }
     }
+
+    /**
+     * Funzione chiamata per ottenere il numero di elementi nella lista.
+     */
     override fun getItemCount(): Int = lessons.size
 
+    /**
+     * Interfaccia per la gestione degli eventi di prenotazione delle lezioni.
+     */
     interface LessonClickListener {
         fun onLessonBooked(lesson: LessonModel)
     }
 
+    /**
+     * Verifica se una data è successiva a oggi o uguale a oggi.
+     */
     fun isDateAfterOrToday(dateString: String): Boolean {
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val inputDate = LocalDate.parse(dateString, formatter)

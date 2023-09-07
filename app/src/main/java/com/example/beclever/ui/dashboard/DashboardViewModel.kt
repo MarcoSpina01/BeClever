@@ -16,6 +16,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
+/**
+ * ViewModel per la dashboard dell'utente.
+ */
 class DashboardViewModel : ViewModel() {
 
     private val _bookedLessonsList = MutableLiveData<List<LessonModel>>()
@@ -24,7 +27,11 @@ class DashboardViewModel : ViewModel() {
     private val _publishedLessonsList = MutableLiveData<List<LessonModel>>()
     val publishedLessonsList: LiveData<List<LessonModel>> get() = _publishedLessonsList
 
-
+    /**
+     * Carica le lezioni prenotate dall'utente da Firebase e aggiorna [_bookedLessonsList].
+     *
+     * @param userId ID dell'utente corrente.
+     */
     fun loadBookedLessons(userId: String) {
         // Carica le lezioni prenotate dall'utente da Firebase e aggiorna _bookedLessonsList
         // Esempio:
@@ -36,9 +43,15 @@ class DashboardViewModel : ViewModel() {
                 _bookedLessonsList.postValue(lessons)
             }
             .addOnFailureListener {
+                // Gestione dell'errore
             }
     }
 
+    /**
+     * Carica le lezioni pubblicate dall'utente da Firebase e aggiorna [_publishedLessonsList].
+     *
+     * @param userId ID dell'utente corrente.
+     */
     fun loadPublishedLessons(userId: String) {
         // Carica le lezioni pubblicate dall'utente da Firebase e aggiorna _publishedLessonsList
         // Esempio:
@@ -50,9 +63,15 @@ class DashboardViewModel : ViewModel() {
                 _publishedLessonsList.postValue(lessons)
             }
             .addOnFailureListener {
+                // Gestione dell'errore
             }
     }
 
+    /**
+     * Elimina una lezione dal database Firebase.
+     *
+     * @param lesson Lezione da eliminare.
+     */
     fun deleteLesson(lesson: LessonModel) {
 
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -60,7 +79,6 @@ class DashboardViewModel : ViewModel() {
 
         val db = Firebase.firestore
         val lessonsCollection = db.collection("lessons")
-
 
         // Trova il documento corrispondente alla lezione
         val lessonDocumentRef = lessonsCollection.document(lesson.lessonId)
@@ -78,6 +96,12 @@ class DashboardViewModel : ViewModel() {
             }
     }
 
+    /**
+     * Ottiene le informazioni dell'utente e imposta il nome utente in una TextView.
+     *
+     * @param userId ID dell'utente di cui ottenere le informazioni.
+     * @param usernameTextView TextView in cui impostare il nome utente.
+     */
     fun fetchUserInfoAndSetUsername(userId: String, usernameTextView: TextView) {
         val db = FirebaseFirestore.getInstance()
         val usersCollection = db.collection("users")
@@ -90,12 +114,16 @@ class DashboardViewModel : ViewModel() {
                 }
             }
             .addOnFailureListener {
+                // Gestione dell'errore
             }
     }
 
+    /**
+     * Cancella una prenotazione di lezione nel database Firebase.
+     *
+     * @param lesson Lezione da cui cancellare la prenotazione.
+     */
     fun deleteBooking(lesson: LessonModel) {
-
-
         val lessonId = lesson.lessonId
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
@@ -118,26 +146,22 @@ class DashboardViewModel : ViewModel() {
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
                     val lessonDocumentRef = lessonsCollection.document(document.id)
-                    lessonDocumentRef.update("booked", false, "clientId", "", "dateBooking", null, "timeBooking", null,
-                                                    "canceled", true, "dateCancel", currentDate, "timeCancel", currentTime)
+                    lessonDocumentRef.update(
+                        "booked", false,
+                        "clientId", "",
+                        "dateBooking", null,
+                        "timeBooking", null,
+                        "canceled", true,
+                        "dateCancel", currentDate,
+                        "timeCancel", currentTime
+                    )
                         .addOnSuccessListener {
-//                            Toast.makeText(context, "Prenotazione effettuata con successo!", Toast.LENGTH_SHORT).show()
+                            // Aggiorna la lista di lezioni prenotate
                             if (userId != null) {
                                 loadBookedLessons(userId)
                             }
                         }
-//                        .addOnFailureListener { e ->
-//                            Toast.makeText(context, "Errore durante l'aggiornamento della prenotazione", Toast.LENGTH_SHORT).show()
-//                        }
-//                }
-//            }
-//            .addOnFailureListener { e ->
-//                Toast.makeText(context, "Errore durante la ricerca", Toast.LENGTH_SHORT).show()
-//            }
-
                 }
-
             }
     }
-
 }

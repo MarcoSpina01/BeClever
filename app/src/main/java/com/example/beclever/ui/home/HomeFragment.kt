@@ -23,6 +23,9 @@ import com.example.beclever.R
 import com.example.beclever.databinding.FragmentHomeBinding
 import java.util.*
 
+/**
+ * Fragment per la schermata principale dell'applicazione.
+ */
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -48,7 +51,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        // Gestione della tastiera virtuale
         bindingView.textInputEditTextMateria.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -59,6 +62,7 @@ class HomeFragment : Fragment() {
             return@setOnKeyListener false
         }
 
+        // Gestione del campo "Target"
         bindingView.textInputEditTextTarget.isFocusable = false
         bindingView.textInputEditTextTarget.setOnClickListener(){
             bindingView.textInputEditTextMateria.clearFocus()
@@ -66,6 +70,7 @@ class HomeFragment : Fragment() {
             bindingView.textInputEditTextTarget.clearFocus()
         }
 
+        // Gestione del campo "Data"
         bindingView.textInputEditTextData.isFocusable = false
         bindingView.textInputEditTextData.setOnClickListener {
             bindingView.textInputEditTextMateria.clearFocus()
@@ -73,6 +78,7 @@ class HomeFragment : Fragment() {
             bindingView.textInputEditTextData.clearFocus()
         }
 
+        // Gestione del campo "Località"
         bindingView.textInputEditTextLocalita.isFocusable = false
         bindingView.textInputEditTextLocalita.setOnClickListener(){
             bindingView.textInputEditTextMateria.clearFocus()
@@ -81,6 +87,7 @@ class HomeFragment : Fragment() {
         }
 
 
+        // Gestione del pulsante "Cerca"
         bindingView.buttonCerca.setOnClickListener {
             val subject = bindingView.textInputEditTextMateria.text.toString().trim()
             val date = bindingView.textInputEditTextData.text.toString()
@@ -94,8 +101,11 @@ class HomeFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Inserisci un campo per la ricerca!", Toast.LENGTH_SHORT).show()
             }
+
+            // Osserva la lista delle lezioni filtrate
             homeViewModel.filteredLessonsList.observe(viewLifecycleOwner) { observedFilteredLessonsList ->
                 if (observedFilteredLessonsList.isNotEmpty()) {
+                    // Mostra la lista delle lezioni filtrate in un nuovo fragment
                     val filteredLessonsFragment = FilteredLessonFragment()
                     val bundle = Bundle()
                     bundle.putSerializable("filteredLessonsList", ArrayList(observedFilteredLessonsList))
@@ -107,11 +117,12 @@ class HomeFragment : Fragment() {
                         .addToBackStack(null)
                         .commit()
                 } else {
-                    // Mostra un messaggio che indica che non ci sono lezioni corrispondenti
+                    Toast.makeText(context, "Nessuna lezione corrispondente trovata", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
+        // Gestione del pulsante "Pulisci"
         bindingView.Clean.setOnClickListener {
             bindingView.textInputEditTextMateria.text?.clear()
             bindingView.textInputEditTextData.text?.clear()
@@ -119,7 +130,7 @@ class HomeFragment : Fragment() {
             bindingView.textInputEditTextLocalita.text?.clear()
         }
 
-
+        // Gestione del click al di fuori del fragment per chiudere la tastiera virtuale
         view.setOnClickListener {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)

@@ -8,12 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.beclever.R
 import com.google.firebase.auth.FirebaseAuth
 
+/**
+ * Adapter per visualizzare le notifiche in un RecyclerView.
+ *
+ * @property notificationModels Lista delle notifiche da visualizzare nell'adapter.
+ */
 class NotificationsAdapter(
     private var notificationModels: List<NotificationModel>
+) : RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
 
-)  : RecyclerView.Adapter<NotificationsAdapter.ViewHolder>(){
-
-
+    /**
+     * ViewHolder per visualizzare gli elementi delle notifiche.
+     *
+     * @param itemView La vista dell'elemento dell'adapter.
+     */
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val notificationText: TextView = itemView.findViewById(R.id.notificationText)
         val notificationTime: TextView = itemView.findViewById(R.id.notificationTime)
@@ -26,15 +34,13 @@ class NotificationsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentnotification = notificationModels[position]
+        val currentNotification = notificationModels[position]
 
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val userId = currentUser?.uid
-
-        if (!currentnotification.userId.isNullOrEmpty()) {
-
-            holder.notificationText.text = currentnotification.message
-            holder.notificationTime.text = currentnotification.getTempoPassato()
+        // Verifica se l'ID dell'utente è presente nella notifica
+        if (!currentNotification.userId.isNullOrEmpty()) {
+            // Imposta il testo della notifica e il tempo trascorso dalla notifica
+            holder.notificationText.text = currentNotification.message
+            holder.notificationTime.text = currentNotification.getTempoPassato()
         }
     }
 
@@ -42,6 +48,11 @@ class NotificationsAdapter(
         return notificationModels.size
     }
 
+    /**
+     * Aggiorna i dati nell'adapter con una nuova lista di notifiche.
+     *
+     * @param newData La nuova lista di notifiche da visualizzare.
+     */
     fun updateData(newData: List<NotificationModel>) {
         notificationModels = newData
         notifyDataSetChanged()

@@ -13,6 +13,9 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 
+/**
+ * Fragment per la dashboard dell'utente.
+ */
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
@@ -40,7 +43,6 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // Inizializza gli adapter per le lezioni prenotate e pubblicate
         bookedLessonsAdapter = BookedLessonsAdapter(emptyList(), dashboardViewModel, notificationsViewModel)
@@ -73,9 +75,6 @@ class DashboardFragment : Fragment() {
             publishedLessonsAdapter.updateData(lessons)
         }
     }
-
-
-
 
     private fun moveIndicatorBarToView(targetView: View) {
         val indicatorBar = bindingView.lineView
