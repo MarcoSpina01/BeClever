@@ -12,44 +12,53 @@ import com.example.beclever.HomeActivity
 import com.example.beclever.R
 import com.example.beclever.databinding.ActivityLoginBinding
 
+/**
+ * Activity per la gestione dell'accesso degli utenti.
+ */
 class LoginActivity : AppCompatActivity() {
 
-
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var _binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
-    private val bindingView get() = binding!!
+    private val bindingView get() = _binding!!
 
+    /**
+     * Funzione chiamata all'avvio dell'attività.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        binding.lifecycleOwner = this
+        // Imposta il layout dell'attività utilizzando Data Binding
+        _binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        bindingView.lifecycleOwner = this
 
+        // Inizializza il ViewModel per l'accesso
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        binding.viewModel = loginViewModel
+        bindingView.viewModel = loginViewModel
 
-        binding.registrati.setOnClickListener { // Imposto un listener per il pulsante "Registrati"
+        // Imposta un listener per il pulsante "Registrati"
+        bindingView.registrati.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
-        binding.login.setOnClickListener {
-            val username = binding.email.text.toString()
-            val password = binding.password.text.toString()
+        // Imposta un listener per il pulsante di accesso
+        bindingView.login.setOnClickListener {
+            val username = bindingView.email.text.toString()
+            val password = bindingView.password.text.toString()
 
             // Chiama la funzione di login nel ViewModel
             loginViewModel.loginUser(username, password)
         }
 
-        binding.root.setOnClickListener() {
-            binding.email.clearFocus()
-            binding.password.clearFocus()
+        // Chiude la tastiera virtuale quando si fa clic altrove nella schermata
+        bindingView.root.setOnClickListener {
+            bindingView.email.clearFocus()
+            bindingView.password.clearFocus()
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
-            false
+            inputMethodManager.hideSoftInputFromWindow(bindingView.root.windowToken, 0)
         }
 
-        // Osserva loginSuccess nel ViewModel
+        // Osserva la variabile loginSuccess nel ViewModel
         loginViewModel.loginSuccess.observe(this) { success ->
             if (success) {
                 Toast.makeText(this, "Login effettuato", Toast.LENGTH_SHORT).show()
