@@ -15,8 +15,8 @@ class NotificationsViewModel : ViewModel() {
 
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    private val _notificationsLiveData: MutableLiveData<List<Notification>> = MutableLiveData()
-    val notificationsLiveData: LiveData<List<Notification>> = _notificationsLiveData
+    private val _notificationsLiveData: MutableLiveData<List<NotificationModel>> = MutableLiveData()
+    val notificationsLiveData: LiveData<List<NotificationModel>> = _notificationsLiveData
 
     private val currentUser = FirebaseAuth.getInstance().currentUser
     val userId = currentUser?.uid
@@ -38,7 +38,7 @@ class NotificationsViewModel : ViewModel() {
         val formatter2 = DateTimeFormatter.ISO_LOCAL_TIME
         val currentTime = current.format(formatter2).toString().replace(":", "").substringBefore(".").toLong()
 
-        val notificationModel = Notification()
+        val notificationModel = NotificationModel()
 
         db.collection("notifications")
             .add(notificationModel)
@@ -66,7 +66,7 @@ class NotificationsViewModel : ViewModel() {
             .whereEqualTo("userId", userId)
             .get()
             .addOnSuccessListener { querySnapshot: QuerySnapshot ->
-                val notificationsList = mutableListOf<Notification>()
+                val notificationsList = mutableListOf<NotificationModel>()
                 for (document in querySnapshot.documents) {
                     val message = document.getString("message")
                     val date = document.getLong("date")
@@ -75,8 +75,8 @@ class NotificationsViewModel : ViewModel() {
                     val lessonId = document.getString("lessonId")
                     val clientId = document.getString("clientId")
                     if (message != null && userId != null) {
-                        val notification = Notification(message, date, time, userId, clientId, lessonId)
-                        notificationsList.add(notification)
+                        val notificationModel = NotificationModel(message, date, time, userId, clientId, lessonId)
+                        notificationsList.add(notificationModel)
                     }
                 }
                 notificationsList.sortWith(compareBy( {it.date}, {it.time}) )
