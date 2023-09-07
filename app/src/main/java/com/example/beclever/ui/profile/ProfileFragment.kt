@@ -16,8 +16,6 @@ import com.example.beclever.R
 import com.example.beclever.databinding.FragmentProfilenewBinding
 import com.example.beclever.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 
 
 /**
@@ -58,28 +56,16 @@ class ProfileFragment : Fragment() {
         // Inizializza l'ImageView per l'immagine del profilo
         profileImageView = bindingView.imageView2
 
-        // Ottieni l'ID dell'utente corrente da Firebase
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val userId = currentUser?.uid
-
-        if (userId != null) {
-            val userDocumentRef = FirebaseFirestore.getInstance().collection("users").document(userId)
-
-            userDocumentRef.get()
-                .addOnSuccessListener { documentSnapshot ->
-                    if (documentSnapshot.exists()) {
-                        // Ottieni l'URL dell'immagine del profilo dal documento Firestore
-                        val imageUrl = documentSnapshot.getString("profileImage")
-
-                        if (!imageUrl.isNullOrEmpty()) {
-                            // Carica l'immagine del profilo nell'ImageView utilizzando Glide
-                            Glide.with(this)
-                                .load(imageUrl)
-                                .placeholder(R.drawable.userimage2)
-                                .into(profileImageView)
-                        }
-                    }
-                }
+        // Carica l'immagine del profilo dall'URL fornito dal ViewModel
+        userViewModel.fetchUserImage { imageUrl ->
+            if (imageUrl != null) {
+                Glide.with(this)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.userimage2)
+                    .into(profileImageView)
+            } else {
+                // Nessun URL trovato o si è verificato un errore
+            }
         }
 
         // Gestisce il clic sul pulsante per cambiare l'immagine del profilo
@@ -137,71 +123,28 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    // Gestisce il risultato dell'attività per la selezione dell'immagine
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // Ottieni l'URI dell'immagine selezionata
-        val selectedImageUri: Uri? = data?.data
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val userId = currentUser?.uid
-
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (selectedImageUri != null) {
-                // Mostra l'immagine selezionata nell'ImageView
-                profileImageView.setImageURI(selectedImageUri)
-            }
-        }
+            val selectedImageUri: Uri? = data?.data
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userId = currentUser?.uid
 
-        // Ottieni un'istanza di Firebase Storage
-        val storage = FirebaseStorage.getInstance()
-        // Ottieni un riferimento a un percorso nel tuo storage
-        val storageRef = storage.reference.child("profile_images/${userId}.jpg")
-
-        // Carica l'immagine selezionata nel riferimento del tuo storage
-        val uploadTask = selectedImageUri?.let { storageRef.putFile(it) }
-
-        // Aggiungi un listener per il completamento del caricamento
-        if (uploadTask != null) {
-            uploadTask.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // L'immagine è stata caricata con successo
-                    // Puoi ottenere l'URL dell'immagine caricata
-                    storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                        val imageUrl = downloadUri.toString()
-                        // Ora puoi salvare questo URL nel tuo database Firestore
-                        // Aggiorna il documento utente con l'URL dell'immagine del profilo
-                        if (userId != null) {
-                            updateUserProfileImage(userId, imageUrl)
-                        }
+            if (selectedImageUri != null && userId != null) {
+                // Carica l'immagine selezionata utilizzando il ViewModel
+                userViewModel.uploadProfileImage(userId, selectedImageUri,
+                    successCallback = {
+                        // L'aggiornamento è andato a buon fine
+                        Toast.makeText(context, "L'URL dell'immagine è stato aggiunto al documento utente con successo", Toast.LENGTH_SHORT).show()
+                    },
+                    errorCallback = { e ->
+                        // Si è verificato un errore durante l'aggiornamento
+                        Toast.makeText(context, "Errore durante il caricamento: $e", Toast.LENGTH_SHORT).show()
                     }
-                } else {
-                    // Si è verificato un errore durante il caricamento
-                }
+                )
             }
         }
-    }
-
-    // Funzione per aggiornare l'URL dell'immagine del profilo nel database Firestore
-    private fun updateUserProfileImage(userId: String, imageUrl: String) {
-        val db = FirebaseFirestore.getInstance()
-
-        val userRef = db.collection("users").document(userId)
-
-        val data = hashMapOf(
-            "profileImage" to imageUrl
-        )
-
-        userRef.update(data as Map<String, Any>)
-            .addOnSuccessListener {
-                // L'URL dell'immagine è stato aggiunto al documento utente con successo
-                Toast.makeText(context, "L'URL dell'immagine è stato aggiunto al documento utente con successo", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                // Si è verificato un errore durante l'aggiornamento del documento utente
-                // Gestisci l'errore di conseguenza
-                Toast.makeText(context, "Errore durante il caricamento", Toast.LENGTH_SHORT).show()
-            }
     }
 
     // Funzione per effettuare il logout
